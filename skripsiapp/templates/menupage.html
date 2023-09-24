@@ -44,7 +44,6 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#about">Saya</a></li>
           <li><a class="nav-link scrollto" href="#menu">Menu</a></li>
-          <li><a class="nav-link scrollto" href="#specials">Tips mengolah makanan</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -59,9 +58,9 @@
         <div class="section-title">
           <div class="col-lg-12">
             <div class="about-text go-to">
-              <h3 class="dark-color">Profil Nama</h3>
+              <h3 class="dark-color">Profil {{data_personal.nama}}</h3>
               <h6 class="theme-color lead"></h6>
-              <p style="color: #6c665c;"> Sekilas tentang<mark style="color: #ffb03b;"> Nama </mark> Di bawah ini merpakan sedikit informasi mengenai kamu. Terdapat juga kebutuhan gizi yang harus tercukupi setiap harinya</p>
+              <p style="color: #6c665c;"> Sekilas tentang<mark style="color: #ffb03b;"> {{data_personal.nama}} </mark> Di bawah ini merpakan sedikit informasi mengenai kamu. Terdapat juga kebutuhan gizi yang harus tercukupi setiap harinya</p>
             </div>
           </div>
         </div>
@@ -71,38 +70,38 @@
                       <div class="row about-list">
                           <div class="col-md-6">
                               <div class="media">
-                                  <label>Tanggal Lahir</label>
-                                  <p>4th april 1998</p>
+                                  <label>Berat Badan</label>
+                                  <p>{{ data_personal.berat_badan}} kg</p>
                               </div>
                               <div class="media">
                                   <label>Umur</label>
-                                  <p>22 Yr</p>
+                                  <p>{{ data_personal.usia }} tahun</p>
                               </div>
                               <div class="media">
                                   <label>Jenis Kelamin</label>
-                                  <p>Jenis kelamin</p>
+                                  <p>{{ data_personal.jenis_kelamin }}</p>
                               </div>
                               <div class="media">
-                                  <label>Berat Badan</label>
-                                  <p>... kg</p>
+                                  <label>BMI</label>
+                                  <p>{{ data_gizi_harian.bmi }}  ( {{data_gizi_harian.bmi_2}} )</p>
                               </div>
                           </div>
                           <div class="col-md-6">
                               <div class="media">
                                   <label>Tinggi Badan</label>
-                                  <p>... kg</p>
+                                  <p>{{ data_personal.tinggi_badan }} cm</p>
                               </div>
                               <div class="media">
                                   <label>Kondisi</label>
-                                  <p>Pasien diabetes dengan</p>
+                                  <p>Pasien diabetes dengan  {{ data_personal.penyakit_penyerta }} </p>
                               </div>
                               <div class="media">
                                   <label>Tingkat aktivitas</label>
-                                  <p>skype.0404</p>
+                                  <p>{{data_personal.tingkat_aktivitas}}</p>
                               </div>
                               <div class="media">
                                   <label>Alergi makanan</label>
-                                  <p>Available</p>
+                                  <p>{{data_personal.alergi}}</p>
                               </div>
                           </div>
                       </div>
@@ -118,25 +117,25 @@
               <div class="row">
                   <div class="col-6 col-lg-3">
                       <div class="count-data text-center">
-                          <h6 class="count h2" data-to="500" data-speed="500">500</h6>
+                          <h6 class="count h2" data-to="500" data-speed="500">{{ data_gizi_harian.total_kalori }}  </h6>
                           <p class="m-0px font-w-600">Kalori (kkal)</p>
                       </div>
                   </div>
                   <div class="col-6 col-lg-3">
                       <div class="count-data text-center">
-                          <h6 class="count h2" data-to="150" data-speed="150">150</h6>
+                          <h6 class="count h2" data-to="150" data-speed="150">{{ data_gizi_harian.total_karbohidrat }}  </h6>
                           <p class="m-0px font-w-600">Karbohidrat (gr)</p>
                       </div>
                   </div>
                   <div class="col-6 col-lg-3">
                       <div class="count-data text-center">
-                          <h6 class="count h2" data-to="850" data-speed="850">850</h6>
+                          <h6 class="count h2" data-to="850" data-speed="850">{{ data_gizi_harian.total_protein }}  </h6>
                           <p class="m-0px font-w-600">Protein (gr)</p>
                       </div>
                   </div>
                   <div class="col-6 col-lg-3">
                       <div class="count-data text-center">
-                          <h6 class="count h2" data-to="190" data-speed="190">190</h6>
+                          <h6 class="count h2" data-to="190" data-speed="190">{{ data_gizi_harian.total_lemak }}  </h6>
                           <p class="m-0px font-w-600">Lemak (gr)</p>
                       </div>
                   </div>
@@ -458,88 +457,6 @@
       </div>
     </section><!-- End Menu Section -->
 
-    <!-- ======= Specials Section ======= -->
-    <section id="specials" class="specials">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Tips Mengolah <span>Makanan</span></h2>
-          <p>Beberapa tips mengolah makanan untuk menjaga kandungan gizi</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-3">
-            <ul class="nav nav-tabs flex-column">
-              <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Merebus</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Mengukus</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Memanggang</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Garam dan Bumbu</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-9 mt-4 mt-lg-0">
-            <div class="tab-content">
-              <div class="tab-pane active show" id="tab-1">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Merebus</h3>
-                    <p>
-                      Jumlah makanan yang harus dikonsumsi oleh masing masing penderita diabetesen ditentukan oleh kebutuhan gizi.
-                      Kebutuhan gizi individu dapat diketahui dengan menghitung kebutuhan kalori masing masing individu. 
-                      Dalam website ini kebutuhan kalori individu dihitung mengggunakan Rumus Harist-Benedict. 
-                      Setelah mengetahui kebutuhan kalori selanjutnya dihitung kebutuhan karbohidrat, protein dan, lemak. 
-                      Adapun masing-masing kebutuhan kebutuhan karbohidrat, protein, dan lemak berdasarkan total kebutuhan kalori adalah sebanyak 60 -70 %,
-                      10 -15% , dan 20 -25%. Dan jumlah ini harus habis dikonsumsi.
-                    </p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="{% static 'assets/img/specials-1.jpg' %}" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="tab-2">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Mengukus</h3>
-                    <p>
-                      Makanan dibagi dalam 3 porsi besar untuk makan pagi (20%), siang (30%), dan sore (25%), serta 3 porsi makanan ringan (10%) di antaranya dengan inerval setiap waktu makan adalah 3 jam. 
-                      Tetapi pada kelompok tertentu perubahan jadwal, jumlah dan jenis makanan dilakukan sesuai dengan kebiasaan. Untuk pasien DM yang mengidap penyakit lain, pola pengaturan makan disesuaikan dengan penyakit penyerta.
-                      Hindari melewatkan waktu makan atau menunda makanan terlalu lama, karena hal ini dapat menyebabkan fluktuasi gula darah yang tidak diinginkan
-                    </p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="{% static 'assets/img/specials-2.jpg' %}" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="tab-3">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Memanggang</h3>
-                    <p>
-                      Makanan manis harus dihindari, termasuk pantang Buah Golongan A. Jenis inilah yang paling sering menganggu kadar gula darah (regulasi diabetes).
-                      Namun meskipun demikian Golongan A ini boleh dimakan asal dalam jumlah sedikit, jarang-jarang saja. Selain itu perbanyak konsumsi serat. DAn hindari makanan berkolesterol, natrium dan purin tinggi.
-                      Karena dapat meningkatkan resiko komplikasi.
-                    </p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="{% static 'assets/img/specials-5.jpg' %}" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Specials Section -->
   </main><!-- End #main -->
   <!-- https://www.bootdey.com/snippets/view/about-me -->
 

@@ -28,7 +28,7 @@
             <h1 style="font-family: 'Satisfy', sans-serif; font-size: 50px; margin: 0; line-height: 1; font-weight: 900; letter-spacing: 3px; color: #f1c905;">Buat Menu</h1>
             <div class="card">
                 <h5 class="text-center mb-4"></h5>
-                <form class="form-card" onsubmit="event.preventDefault()">
+                <form class="form-card" method="post" action="{% url 'submit' %}">
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nama<span class="text-danger"> *</span></label> <input type="text" id="nama" name="nama" placeholder="Nama" onblur="validate(1)"> </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Jenis Kelamin<span class="text-danger"> *</span></label>
@@ -38,6 +38,7 @@
                             </select>
                         </div>
                     </div>
+                    {% csrf_token %}  
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Berat Badan (kg)<span class="text-danger"> *</span></label> <input type="text" id="berat_badan" name="berat_badan" placeholder="" onblur="validate(3)"> </div>
                         <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tinggi Badan (cm)<span class="text-danger"> *</span></label> <input type="text" id="tinggi_badan" name="tinggi_badan" placeholder="" onblur="validate(4)"> </div>
@@ -53,15 +54,15 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Penyakit Yang Menyertai<span class="text-danger"> *</span></label> 
-                            <select id="tingkat_aktivitas" name="tingkat_aktivitas">
+                            <select id="penyakit_penyerta" name="penyakit_penyerta">
                                 <option value="1">Kolesterol dalam darah yang tinggi</option>
                                 <option value="2">Komplikasi pembuluh darah</option>
                                 <option value="3">Diabetes Lebih dari 15 tahun</option>
                                 <option value="4">Stroke</option>
-                                <option value="4">Jantung Koroner</option>
-                                <option value="4">Infark jantung</option>
-                                <option value="4">Penyakit pembuluh arteri perifer oklusif</option>
-                                <option value="4">Gangren</option>
+                                <option value="5">Jantung Koroner</option>
+                                <option value="6">Infark jantung</option>
+                                <option value="7">Penyakit pembuluh arteri perifer oklusif</option>
+                                <option value="8">Gangren</option>
                             </select>
                         </div>
                     </div>
@@ -98,7 +99,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-end">
-                        <div class="form-group col-sm-6"> <button type="button" onclick="redirectToURL()" class="btn-block btn-primary">Buat Menu</button> </div>
+                        <div class="form-group col-sm-6"><button type="submit" class="btn-block btn-primary">Buat Menu</button> </div>
                     </div>
                 </form>
             </div>
