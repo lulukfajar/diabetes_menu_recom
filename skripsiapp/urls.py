@@ -11,3 +11,4 @@ urlpatterns = [
     path('submit/', views.prosesdata, name='submit'),
 ]
 
+

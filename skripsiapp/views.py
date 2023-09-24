@@ -121,7 +121,7 @@ def prosesdata(request):
   
     kalori_harian_final = round(kalori_harian * penambahan_kalori, 3)
 
-    #Menghitung zat gizi yang diperlukan
+    #Menghitung zat gizi yang diperlukan 
     total_kalori  = kalori_harian_final
     total_karbo   = round(total_kalori * 0.68 / 4, 3)
     total_protein = round(total_kalori * 0.12 / 4, 3)
