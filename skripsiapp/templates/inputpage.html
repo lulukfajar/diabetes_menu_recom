@@ -14,9 +14,10 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="{% static 'assets/css/style2.css' %}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
   
 </head>
@@ -28,11 +29,12 @@
             <h1 style="font-family: 'Satisfy', sans-serif; font-size: 50px; margin: 0; line-height: 1; font-weight: 900; letter-spacing: 3px; color: #f1c905;">Buat Menu</h1>
             <div class="card">
                 <h5 class="text-center mb-4"></h5>
-                <form class="form-card" method="post" action="{% url 'submit' %}">
+                <form id = "data_personal_form" class="form-card" method="post" action="{% url 'submit' %}">
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nama<span class="text-danger"> *</span></label> <input type="text" id="nama" name="nama" placeholder="Nama" onblur="validate(1)"> </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Jenis Kelamin<span class="text-danger"> *</span></label>
                             <select id="jenis_kelamin" name="jenis_kelamin">
+                                <option value="" selected>Pilih Jenis Kelamin</option>
                                 <option value="l">Laki-Laki</option>
                                 <option value="p">Perempuan</option>
                             </select>
@@ -46,7 +48,8 @@
                     </div>
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tingkat Aktivitas<span class="text-danger"> *</span></label> 
-                            <select id="tingkat_aktivitas" name="tingkat_aktivitas">
+                            <select id="tingkat_aktivitas" name="tingkat_aktivitas" >
+                                <option value="" selected>Pilih Tingkat Aktivitas</option>
                                 <option value="1">Sangat Ringan</option>
                                 <option value="2">Ringan</option>
                                 <option value="3">Sedang</option>
@@ -54,7 +57,8 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Penyakit Yang Menyertai<span class="text-danger"> *</span></label> 
-                            <select id="penyakit_penyerta" name="penyakit_penyerta">
+                            <select id="penyakit_penyerta" name="penyakit_penyerta" >
+                                <option value="" selected>Pilih Penyakit Penyerta</option>
                                 <option value="1">Kolesterol dalam darah yang tinggi</option>
                                 <option value="2">Komplikasi pembuluh darah</option>
                                 <option value="3">Diabetes Lebih dari 15 tahun</option>
@@ -68,30 +72,26 @@
                     </div>
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-6 flex-column d-flex"> <label class="form-control-label px-3">Makanan yang tidak disuka<span class="text-danger"></span></label> 
-                            <input id="makanan_tidak_suka" name="makanan_tidak_suka" list="datalistOptions" placeholder="Ketik untuk mencari..."> 
-                            <datalist id="datalistOptions">
-                                <option value="San Francisco">
-                                <option value="New York">
-                                <option value="Seattle">
-                                <option value="Los Angeles">
-                                <option value="Chicago">
-                              </datalist>
+                            <select id="makanan_tidak_suka" name="makanan_tidak_suka" placeholder="Ketik untuk mencari..." class="form-control"> 
+                                <option value="" selected>Tidak Ada</option>
+                                {% for makanan in data_makanan %}  
+                                <option value="{{ makanan.id }}">{{makanan.nama}}</option>
+                                {% endfor %}  
+                            </select>
                         </div>
                         <div class="form-group col-6 flex-column d-flex"> <label class="form-control-label px-3">Alergi<span class="text-danger"></span></label> 
-                            <input id="alergi" name="alergi" list="datalistOptions" placeholder="Ketik untuk mencari...">
-                            <datalist id="datalistOptions">
-                                <option value="San Francisco">
-                                <option value="New York">
-                                <option value="Seattle">
-                                <option value="Los Angeles">
-                                <option value="Chicago">
-                              </datalist>
+                            <select id="alergi" name="alergi" placeholder="Ketik untuk mencari..." class="form-control">
+                                <option value="" selected>Tidak Ada</option>
+                                {% for makanan in data_makanan %}  
+                                <option value="{{ makanan.id }}">{{makanan.nama}}</option>
+                                {% endfor %}  
+                            </select>
                             </div>
                     </div>
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3">Kategori Harga makanan<span class="text-danger"></span></label> 
                             <select id="kategori_harga" name="kategori_harga">
-                                <option value="1">Pilih semua</option>
+                                <option value="1" selected>Pilih semua</option>
                                 <option value="2">Murah</option>
                                 <option value="3">Sedang</option>
                                 <option value="4">Mahal</option>
@@ -107,92 +107,73 @@
     </div>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+<!-- js untuk select2  -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
-  function validate(val) {
-    v1 = document.getElementById("fname");
-    v2 = document.getElementById("lname");
-    v3 = document.getElementById("email");
-    v4 = document.getElementById("mob");
-    v5 = document.getElementById("job");
-    v6 = document.getElementById("ans");
+    $(document).ready(function() {
+        $("#makanan_tidak_suka").select2();
+    });
 
-    flag1 = true;
-    flag2 = true;
-    flag3 = true;
-    flag4 = true;
-    flag5 = true;
-    flag6 = true;
+    $(document).ready(function() {
+        $("#alergi").select2();
+    });
 
-    if(val>=1 || val==0) {
-        if(v1.value == "") {
-            v1.style.borderColor = "red";
-            flag1 = false;
+    document.getElementById("data_personal_form").addEventListener("submit", function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); 
         }
-        else {
-            v1.style.borderColor = "green";
-            flag1 = true;
+    });
+
+    function validateForm() {
+        var nama          = document.getElementById("nama");
+        var jenis_kelamin = document.getElementById("jenis_kelamin");
+        var berat_badan   = document.getElementById("berat_badan");
+        var tinggi_badan  = document.getElementById("tinggi_badan");
+        var usia          = document.getElementById("usia");
+        var tingkat_aktivitas = document.getElementById("jenis_aktivitas");
+        var penyakit_penyerta = document.getElementById("penyakit_penyerta");
+
+        if (nama.value === "" || jenis_kelamin.value === "" || berat_badan.value === "" || tinggi_badan.value === "" || usia.value === "" || tingkat_aktivitas === "" || penyakit_penyerta === "") {
+            Swal.fire('Submit Gagal!', 'Form Belum Lengkap', 'error');
+            if (nama.value === ""){
+                nama.style.borderColor = "red";
+            }else if (jenis_kelamin.value === ""){
+                jenis_kelamin.style.borderColor = "red";
+            }else if (berat_badan.value === ""){
+                berat_badan.style.borderColor = "red";
+            }else if (tinggi_badan.value === ""){
+                tinggi_badan.style.borderColor = "red";
+            }else if (usia.value === ""){
+                usia.style.borderColor = "red";
+            }else if (tingkat_aktivitas.value === ""){
+                tingkat_aktivitas.style.borderColor = "red";
+            }else if (penyakit_penyerta.value === ""){
+                penyakit_penyerta.style.borderColor = "red";
+            }
+            return false;
+        } else if(!isNumber(berat_badan.value)){
+            Swal.fire('', 'Berat Badan harus berupa angka', 'error');
+            berat_badan.style.borderColor = "red";
+            return false;
+        } else if(!isNumber(tinggi_badan.value)){
+            Swal.fire('', 'Tinngi Badan harus berupa angka', 'error');
+            tinggi_badan.style.borderColor = "red";
+            return false;
+        } else if(!isNumber(usia.value)){
+            Swal.fire('', 'Usia harus berupa angka', 'error');
+            usia.style.borderColor = "red";
+            return false;
+        } else {
+            return true;
         }
     }
 
-    if(val>=2 || val==0) {
-        if(v2.value == "") {
-            v2.style.borderColor = "red";
-            flag2 = false;
-        }
-        else {
-            v2.style.borderColor = "green";
-            flag2 = true;
-        }
+    function isNumber(value) {
+        return /^-?\d*\.?\d+$/.test(value);
     }
-    if(val>=3 || val==0) {
-        if(v3.value == "") {
-            v3.style.borderColor = "red";
-            flag3 = false;
-        }
-        else {
-            v3.style.borderColor = "green";
-            flag3 = true;
-        }
-    }
-    if(val>=4 || val==0) {
-        if(v4.value == "") {
-            v4.style.borderColor = "red";
-            flag4 = false;
-        }
-        else {
-            v4.style.borderColor = "green";
-            flag4 = true;
-        }
-    }
-    if(val>=5 || val==0) {
-        if(v5.value == "") {
-            v5.style.borderColor = "red";
-            flag5 = false;
-        }
-        else {
-            v5.style.borderColor = "green";
-            flag5 = true;
-        }
-    }
-    if(val>=6 || val==0) {
-        if(v6.value == "") {
-            v6.style.borderColor = "red";
-            flag6 = false;
-        }
-        else {
-            v6.style.borderColor = "green";
-            flag6 = true;
-        }
-    }
-
-    flag = flag1 && flag2 && flag3 && flag4 && flag5 && flag6;
-
-    return flag;
-}
-
-function redirectToURL() {
-            window.location.href = "{% url 'menupage' %}";
-    }
-
 </script>
 </html>

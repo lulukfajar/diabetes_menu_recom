@@ -4,13 +4,15 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.template import RequestContext
+from .models import Makanan
 
 def landingpage(request):
   template = loader.get_template('landingpage.html')
   return HttpResponse(template.render())
 
 def inputpage(request):
- return render(request, 'inputpage.html')
+ data_makanan = Makanan.objects.all()
+ return render(request, 'inputpage.html', {'data_makanan' : data_makanan})
 
 def menupage(request):
   template = loader.get_template('menupage.html')
@@ -22,6 +24,8 @@ def prosesdata(request):
   tingkat_aktivitas_2 =''
   penyakit_penyerta_2 =''
   data_gizi_harian    = {}
+
+  data_makanan        = Makanan.objects.all()
 
   if request.method == 'POST':
     nama          = request.POST.get('nama')
@@ -136,6 +140,19 @@ def prosesdata(request):
       'total_lemak'       : total_lemak
     }
 
+    data_import = Makanan.objects.all()
+    
+    if alergi != "":
+      data_import = data_import.exclude(id=alergi)
+
+    if makanan_tidak_suka != "":
+      data_import = data_import.exclude(id=makanan_tidak_suka)
+
+    if kategori_harga != "":
+      data_import = data_import.filter(harga=kategori_harga)
+    
+    
+
     return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian})
     
-  return render(request, 'inputpage.html')
+  return render(request, 'inputpage.html', {'data_makanan' : data_makanan})
