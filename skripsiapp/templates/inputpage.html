@@ -59,6 +59,7 @@
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Penyakit Yang Menyertai<span class="text-danger"> *</span></label> 
                             <select id="penyakit_penyerta" name="penyakit_penyerta" >
                                 <option value="" selected>Pilih Penyakit Penyerta</option>
+                                <option value="0">Tidak ada</option>
                                 <option value="1">Kolesterol dalam darah yang tinggi</option>
                                 <option value="2">Komplikasi pembuluh darah</option>
                                 <option value="3">Diabetes Lebih dari 15 tahun</option>
@@ -91,7 +92,7 @@
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3">Kategori Harga makanan<span class="text-danger"></span></label> 
                             <select id="kategori_harga" name="kategori_harga">
-                                <option value="1" selected>Pilih semua</option>
+                                <option value="" selected>Pilih semua</option>
                                 <option value="2">Murah</option>
                                 <option value="3">Sedang</option>
                                 <option value="4">Mahal</option>
@@ -134,7 +135,7 @@
         var berat_badan   = document.getElementById("berat_badan");
         var tinggi_badan  = document.getElementById("tinggi_badan");
         var usia          = document.getElementById("usia");
-        var tingkat_aktivitas = document.getElementById("jenis_aktivitas");
+        var tingkat_aktivitas = document.getElementById("tingkat_aktivitas");
         var penyakit_penyerta = document.getElementById("penyakit_penyerta");
 
         if (nama.value === "" || jenis_kelamin.value === "" || berat_badan.value === "" || tinggi_badan.value === "" || usia.value === "" || tingkat_aktivitas === "" || penyakit_penyerta === "") {

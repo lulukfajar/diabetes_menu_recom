@@ -167,7 +167,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Dada ayam fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_pagi }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_pagi }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 25 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -176,7 +176,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Alpukat 80 gr
+                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} gr
                   </div>
                 </div>
 
@@ -185,7 +185,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Dada ayam fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_siang }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_siang }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 50 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -194,7 +194,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Kacang edamame 100 gr
+                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} gr
                   </div>
                 </div>
 
@@ -203,7 +203,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Ikan Tuna fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_siang }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_siang }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 50 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -212,7 +212,7 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Pisang 100 gr
+                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} gr
                   </div>
                 </div>
               </div>
@@ -220,25 +220,25 @@
                 <div class="row">
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="500" data-speed="500">500</h6>
+                            <h6 class="count h2" data-to="500" data-speed="500">{{menu_1.total_kalori}}</h6>
                             <p class="m-0px font-w-600">Kalori (kkal)</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="150" data-speed="150">150</h6>
+                            <h6 class="count h2" data-to="150" data-speed="150">{{menu_1.total_karbo}}</h6>
                             <p class="m-0px font-w-600">Karbohidrat (gr)</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="850" data-speed="850">850</h6>
+                            <h6 class="count h2" data-to="850" data-speed="850">{{menu_1.total_protein}}</h6>
                             <p class="m-0px font-w-600">Protein (gr)</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="190" data-speed="190">190</h6>
+                            <h6 class="count h2" data-to="190" data-speed="190">{{menu_1.total_lemak}}</h6>
                             <p class="m-0px font-w-600">Lemak (gr)</p>
                         </div>
                     </div>
@@ -266,7 +266,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Dada ayam fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_pagi }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_pagi }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 25 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -275,7 +275,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Alpukat 80 gr
+                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} gr
                   </div>
                 </div>
 
@@ -284,7 +284,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Dada ayam fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_siang }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_siang }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 50 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -293,7 +293,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Kacang edamame 100 gr
+                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} gr
                   </div>
                 </div>
 
@@ -302,7 +302,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Ikan Tuna fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_siang }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_siang }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 50 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -311,36 +311,36 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Pisang 100 gr
+                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} gr
                   </div>
                 </div>
               </div>
               <div class="counter" style="margin-top: 40px;">
                 <div class="row">
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="500" data-speed="500">500</h6>
-                            <p class="m-0px font-w-600">Kalori (kkal)</p>
-                        </div>
+                  <div class="col-6 col-lg-3">
+                    <div class="count-data text-center">
+                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_2.total_kalori}}</h6>
+                        <p class="m-0px font-w-600">Kalori (kkal)</p>
                     </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="150" data-speed="150">150</h6>
-                            <p class="m-0px font-w-600">Karbohidrat (gr)</p>
-                        </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="count-data text-center">
+                        <h6 class="count h2" data-to="150" data-speed="150">{{menu_2.total_karbo}}</h6>
+                        <p class="m-0px font-w-600">Karbohidrat (gr)</p>
                     </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="850" data-speed="850">850</h6>
-                            <p class="m-0px font-w-600">Protein (gr)</p>
-                        </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="count-data text-center">
+                        <h6 class="count h2" data-to="850" data-speed="850">{{menu_2.total_protein}}</h6>
+                        <p class="m-0px font-w-600">Protein (gr)</p>
                     </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                            <p class="m-0px font-w-600">Lemak (gr)</p>
-                        </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="count-data text-center">
+                        <h6 class="count h2" data-to="190" data-speed="190">{{menu_2.total_lemak}}</h6>
+                        <p class="m-0px font-w-600">Lemak (gr)</p>
                     </div>
+                </div>
                 </div>
             </div>
             </div>
@@ -366,7 +366,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Dada ayam fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_pagi }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_pagi }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 25 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -375,7 +375,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Alpukat 80 gr
+                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} gr
                   </div>
                 </div>
 
@@ -384,7 +384,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Dada ayam fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_siang }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_siang }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 50 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -393,7 +393,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Kacang edamame 100 gr
+                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} gr
                   </div>
                 </div>
 
@@ -402,7 +402,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Nasi Merah 70 gr, Ikan Tuna fillet 50 gr, Sawi 100 gr, Wortel 25 gr, Minyak 5 gr
+                    {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_siang }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_siang }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 50 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -411,36 +411,236 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    Pisang 100 gr
+                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} gr
                   </div>
                 </div>
               </div>
               <div class="counter" style="margin-top: 40px;">
                 <div class="row">
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="500" data-speed="500">500</h6>
-                            <p class="m-0px font-w-600">Kalori (kkal)</p>
-                        </div>
+                  <div class="col-6 col-lg-3">
+                    <div class="count-data text-center">
+                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_3.total_kalori}}</h6>
+                        <p class="m-0px font-w-600">Kalori (kkal)</p>
                     </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="150" data-speed="150">150</h6>
-                            <p class="m-0px font-w-600">Karbohidrat (gr)</p>
-                        </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="150" data-speed="150">{{menu_3.total_karbo}}</h6>
+                          <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                      </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="850" data-speed="850">{{menu_3.total_protein}}</h6>
+                          <p class="m-0px font-w-600">Protein (gr)</p>
+                      </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="190" data-speed="190">{{menu_3.total_lemak}}</h6>
+                          <p class="m-0px font-w-600">Lemak (gr)</p>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+          </div>
+          <div class="mySlides">
+            <div class="container">
+
+              <div class="section-title">
+                <h2>Menu 4<span></span></h2>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12 d-flex justify-content-center">
+                  <ul id="menu-flters">
+                  </ul>
+                </div>
+              </div>
+
+              <div class="row menu-container">
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Sarapan</a><span>06.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_pagi }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_pagi }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 25 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_pagi}} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Camilan Pagi</a><span>09.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Makan Siang</a><span>12.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_siang }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_siang }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 50 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_siang}} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Camilan Siang</a><span>15.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Makan Malam</a><span>18.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_siang }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_siang }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 50 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_siang}} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Camilan malam</a><span>21.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} gr
+                  </div>
+                </div>
+              </div>
+              <div class="counter" style="margin-top: 40px;">
+                <div class="row">
+                  <div class="col-6 col-lg-3">
+                    <div class="count-data text-center">
+                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_4.total_kalori}}</h6>
+                        <p class="m-0px font-w-600">Kalori (kkal)</p>
                     </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="850" data-speed="850">850</h6>
-                            <p class="m-0px font-w-600">Protein (gr)</p>
-                        </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="150" data-speed="150">{{menu_4.total_karbo}}</h6>
+                          <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                      </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="850" data-speed="850">{{menu_4.total_protein}}</h6>
+                          <p class="m-0px font-w-600">Protein (gr)</p>
+                      </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="190" data-speed="190">{{menu_4.total_lemak}}</h6>
+                          <p class="m-0px font-w-600">Lemak (gr)</p>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+          </div>
+          <div class="mySlides">
+            <div class="container">
+
+              <div class="section-title">
+                <h2>Menu 5<span></span></h2>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12 d-flex justify-content-center">
+                  <ul id="menu-flters">
+                  </ul>
+                </div>
+              </div>
+
+              <div class="row menu-container">
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Sarapan</a><span>06.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_pagi }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_pagi }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 25 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_pagi}} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Camilan Pagi</a><span>09.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Makan Siang</a><span>12.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_siang }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_siang }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 50 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_siang}} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Camilan Siang</a><span>15.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Makan Malam</a><span>18.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_siang }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_siang }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 50 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_siang}} gr
+                  </div>
+                </div>
+
+                <div class="col-lg-6 menu-item filter-starters">
+                  <div class="menu-content">
+                    <a href="#">Camilan malam</a><span>21.30</span>
+                  </div>
+                  <div class="menu-ingredients">
+                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} gr
+                  </div>
+                </div>
+              </div>
+              <div class="counter" style="margin-top: 40px;">
+                <div class="row">
+                  <div class="col-6 col-lg-3">
+                    <div class="count-data text-center">
+                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_5.total_kalori}}</h6>
+                        <p class="m-0px font-w-600">Kalori (kkal)</p>
                     </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                            <p class="m-0px font-w-600">Lemak (gr)</p>
-                        </div>
-                    </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="150" data-speed="150">{{menu_5.total_karbo}}</h6>
+                          <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                      </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="850" data-speed="850">{{menu_5.total_protein}}</h6>
+                          <p class="m-0px font-w-600">Protein (gr)</p>
+                      </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                      <div class="count-data text-center">
+                          <h6 class="count h2" data-to="190" data-speed="190">{{menu_5.total_lemak}}</h6>
+                          <p class="m-0px font-w-600">Lemak (gr)</p>
+                      </div>
+                  </div>
                 </div>
             </div>
             </div>
@@ -454,6 +654,8 @@
         <span class="menudot" onclick="currentSlide(1)"></span>
         <span class="menudot" onclick="currentSlide(2)"></span>
         <span class="menudot" onclick="currentSlide(3)"></span>
+        <span class="menudot" onclick="currentSlide(4)"></span>
+        <span class="menudot" onclick="currentSlide(5)"></span>
       </div>
     </section><!-- End Menu Section -->
 
