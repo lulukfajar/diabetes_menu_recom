@@ -109,7 +109,11 @@
               </div>
               <div class="col-lg-5">
                 <div class="about-avatar">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
+                  {% if data_personal.jenis_kelamin == "perempuan" %}
+                      <img src="{% static 'assets/img/avatar8.png' %}" title="" alt="">
+                  {% else %}
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
+                  {% endif %}
                 </div>
               </div>
           </div>
@@ -176,7 +180,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} gr
+                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -194,7 +198,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} gr
+                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -212,7 +216,7 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} gr
+                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml
                   </div>
                 </div>
               </div>
@@ -275,7 +279,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} gr
+                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -293,7 +297,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} gr
+                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -311,7 +315,7 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} gr
+                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml
                   </div>
                 </div>
               </div>
@@ -375,7 +379,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} gr
+                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -393,7 +397,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} gr
+                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -411,7 +415,7 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} gr
+                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml
                   </div>
                 </div>
               </div>
@@ -475,7 +479,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} gr
+                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -493,7 +497,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} gr
+                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -511,7 +515,7 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} gr
+                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml
                   </div>
                 </div>
               </div>
@@ -575,7 +579,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} gr
+                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -593,7 +597,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} gr
+                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml
                   </div>
                 </div>
 
@@ -611,7 +615,7 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} gr
+                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml
                   </div>
                 </div>
               </div>
