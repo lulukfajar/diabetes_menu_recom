@@ -31,7 +31,7 @@ def prosesdata(request):
   data_makanan        = Makanan.objects.all()
 
   if request.method == 'POST':
-    # try:
+    try:
       nama          = request.POST.get('nama')
       jenis_kelamin = request.POST.get('jenis_kelamin')
       berat_badan   = request.POST.get('berat_badan')
@@ -181,12 +181,12 @@ def prosesdata(request):
       #covert data to dataframe
       data_makanan = pd.DataFrame(list(data_import.values()))
 
-      # #memilih data dengan kolesterol rendah
-      # data_makanan     = data_makanan[data_makanan['kolesterol'] <= 100 ]
+      #memilih data dengan kolesterol rendah
+      data_makanan     = data_makanan[data_makanan['kolesterol'] <= 100 ]
 
       #data perkategori
       data_buah      = data_makanan[data_makanan['kategori'] == 'Buah']
-      data_kacang    = data_makanan[data_makanan['kategori'] == 'Kacang']
+      data_kacang    = data_makanan[data_makanan['kategori'] == 'kacang']
       data_skim_susu = data_makanan[data_makanan['kategori'] == 'Skim Susu']
 
       data_karbohidrat  = data_makanan[data_makanan['kategori'] == 'Karbohidrat']
@@ -196,7 +196,7 @@ def prosesdata(request):
       data_protein      = data_makanan[(data_makanan['kategori'] == 'Protein Nabati') | (data_makanan['kategori'] == 'Protein Hewani')]
       
       if kategori_harga != "":
-        if kategori_harga == 1:
+        if kategori_harga == "1":
           data_buah_1 = data_buah[data_buah['harga'] < 3600]
           if len(data_buah_1) < 7:
             data_buah_1 = data_buah[data_buah['harga'] < 8000]
@@ -220,7 +220,7 @@ def prosesdata(request):
           data_protein_1 = data_protein[data_protein['harga'] < 3600]
           if len(data_protein_1) < 7:
             data_protein_1 = data_protein[data_protein['harga'] < 8000]
-        elif kategori_harga == 2:
+        elif kategori_harga == "2":
           data_buah_1 = data_buah[(data_buah['harga'] >= 3600) & (data_buah['harga'] <= 8000)]
           if len(data_buah_1) < 7:
             data_buah_1 = data_buah[data_buah['harga'] <= 8000]
@@ -362,18 +362,18 @@ def prosesdata(request):
         c = [-1, -1, -1]
 
         # Menentukan batasan-batasan variabel
-        x2_bounds = (0, 125)
+        x3_bounds = (1, karbo_siang*2)
         if kalori_harian_final < 1500:
-          y2_bounds = (1, None)
+          y3_bounds = (15, None)
         else:
-          y2_bounds = (1, None)
-        z2_bounds = (0, None)
+          y3_bounds = (20, None)
+        z3_bounds = (0, None)
 
         # Menyelesaikan permasalahan dengan metode simplex
         max_iterasi = 100 
 
         for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x2_bounds, y2_bounds, z2_bounds])
+            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
             if result is not None:
                 break
 
@@ -382,7 +382,7 @@ def prosesdata(request):
         berat_lemak_pagi_1   = round(result.x[2],3)
 
         #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x2_bounds, y2_bounds, z2_bounds])
+        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
         berat_karbo_siang_1   = round(result2.x[0],3)
         berat_protein_siang_1 = round(result2.x[1],3)
         berat_lemak_siang_1   = round(result2.x[2],3)
@@ -472,18 +472,18 @@ def prosesdata(request):
         c = [-1, -1, -1]
 
         # Menentukan batasan-batasan variabel
-        x2_bounds = (0, 125)
+        x3_bounds = (1, karbo_siang*2)
         if kalori_harian_final < 1500:
-          y2_bounds = (1, None)
+          y3_bounds = (15, None)
         else:
-          y2_bounds = (1, None)
-        z2_bounds = (0, None)
+          y3_bounds = (20, None)
+        z3_bounds = (0, None)
 
         # Menyelesaikan permasalahan dengan metode simplex
         max_iterasi = 100 
 
         for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x2_bounds, y2_bounds, z2_bounds])
+            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
             if result is not None:
                 break
 
@@ -492,7 +492,7 @@ def prosesdata(request):
         berat_lemak_pagi_2   = round(result.x[2],3)
 
         #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x2_bounds, y2_bounds, z2_bounds])
+        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
         berat_karbo_siang_2   = round(result2.x[0],3)
         berat_protein_siang_2 = round(result2.x[1],3)
         berat_lemak_siang_2   = round(result2.x[2],3)
@@ -579,18 +579,18 @@ def prosesdata(request):
         c = [-1, -1, -1]
 
         # Menentukan batasan-batasan variabel
-        x2_bounds = (0, 125)
+        x3_bounds = (1, karbo_siang*2)
         if kalori_harian_final < 1500:
-          y2_bounds = (1, None)
+          y3_bounds = (15, None)
         else:
-          y2_bounds = (1, None)
-        z2_bounds = (0, None)
+          y3_bounds = (20, None)
+        z3_bounds = (0, None)
 
         # Menyelesaikan permasalahan dengan metode simplex
         max_iterasi = 100 
 
         for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x2_bounds, y2_bounds, z2_bounds])
+            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
             if result is not None:
                 break
 
@@ -599,7 +599,7 @@ def prosesdata(request):
         berat_lemak_pagi_3   = round(result.x[2],3)
 
         #makan siang malam menu 3
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x2_bounds, y2_bounds, z2_bounds])
+        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
         berat_karbo_siang_3   = round(result2.x[0],3)
         berat_protein_siang_3 = round(result2.x[1],3)
         berat_lemak_siang_3   = round(result2.x[2],3)
@@ -688,18 +688,18 @@ def prosesdata(request):
         c = [-1, -1, -1]
 
         # Menentukan batasan-batasan variabel
-        x2_bounds = (0, 125)
+        x3_bounds = (1, karbo_siang*2)
         if kalori_harian_final < 1500:
-          y2_bounds = (1, None)
+          y3_bounds = (15, None)
         else:
-          y2_bounds = (1, None)
-        z2_bounds = (0, None)
+          y3_bounds = (20, None)
+        z3_bounds = (0, None)
 
         # Menyelesaikan permasalahan dengan metode simplex
         max_iterasi = 100 
 
         for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x2_bounds, y2_bounds, z2_bounds])
+            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
             if result is not None:
                 break
 
@@ -708,7 +708,7 @@ def prosesdata(request):
         berat_lemak_pagi_4   = round(result.x[2],3)
 
         #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x2_bounds, y2_bounds, z2_bounds])
+        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
         berat_karbo_siang_4   = round(result2.x[0],3)
         berat_protein_siang_4 = round(result2.x[1],3)
         berat_lemak_siang_4   = round(result2.x[2],3)
@@ -798,18 +798,18 @@ def prosesdata(request):
         c = [-1, -1, -1]
 
         # Menentukan batasan-batasan variabel
-        x2_bounds = (0, 125)
+        x3_bounds = (1, karbo_siang*2)
         if kalori_harian_final < 1500:
-          y2_bounds = (1, None)
+          y3_bounds = (15, None)
         else:
-          y2_bounds = (1, None)
-        z2_bounds = (0, None)
+          y3_bounds = (20, None)
+        z3_bounds = (0, None)
 
         # Menyelesaikan permasalahan dengan metode simplex
         max_iterasi = 100 
 
         for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x2_bounds, y2_bounds, z2_bounds])
+            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
             if result is not None:
                 break
 
@@ -818,7 +818,7 @@ def prosesdata(request):
         berat_lemak_pagi_5   = round(result.x[2],3)
 
         #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x2_bounds, y2_bounds, z2_bounds])
+        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
         berat_karbo_siang_5   = round(result2.x[0],3)
         berat_protein_siang_5 = round(result2.x[1],3)
         berat_lemak_siang_5   = round(result2.x[2],3)
@@ -957,6 +957,6 @@ def prosesdata(request):
 
       return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5})
     
-    # except Exception as e:
-    #   return render(request, 'errorhandling.html')
+    except Exception as e:
+      return render(request, 'errorhandling.html')
   return render(request, 'inputpage.html', {'data_makanan' : data_makanan})
