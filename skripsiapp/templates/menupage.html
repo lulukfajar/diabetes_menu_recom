@@ -42,7 +42,8 @@
       </div>
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="#about">Saya</a></li>
+          <li><a class="nav-link scrollto active" href="#about">Giziku</a></li>
+          <li><a class="nav-link scrollto" href="#specials">Diet</a></li>
           <li><a class="nav-link scrollto" href="#menu">Menu</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -147,6 +148,37 @@
           </div>
       </div>
     </section>
+
+    <!-- ======= Specials Section ======= -->
+    <section id="specials" class="specials" style="box-shadow: 0 0 60px rgba(50, 41, 24, 0.125);">
+      <div class="container">
+        <div class="section-title">
+          <h2>Diet Pasien<span> {{data_personal.nama}}</span></h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <div class="tab-pane active show" id="tab-1">
+                <div class="row">
+                  <div class="col-lg-12 details order-2 order-lg-1">
+                    <h3 style="text-align:center;"><span>{{jenis_diet.nama_diet}}</span></h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <br><br>
+                    <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{jenis_diet.deskripsi_diet}}</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="{% static 'assets/img/specials-1.jpg' %}" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Specials Section -->
 
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu" style="position: relative;">

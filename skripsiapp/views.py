@@ -5,6 +5,7 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from .models import Makanan
+from .models import JenisDiet
 from scipy.optimize import linprog
 import random
 import pandas as pd
@@ -31,7 +32,7 @@ def prosesdata(request):
   data_makanan        = Makanan.objects.all()
 
   if request.method == 'POST':
-    try:
+    # try:
       nama          = request.POST.get('nama')
       jenis_kelamin = request.POST.get('jenis_kelamin')
       berat_badan   = request.POST.get('berat_badan')
@@ -69,22 +70,31 @@ def prosesdata(request):
       
       if penyakit_penyerta == '1' :
         penyakit_penyerta_2 = 'Kolesterol dalam darah yang tinggi'
+        kode_penyakit = 'K02'
       elif penyakit_penyerta == '2':
         penyakit_penyerta_2 = 'Komplikasi pembuluh darah'
+        kode_penyakit = 'K03'
       elif penyakit_penyerta == '3':
         penyakit_penyerta_2 = 'lama menderita lebih dari 15 tahun'
+        kode_penyakit = 'K04'
       elif penyakit_penyerta == '4':
         penyakit_penyerta_2 = 'Stroke'
+        kode_penyakit = 'K05'
       elif penyakit_penyerta == '5':
         penyakit_penyerta_2 = 'Jantung Koroner'
+        kode_penyakit = 'K05'
       elif penyakit_penyerta == '6':
         penyakit_penyerta_2 = 'Infark Jantung'
+        kode_penyakit = 'K05'
       elif penyakit_penyerta == '7':
         penyakit_penyerta_2 = 'Penyakit pembuluh arteri perifer oklusif'
+        kode_penyakit = 'K05'
       elif penyakit_penyerta == '8':
         penyakit_penyerta_2 = 'Gangren'
+        kode_penyakit = 'K06'
       else:
         penyakit_penyerta_2 = '-'
+        kode_penyakit = 'K01'
 
       data_personal = {
         'nama'          : nama,
@@ -105,19 +115,27 @@ def prosesdata(request):
       if bmi < 17:
         bmi_2 = 'Kekurangan berat badan tingkat berat'
         penambahan_kalori = 1.3 
+        kode_imt = 'K07'
       elif 17 <= bmi < 18.5:
         bmi_2 = 'Kekurangan berat badan tingkat ringan'
         penambahan_kalori = 1.2
+        kode_imt = 'K07'
       elif 18.5 <= bmi <= 25:
         bmi_2 = 'Normal'
         penambahan_kalori = 1
+        kode_imt = 'K09'
       elif 25 < bmi <= 27:
         bmi_2 = 'Kelebihan berat badan tingkat ringan'
         penambahan_kalori = 0.8
+        kode_imt = 'K08'
       elif bmi > 27:
         bmi_2 = 'Kelebihan berat badan tingkat berat'
         penambahan_kalori = 0.7
+        kode_imt = 'K08'
 
+      jenis_diet = JenisDiet.objects.get(kode_imt=kode_imt, kode_penyakit=kode_penyakit)
+      kode_diet  = jenis_diet.kelompok_diet
+      
       #Metode Harris Benedict
       if jenis_kelamin == 'p':
         amb = 655.096 + ( 9.563 * float(berat_badan)) + ( 1.850 * float(tinggi_badan) ) - (4.676 * float(usia))
@@ -130,7 +148,7 @@ def prosesdata(request):
       total_kalori  = kalori_harian_final + (kalori_harian_final * 0.1 )
 
       #pembagian protein, karbohidrat, dan lemak sesuai jenis penyakit
-      if penyakit_penyerta == "8":
+      if kode_diet == "G":
         total_karbo_actual   = round(kalori_harian_final * 0.6 / 4, 3)
         total_protein_actual = round(kalori_harian_final * 0.2 / 4, 3)
         total_lemak_actual   = round(kalori_harian_final * 0.2 / 9, 3)
@@ -297,12 +315,12 @@ def prosesdata(request):
         # data_kacang_1      = ""
 
       #Data protein untuk diet KV dan G
-      if penyakit_penyerta not in ["0", "1", "2", "3"]:
+      if kode_diet == 'G' or kode_diet == 'KV':
         data_protein = data_protein[
             (data_protein['benam_bduabelas'] == 'Ada') &
             (data_protein['asam_folat'] == 'Ada') &
             (data_protein['asam_amino'] == 'Ada')
-          ]
+        ]
         
       protein_exclude   = []
       lemak_exclude     = []
@@ -955,8 +973,8 @@ def prosesdata(request):
         'total_kalori'    : total_kalori_5,
       }
 
-      return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5})
+      return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'jenis_diet' : jenis_diet, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5})
     
-    except Exception as e:
-      return render(request, 'errorhandling.html')
+    # except Exception as e:
+    #   return render(request, 'errorhandling.html')
   return render(request, 'inputpage.html', {'data_makanan' : data_makanan})

@@ -18,3 +18,16 @@ class Makanan(models.Model):
     harga           = models.CharField(max_length=10)
     class Meta:
         db_table = "makanan"
+
+class JenisDiet(models.Model):   
+    id            = models.BigIntegerField(primary_key=True)
+    kode_diet     = models.CharField(max_length=3)
+    kode_penyakit = models.CharField(max_length=3)
+    kode_imt      = models.CharField(max_length=3)
+    nama_penyakit = models.CharField(max_length=100)
+    kategori_imt  = models.CharField(max_length=6)
+    kelompok_diet = models.CharField(max_length=3)
+    nama_diet     = models.CharField(max_length=70)
+    deskripsi_diet = models.CharField(max_length=1000)
+    class Meta:
+        db_table = "jenis_diet"
