@@ -134,6 +134,7 @@ def prosesdata(request):
         kode_imt = 'K08'
 
       jenis_diet = JenisDiet.objects.get(kode_imt=kode_imt, kode_penyakit=kode_penyakit)
+      
       kode_diet  = jenis_diet.kelompok_diet
       
       #Metode Harris Benedict
