@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Admin - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="{% static 'assets/css/style.css'%}" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script> 	
+   $(document).ready(function() {
+    $('#example').DataTable();
+  });
+  </script>
+  
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center fixed-top topbar-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-center justify-content-lg-start">
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <div class="logo me-auto">
+        <h1><a href="{% url 'adminindex' %}" >Admin Dashboard</a></h1>
+      </div>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <a id="buatmenu" class="book-a-table-btn scrollto" href="#">Logout</a>
+
+    </div>
+  </header>
+  <main>
+    <div class = "container" style="padding-top: 95px; padding-bottom:70px;">
+        <div class="mb-3">
+            <a href="{% url 'createpage' %}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Tambah Data
+            </a>
+        </div>
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Kategori</th>
+                    <th>Kalori</th>
+                    <th>Karbohidrat</th>
+                    <th>Lemak</th>
+                    <th>Protein</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in data %}  
+                <tr>
+                    <td>{{ data.nama }}</td>
+                    <td>{{ data.kategori }}</td>
+                    <td>{{ data.kalori }}</td>
+                    <td>{{ data.karbohidrat }}</td>
+                    <td>{{ data.lemak }}</td>
+                    <td>{{ data.protein }}</td>
+                    <td>
+                        <a href="{% url 'updatepage' data.id %}"> 
+                          <button type="button" rel="tooltip" class="btn btn-warning btn-just-icon btn-sm" data-original-title="" title="">
+                              <i class="fas fa-edit"></i>
+                          </button>
+                        </a>
+                        <a onclick="showDeleteConfirmation({{ data.id }})">
+                          <button type="button" rel="tooltip" class="btn btn-danger btn-just-icon btn-sm" data-original-title="" title="">
+                              <i class="fas fa-trash"></i>
+                          </button>
+                        </a>
+                    </td>
+                    {% endfor %} 
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+  </main>
+
+    <!-- <footer id="footer" style="height:45px;
+      bottom: 0;
+      left: 0;
+      right: 0;">
+        <div class="container">
+        </div>
+    </footer> -->
+      
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}">
+  </script>
+  <script>
+    function showDeleteConfirmation(itemId) {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+        var deleteUrl = "{% url 'delete' 0 %}".replace(0, itemId);
+        window.location.href = deleteUrl;
+    }
+}
+  </script>
+
+</body>
+
+</html>

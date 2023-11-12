@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Admin | Add New Record </title>
+    <link href="{% static 'assets/css/style5.css'%}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+<header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+        <div class="logo me-auto">
+        <h1><a>Add New Data</a></h1>
+        </div>
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <a id="buatmenu" class="book-a-table-btn scrollto" href="{% url 'adminindex' %}">Batal</a>
+
+    </div>
+    </header>
+<main style="padding-top: 95px;">
+  <div class="container">
+    <div class="title">Add Record</div>
+    <div class="content">
+      <form method="post" action="{% url 'addnew' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Nama Makanan</span>
+            <input name="nama" id="nama" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Kategori</span>
+            <select id="kategori" name="kategori" required>
+              <option value="" selected>Pilih Kategori</option>
+              <option value="Karbohidrat">Karbohidrat</option>
+              <option value="Protein Nabati">Protein Nabati</option>
+              <option value="Protein Hewani">Protein Hewani</option>
+              <option value="Lemak">Lemak</option>
+              <option value="Lemak Hewani">Lemak Hewani</option>
+              <option value="Sayuran A">Sayuran A</option>
+              <option value="Sayuran B">Sayuran B</option>
+              <option value="kacang">kacang</option>
+              <option value="Buah">Buah</option>
+              <option value="Skim Susu">Skim Susu</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details">Kalori</span>
+            <input type="text" id="kalori" name="kalori" placeholder="" required>
+            <p id="errorKalori" style="color: red;"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">Asam Folat</span>
+            <select id="asam_folat" name="asam_folat" required>
+              <option value="" selected>---------</option>
+              <option value="Ada">Ada</option>
+              <option value="Tidak Ada">Tidak Ada</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details">Karbohidrat</span>
+            <input type="text" id="karbohidrat" name="karbohidrat" placeholder="" required>
+            <p id="errorKarbohidrat" style="color: red;"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">Asam Amino</span>
+            <select id="asam_amino" name="asam_amino" required>
+              <option value="" selected>---------</option>
+              <option value="Ada">Ada</option>
+              <option value="Tidak Ada">Tidak Ada</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details">Protein</span>
+            <input type="text" id="protein" name="protein" placeholder="" required>
+            <p id="errorProtein" style="color: red;"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">B6 B12</span>
+            <select id="beanam_bduabelas" name="benam_bduabelas" required>
+              <option value="" selected>---------</option>
+              <option value="Ada">Ada</option>
+              <option value="Tidak Ada">Tidak Ada</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details">Lemak</span>
+            <input type="text" id="lemak" name="lemak" placeholder="" required>
+            <p id="errorLemak" style="color: red;"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">Harga</span>
+            <input type="text" id="harga" name="harga" placeholder="" required>
+            <p id="errorHarga" style="color: red;"></p>
+          </div>
+          <div class="input-box">
+            <span class="details">Kolesterol</span>
+            <input type="text" id="kolesterol" name="kolesterol" placeholder="" required>
+            <p id="errorKolesterol" style="color: red;"></p>
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Save">
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+</body>
+  <script>
+    const kalori      = document.getElementById("kalori");
+    const karbohidrat = document.getElementById("karbohidrat");
+    const protein     = document.getElementById("protein");
+    const lemak       = document.getElementById("lemak");
+    const kolesterol  = document.getElementById("kolesterol");
+    const harga       = document.getElementById("harga");
+
+    const ekalori      = document.getElementById("errorKalori");
+    const ekarbohidrat = document.getElementById("errorKarbohidrat");
+    const eprotein     = document.getElementById("errorProtein");
+    const elemak       = document.getElementById("errorLemak");
+    const ekolesterol  = document.getElementById("errorKolesterol");
+    const eharga       = document.getElementById("errorHarga");
+
+    kalori.addEventListener("input", function() {
+      const kaloriValue = kalori.value;
+      if (/^\d*\.?\d*$/.test(kaloriValue)) {
+        ekalori.textContent = "";
+      } else {
+        ekalori.textContent = "Hanya berupa angka. Contoh 1.5";
+      }
+    });
+
+    
+    karbohidrat.addEventListener("input", function() {
+      const karbohidratValue = karbohidrat.value;
+      if (/^\d*\.?\d*$/.test(karbohidratValue)) {
+        ekarbohidrat.textContent = "";
+      } else {
+        ekarbohidrat.textContent = "Hanya berupa angka. Contoh 1.5";
+      }
+    });
+
+    protein.addEventListener("input", function() {
+      const proteinValue = protein.value;
+      if (/^\d*\.?\d*$/.test(proteinValue)) {
+        eprotein.textContent = "";
+      } else {
+        eprotein.textContent = "Hanya berupa angka. Contoh 1.5";
+      }
+    });
+
+    lemak.addEventListener("input", function() {
+      const lemakValue = lemak.value;
+      if (/^\d*\.?\d*$/.test(lemakValue)) {
+        elemak.textContent = "";
+      } else {
+        elemak.textContent = "Hanya berupa angka. Contoh 1.5";
+      }
+    });
+
+    kolesterol.addEventListener("input", function() {
+      const kolesterolValue = kolesterol.value;
+      if (/^\d*\.?\d*$/.test(kolesterolValue)) {
+        ekolesterol.textContent = "";
+      } else {
+        ekolesterol.textContent = "Hanya berupa angka. Contoh 1.5";
+      }
+    });
+
+    harga.addEventListener("input", function() {
+      const hargaValue = harga.value;
+      if (/^\d*\.?\d*$/.test(hargaValue)) {
+        eharga.textContent = "";
+      } else {
+        eharga.textContent = "Hanya berupa angka. Contoh 1.5";
+      }
+    });
+  </script>
+</html>

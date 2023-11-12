@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <link href="{% static 'assets/css/style6.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="{% static 'assets/img/specials-2.jpg' %}" alt="sing up image"></figure>
+                    </div>
+                    <div class="signin-form">
+                        <h2 class="form-title">Login</h2>
+                        <form method="POST" class="register-form" id="login-form">
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="username" placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="passowrd" id="password" placeholder="Password"/>
+                            </div>
+                            <div class="form-container">
+                                <div class="form-group form-button">
+                                    <input type="submit" name="login" id="login" class="form-submit" value="Login"/>
+                                </div>
+                                <div class="form-group form-button2">
+                                    <div class="centered-content">
+                                        <p class="signup-image-link">Belum punya akun?</p>
+                                        <a href="{% url 'registrasipage' %}" class="signup-image-link">Register</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <script src="{% static 'assets/vendor/jquery.min.js' %}"></script>
+</body>
+</html>

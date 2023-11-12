@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <link href="{% static 'assets/css/style6.css' %}" rel="stylesheet">
+</head>
+<body>
+
+    <div class="main">
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Registrasi</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="nama" id="nama" placeholder="Nama"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="text" name="username" id="usernama" placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="password" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                            </div>
+                            <div class="form-container">
+                                <div class="form-group form-button">
+                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                </div>
+                                <div class="form-group form-button2">
+                                    <div class="centered-content">
+                                        <p class="signup-image-link">Sudah punya akun?</p>
+                                        <a href="{% url 'loginpage' %}" class="signup-image-link">Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="{% static 'assets/img/specials-3.jpg' %}" alt="sing up image"></figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+     </div>
+    <script src="{% static 'assets/vendor/jquery.min.js' %}"></script>
+</body>
+</html>

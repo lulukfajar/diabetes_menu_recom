@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Makanan(models.Model):   
-    id          = models.BigIntegerField(primary_key=True)
+    # id          = models.BigIntegerField(primary_key=True)
     nama        = models.CharField(max_length=255)
     kategori    = models.CharField(max_length=255)
     kalori      = models.FloatField()

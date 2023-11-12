@@ -2,10 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import RequestContext
 from .models import Makanan
 from .models import JenisDiet
+from .forms import FormMakanan
 from scipy.optimize import linprog
 import random
 import pandas as pd
@@ -22,6 +23,46 @@ def menupage(request):
   template = loader.get_template('menupage.html')
   return HttpResponse(template.render())
 
+def adminindex(request):
+  data = Makanan.objects.all()
+  return render(request, 'adminindex.html', {'data' : data})
+
+def createpage(request):
+  return render(request, 'createpage.html')
+
+def addmakanan(request):
+  if request.method == 'POST':
+    form = FormMakanan(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect('adminindex')
+  else:
+    form = FormMakanan()
+  return render(request, 'createpage.html', {'form': form})
+
+def updatepage(request, id):
+  data_makanan = get_object_or_404(Makanan, id=id)
+  return render(request, 'updatepage.html', {'data_makanan': data_makanan})
+
+def saveupdate(request, id):
+  makanan = Makanan.objects.get(id=id)  
+  form = FormMakanan(request.POST, instance = makanan)  
+  if form.is_valid():  
+    form.save()  
+    return redirect("adminindex")  
+  return render(request, 'updatepage.html', {'employee': makanan})
+
+def delete(request, id):
+  makanan = Makanan.objects.get(id=id)  
+  makanan.delete()  
+  return redirect("adminindex")
+
+def loginpage(request):
+  return render(request, 'loginpage.html')
+
+def registrasipage(request):
+  return render(request, 'registrasipage.html')
+
 def prosesdata(request):
   data_personal       = {}
   jenis_kelamin_2     =''
@@ -32,7 +73,7 @@ def prosesdata(request):
   data_makanan        = Makanan.objects.all()
 
   if request.method == 'POST':
-    # try:
+    try:
       nama          = request.POST.get('nama')
       jenis_kelamin = request.POST.get('jenis_kelamin')
       berat_badan   = request.POST.get('berat_badan')
@@ -976,6 +1017,6 @@ def prosesdata(request):
 
       return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'jenis_diet' : jenis_diet, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5})
     
-    # except Exception as e:
-    #   return render(request, 'errorhandling.html')
+    except Exception as e:
+      return render(request, 'errorhandling.html')
   return render(request, 'inputpage.html', {'data_makanan' : data_makanan})
