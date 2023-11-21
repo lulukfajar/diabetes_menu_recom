@@ -24,10 +24,15 @@ class JenisDiet(models.Model):
     kode_diet     = models.CharField(max_length=3)
     kode_penyakit = models.CharField(max_length=3)
     kode_imt      = models.CharField(max_length=3)
-    nama_penyakit = models.CharField(max_length=100)
-    kategori_imt  = models.CharField(max_length=6)
     kelompok_diet = models.CharField(max_length=3)
     nama_diet     = models.CharField(max_length=70)
     deskripsi_diet = models.CharField(max_length=1000)
     class Meta:
         db_table = "jenis_diet"
+
+class TingkatAktivitas(models.Model):   
+    id            = models.BigIntegerField(primary_key=True)
+    nama_kegiatan = models.CharField(max_length=15)
+    kategori      = models.CharField(max_length=100)
+    class Meta:
+        db_table = "tingkat_aktivitas"

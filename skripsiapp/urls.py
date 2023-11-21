@@ -17,6 +17,8 @@ urlpatterns = [
     path('admin-delete/<id>', views.delete, name='delete'),
     path('login-page/', views.loginpage, name='loginpage'),
     path('registrasi-page/', views.registrasipage, name='registrasipage'),
+    path('user-logout/', views.user_logout, name='user-logout'),
+    path('export-pdf/', views.export_pdf, name='export_pdf'),
 ]
 
 

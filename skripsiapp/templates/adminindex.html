@@ -52,7 +52,12 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
-      <a id="buatmenu" class="book-a-table-btn scrollto" href="#">Logout</a>
+      <a>
+      <form method="POST" action="{% url 'user-logout' %}">
+        {% csrf_token %}
+        <input type="submit" name="logout" value="Logout">
+      </form>
+      </a>
 
     </div>
   </header>

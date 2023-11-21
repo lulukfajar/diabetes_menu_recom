@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Diat App - Form</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style2.css' %}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  
+</head>
+
+<body>
+  <div class="container-fluid px-1 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <h1 style="font-family: 'Satisfy', sans-serif; font-size: 50px; margin: 0; line-height: 1; font-weight: 900; letter-spacing: 3px; color: #f1c905;">Buat Menu</h1>
+            <div class="card">
+                <h5 class="text-center mb-4"></h5>
+                <form id = "data_personal_form" class="form-card" method="post" action="{% url 'submit' %}">
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nama<span class="text-danger"> *</span></label> <input type="text" id="nama" name="nama" placeholder="Nama" onblur="validate(1)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Jenis Kelamin<span class="text-danger"> *</span></label>
+                            <select id="jenis_kelamin" name="jenis_kelamin">
+                                <option value="" selected>Pilih Jenis Kelamin</option>
+                                <option value="l">Laki-Laki</option>
+                                <option value="p">Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+                    {% csrf_token %}  
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Berat Badan (kg)<span class="text-danger"> *</span></label> <input type="text" id="berat_badan" name="berat_badan" placeholder="" onblur="validate(3)"> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tinggi Badan (cm)<span class="text-danger"> *</span></label> <input type="text" id="tinggi_badan" name="tinggi_badan" placeholder="" onblur="validate(4)"> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Usia (tahun)<span class="text-danger"> *</span></label> <input type="text" id="usia" name="usia" placeholder="" onblur="validate(4)"></div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tingkat Aktivitas<span class="text-danger"> *</span></label> 
+                            <select id="tingkat_aktivitas" name="tingkat_aktivitas" >
+                                <option value="" selected>Pilih Tingkat Aktivitas</option>
+                                <option value="1">Sangat Ringan</option>
+                                <option value="2">Ringan</option>
+                                <option value="3">Sedang</option>
+                                <option value="4">Berat</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Penyakit Yang Menyertai<span class="text-danger"> *</span></label> 
+                            <select id="penyakit_penyerta" name="penyakit_penyerta" >
+                                <option value="" selected>Pilih Penyakit Penyerta</option>
+                                <option value="0">Tidak ada</option>
+                                <option value="1">Kolesterol dalam darah yang tinggi</option>
+                                <option value="2">Komplikasi pembuluh darah</option>
+                                <option value="3">Diabetes Lebih dari 15 tahun</option>
+                                <option value="4">Stroke</option>
+                                <option value="5">Jantung Koroner</option>
+                                <option value="6">Infark jantung</option>
+                                <option value="7">Penyakit pembuluh arteri perifer oklusif</option>
+                                <option value="8">Gangren</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-6 flex-column d-flex"> <label class="form-control-label px-3">Makanan yang tidak disuka<span class="text-danger"></span></label> 
+                            <select id="makanan_tidak_suka" name="makanan_tidak_suka" placeholder="Ketik untuk mencari..." class="form-control"> 
+                                <option value="" selected>Tidak Ada</option>
+                                {% for makanan in data_makanan %}  
+                                <option value="{{ makanan.id }}">{{makanan.nama}}</option>
+                                {% endfor %}  
+                            </select>
+                        </div>
+                        <div class="form-group col-6 flex-column d-flex"> <label class="form-control-label px-3">Alergi<span class="text-danger"></span></label> 
+                            <select id="alergi" name="alergi" placeholder="Ketik untuk mencari..." class="form-control">
+                                <option value="" selected>Tidak Ada</option>
+                                {% for makanan in data_makanan %}  
+                                <option value="{{ makanan.id }}">{{makanan.nama}}</option>
+                                {% endfor %}  
+                            </select>
+                            </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3">Kategori Harga makanan<span class="text-danger"></span></label> 
+                            <select id="kategori_harga" name="kategori_harga">
+                                <option value="" selected>Pilih semua</option>
+                                <option value="1">kurang dari 36.000/kg</option>
+                                <option value="2">36.000/kg - 80.000/kg</option>
+                                <option value="3">lebih dari 80.000/kg</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="form-group col-sm-6"><button type="button" id = "submit_form" class="btn-block btn-primary">Buat Menu</button> </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda benar seorang penderita 
+                  diabetes dan belum menjalani terapi insulin?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bukan</button>
+                <button type="button" onclick="submitForm()" class="btn btn-primary">Benar</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+<!-- js untuk select2  -->
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#makanan_tidak_suka").select2();
+    });
+
+    $(document).ready(function() {
+        $("#alergi").select2();
+    });
+
+    document.getElementById("submit_form").addEventListener("click", function(event) {
+        if (validateForm()) {
+          var myModal = new bootstrap.Modal(document.getElementById("myModal"));
+          myModal.show();
+        }
+    });
+
+    function validateForm() {
+        var nama          = document.getElementById("nama");
+        var jenis_kelamin = document.getElementById("jenis_kelamin");
+        var berat_badan   = document.getElementById("berat_badan");
+        var tinggi_badan  = document.getElementById("tinggi_badan");
+        var usia          = document.getElementById("usia");
+        var tingkat_aktivitas = document.getElementById("tingkat_aktivitas");
+        var penyakit_penyerta = document.getElementById("penyakit_penyerta");
+
+        if (nama.value === "" || jenis_kelamin.value === "" || berat_badan.value === "" || tinggi_badan.value === "" || usia.value === "" || tingkat_aktivitas === "" || penyakit_penyerta === "") {
+            Swal.fire('Submit Gagal!', 'Form Belum Lengkap', 'error');
+            if (nama.value === ""){
+                nama.style.borderColor = "red";
+            }else if (jenis_kelamin.value === ""){
+                jenis_kelamin.style.borderColor = "red";
+            }else if (berat_badan.value === ""){
+                berat_badan.style.borderColor = "red";
+            }else if (tinggi_badan.value === ""){
+                tinggi_badan.style.borderColor = "red";
+            }else if (usia.value === ""){
+                usia.style.borderColor = "red";
+            }else if (tingkat_aktivitas.value === ""){
+                tingkat_aktivitas.style.borderColor = "red";
+            }else if (penyakit_penyerta.value === ""){
+                penyakit_penyerta.style.borderColor = "red";
+            }
+            return false;
+        } else if(!isNumber(berat_badan.value)){
+            Swal.fire('', 'Berat Badan harus berupa angka', 'error');
+            berat_badan.style.borderColor = "red";
+            return false;
+        } else if(!isNumber(tinggi_badan.value)){
+            Swal.fire('', 'Tinngi Badan harus berupa angka', 'error');
+            tinggi_badan.style.borderColor = "red";
+            return false;
+        } else if(!isNumber(usia.value)){
+            Swal.fire('', 'Usia harus berupa angka', 'error');
+            usia.style.borderColor = "red";
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function isNumber(value) {
+        return /^-?\d*\.?\d+$/.test(value);
+    }
+
+    function submitForm() {
+        document.getElementById('data_personal_form').submit();
+    }
+</script>
+</html>

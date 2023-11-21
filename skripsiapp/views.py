@@ -3,13 +3,18 @@ from django.conf.urls.static import static
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from .models import Makanan
 from .models import JenisDiet
+from .models import TingkatAktivitas
 from .forms import FormMakanan
 from scipy.optimize import linprog
 import random
 import pandas as pd
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 def landingpage(request):
   template = loader.get_template('landingpage.html')
@@ -17,18 +22,25 @@ def landingpage(request):
 
 def inputpage(request):
  data_makanan = Makanan.objects.all()
- return render(request, 'inputpage.html', {'data_makanan' : data_makanan})
+ tingkat_aktivitas = TingkatAktivitas.objects.all()
+ return render(request, 'inputpage.html', {'data_makanan' : data_makanan, 'tingkat_aktivitas': tingkat_aktivitas})
 
 def menupage(request):
-  template = loader.get_template('menupage.html')
+  template = loader.get_template('pdftemplate.html')
   return HttpResponse(template.render())
 
 def adminindex(request):
-  data = Makanan.objects.all()
-  return render(request, 'adminindex.html', {'data' : data})
+  if request.user.is_authenticated:
+    data = Makanan.objects.all()
+    return render(request, 'adminindex.html', {'data' : data})
+  else:
+    return render(request, 'loginpage.html')
 
 def createpage(request):
-  return render(request, 'createpage.html')
+  if request.user.is_authenticated:
+    return render(request, 'createpage.html')
+  else:
+    return render(request, 'loginpage.html')
 
 def addmakanan(request):
   if request.method == 'POST':
@@ -41,8 +53,12 @@ def addmakanan(request):
   return render(request, 'createpage.html', {'form': form})
 
 def updatepage(request, id):
-  data_makanan = get_object_or_404(Makanan, id=id)
-  return render(request, 'updatepage.html', {'data_makanan': data_makanan})
+  if request.user.is_authenticated:
+    data_makanan = get_object_or_404(Makanan, id=id)
+    return render(request, 'updatepage.html', {'data_makanan': data_makanan})
+  else:
+    return render(request, 'loginpage.html')
+
 
 def saveupdate(request, id):
   makanan = Makanan.objects.get(id=id)  
@@ -53,15 +69,49 @@ def saveupdate(request, id):
   return render(request, 'updatepage.html', {'employee': makanan})
 
 def delete(request, id):
-  makanan = Makanan.objects.get(id=id)  
-  makanan.delete()  
-  return redirect("adminindex")
+  if request.user.is_authenticated:
+    makanan = Makanan.objects.get(id=id)  
+    makanan.delete()  
+    return redirect("adminindex")
+  else:
+    return render(request, 'loginpage.html')
 
 def loginpage(request):
+  user = None
+  if request.method == "GET":
+    if request.user.is_authenticated:
+      return redirect('adminindex')
+    else:
+      return render(request, 'loginpage.html')
+  if request.method == "POST":
+    username_login = request.POST['username']
+    password_login = request.POST['password']
+    user = authenticate(request, username=username_login, password=password_login)
+    if user is not None:
+      login(request, user)
+      return redirect('adminindex')
+    else:
+      return redirect('loginpage')
+  return render(request, 'loginpage.html')
+
+@login_required
+def user_logout(request):
+  if request.method == "POST":
+    if "logout" in request.POST:
+      logout(request)
+      return redirect('loginpage')	
   return render(request, 'loginpage.html')
 
 def registrasipage(request):
   return render(request, 'registrasipage.html')
+
+def export_pdf(request):
+  if request.method == "POST":
+    if "logout" in request.POST:
+      logout(request)
+      return redirect('loginpage')	
+  return render(request, 'loginpage.html')
+
 
 def prosesdata(request):
   data_personal       = {}
@@ -73,7 +123,7 @@ def prosesdata(request):
   data_makanan        = Makanan.objects.all()
 
   if request.method == 'POST':
-    try:
+    # try:
       nama          = request.POST.get('nama')
       jenis_kelamin = request.POST.get('jenis_kelamin')
       berat_badan   = request.POST.get('berat_badan')
@@ -84,28 +134,34 @@ def prosesdata(request):
       makanan_tidak_suka = request.POST.get('makanan_tidak_suka')
       alergi             = request.POST.get('alergi')
       kategori_harga     = request.POST.get('kategori_harga')
+      
+      if alergi != "" :
+        alergi_makanan = Makanan.objects.filter(id=alergi).values_list('nama', flat=True)
+        alergi_makanan = alergi_makanan[0] 
+      else:
+        alergi_makanan = "-"
 
       if jenis_kelamin == 'p':
         jenis_kelamin_2 = 'perempuan'
       else:
         jenis_kelamin_2 = 'laki-laki'
 
-      if tingkat_aktivitas == '1' :
-        tingkat_aktivitas_2 = 'Sangat Ringan'
-        tingkat_aktivitas_p = 1.3
-        tingkat_aktivitas_l = 1.3
-      elif tingkat_aktivitas == '2':
-        tingkat_aktivitas_2 = 'Ringan'
-        tingkat_aktivitas_p = 1.55
-        tingkat_aktivitas_l = 1.65
-      elif tingkat_aktivitas == '3':
-        tingkat_aktivitas_2 = 'Sedang'
-        tingkat_aktivitas_p = 1.7
-        tingkat_aktivitas_l = 1.76
-      elif tingkat_aktivitas == '4':
+      if 'Berat' in tingkat_aktivitas :
         tingkat_aktivitas_2 = 'Berat'
         tingkat_aktivitas_p = 2
         tingkat_aktivitas_l = 2.1
+      elif 'Sedang' in tingkat_aktivitas :
+        tingkat_aktivitas_2 = 'Sedang'
+        tingkat_aktivitas_p = 1.7
+        tingkat_aktivitas_l = 1.76
+      elif 'Ringan 1' in tingkat_aktivitas :
+        tingkat_aktivitas_2 = 'Ringan'
+        tingkat_aktivitas_p = 1.55
+        tingkat_aktivitas_l = 1.65
+      elif 'Sangat Ringan' in tingkat_aktivitas :
+        tingkat_aktivitas_2 = 'Sangat Ringan'
+        tingkat_aktivitas_p = 1.3
+        tingkat_aktivitas_l = 1.3
       else:
         tingkat_aktivitas_2 = '-'
       
@@ -146,7 +202,7 @@ def prosesdata(request):
         'tingkat_aktivitas' : tingkat_aktivitas_2,
         'penyakit_penyerta' : penyakit_penyerta_2,
         'makanan_tidak_suka': makanan_tidak_suka,
-        'alergi'            : alergi,
+        'alergi'            : alergi_makanan,
         'kategori_harga'    : kategori_harga,
       }
 
@@ -1017,6 +1073,304 @@ def prosesdata(request):
 
       return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'jenis_diet' : jenis_diet, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5})
     
-    except Exception as e:
-      return render(request, 'errorhandling.html')
-  return render(request, 'inputpage.html', {'data_makanan' : data_makanan})
+    # except Exception as e:
+    #   return render(request, 'errorhandling.html')
+  tingkat_aktivitas = TingkatAktivitas.objects.all()
+  return render(request, 'inputpage.html', {'data_makanan' : data_makanan, 'tingkat_aktivitas' : tingkat_aktivitas})
+
+def export_pdf(request):
+
+  if request.method == "POST":
+    nama          = request.POST.get('nama')
+    jenis_kelamin = request.POST.get('jenis_kelamin')
+    berat_badan   = request.POST.get('berat_badan')
+    tinggi_badan  = request.POST.get('tinggi_badan')
+    usia          = request.POST.get('usia')
+    tingkat_aktivitas  = request.POST.get('tingkat_aktivitas')
+    penyakit_penyerta  = request.POST.get('penyakit_penyerta')
+    makanan_tidak_suka = request.POST.get('makanan_tidak_suka')
+    alergi             = request.POST.get('alergi')
+    kategori_harga     = request.POST.get('kategori_harga')
+
+    bmi          = request.POST.get('bmi')
+    bmi_2        = request.POST.get('bmi_2')
+    total_kalori = request.POST.get('total_kalori')
+    total_karbohidrat = request.POST.get('total_karbohidrat')
+    total_protein     = request.POST.get('total_protein')
+    total_lemak       = request.POST.get('total_lemak')
+
+    berat_buah_1          = request.POST.get('berat_buah_1')
+    berat_kacang_1        = request.POST.get('berat_kacang_1')
+    berat_skim_susu_1     = request.POST.get('berat_skim_susu_1')
+    berat_karbo_pagi_1    = request.POST.get('berat_karbo_pagi_1')
+    berat_karbo_siang_1   = request.POST.get('berat_karbo_siang_1')
+    berat_protein_pagi_1  = request.POST.get('berat_protein_pagi_1')
+    berat_protein_siang_1 = request.POST.get('berat_protein_siang_1')
+    berat_lemak_pagi_1    = request.POST.get('berat_lemak_pagi_1')
+    berat_lemak_siang_1   = request.POST.get('berat_lemak_siang_1')
+    kacang_1              = request.POST.get('kacang_1')
+    buah_1                = request.POST.get('buah_1')
+    skim_susu_1           = request.POST.get('skim_susu_1')
+    sayuran_a_1           = request.POST.get('sayuran_a_1')
+    sayuran_b_1           = request.POST.get('sayuran_b_1')
+    karbohidrat_1         = request.POST.get('karbohidrat_1')
+    protein_1             = request.POST.get('protein_1')
+    lemak_1               = request.POST.get('lemak_1')
+    total_karbohidrat_1   = request.POST.get('total_karbohidrat_1')
+    total_protein_1       = request.POST.get('total_protein_1')
+    total_lemak_1         = request.POST.get('total_lemak_1')
+    total_kalori_1        = request.POST.get('total_kalori_1')
+
+    berat_buah_2          = request.POST.get('berat_buah_2')
+    berat_kacang_2        = request.POST.get('berat_kacang_2')
+    berat_skim_susu_2     = request.POST.get('berat_skim_susu_2')
+    berat_karbo_pagi_2    = request.POST.get('berat_karbo_pagi_2')
+    berat_karbo_siang_2   = request.POST.get('berat_karbo_siang_2')
+    berat_protein_pagi_2  = request.POST.get('berat_protein_pagi_2')
+    berat_protein_siang_2 = request.POST.get('berat_protein_siang_2')
+    berat_lemak_pagi_2    = request.POST.get('berat_lemak_pagi_2')
+    berat_lemak_siang_2   = request.POST.get('berat_lemak_siang_2')
+    kacang_2              = request.POST.get('kacang_2')
+    buah_2                = request.POST.get('buah_2')
+    skim_susu_2           = request.POST.get('skim_susu_2')
+    sayuran_a_2           = request.POST.get('sayuran_a_2')
+    sayuran_b_2           = request.POST.get('sayuran_b_2')
+    karbohidrat_2         = request.POST.get('karbohidrat_2')
+    protein_2             = request.POST.get('protein_2')
+    lemak_2               = request.POST.get('lemak_2')
+    total_karbohidrat_2   = request.POST.get('total_karbohidrat_2')
+    total_protein_2       = request.POST.get('total_protein_2')
+    total_lemak_2         = request.POST.get('total_lemak_2')
+    total_kalori_2        = request.POST.get('total_kalori_2')
+
+    berat_buah_3          = request.POST.get('berat_buah_3')
+    berat_kacang_3        = request.POST.get('berat_kacang_3')
+    berat_skim_susu_3     = request.POST.get('berat_skim_susu_3')
+    berat_karbo_pagi_3    = request.POST.get('berat_karbo_pagi_3')
+    berat_karbo_siang_3   = request.POST.get('berat_karbo_siang_3')
+    berat_protein_pagi_3  = request.POST.get('berat_protein_pagi_3')
+    berat_protein_siang_3 = request.POST.get('berat_protein_siang_3')
+    berat_lemak_pagi_3    = request.POST.get('berat_lemak_pagi_3')
+    berat_lemak_siang_3   = request.POST.get('berat_lemak_siang_3')
+    kacang_3              = request.POST.get('kacang_3')
+    buah_3                = request.POST.get('buah_3')
+    skim_susu_3           = request.POST.get('skim_susu_3')
+    sayuran_a_3           = request.POST.get('sayuran_a_3')
+    sayuran_b_3           = request.POST.get('sayuran_b_3')
+    karbohidrat_3         = request.POST.get('karbohidrat_3')
+    protein_3             = request.POST.get('protein_3')
+    lemak_3               = request.POST.get('lemak_3')
+    total_karbohidrat_3   = request.POST.get('total_karbohidrat_3')
+    total_protein_3       = request.POST.get('total_protein_3')
+    total_lemak_3         = request.POST.get('total_lemak_3')
+    total_kalori_3        = request.POST.get('total_kalori_3')
+
+    berat_buah_4          = request.POST.get('berat_buah_4')
+    berat_kacang_4        = request.POST.get('berat_kacang_4')
+    berat_skim_susu_4     = request.POST.get('berat_skim_susu_4')
+    berat_karbo_pagi_4    = request.POST.get('berat_karbo_pagi_4')
+    berat_karbo_siang_4   = request.POST.get('berat_karbo_siang_4')
+    berat_protein_pagi_4  = request.POST.get('berat_protein_pagi_4')
+    berat_protein_siang_4 = request.POST.get('berat_protein_siang_4')
+    berat_lemak_pagi_4    = request.POST.get('berat_lemak_pagi_4')
+    berat_lemak_siang_4   = request.POST.get('berat_lemak_siang_4')
+    kacang_4              = request.POST.get('kacang_4')
+    buah_4                = request.POST.get('buah_4')
+    skim_susu_4           = request.POST.get('skim_susu_4')
+    sayuran_a_4           = request.POST.get('sayuran_a_4')
+    sayuran_b_4           = request.POST.get('sayuran_b_4')
+    karbohidrat_4         = request.POST.get('karbohidrat_4')
+    protein_4             = request.POST.get('protein_4')
+    lemak_4               = request.POST.get('lemak_4')
+    total_karbohidrat_4   = request.POST.get('total_karbohidrat_4')
+    total_protein_4       = request.POST.get('total_protein_4')
+    total_lemak_4         = request.POST.get('total_lemak_4')
+    total_kalori_4        = request.POST.get('total_kalori_4')
+
+    berat_buah_5          = request.POST.get('berat_buah_5')
+    berat_kacang_5        = request.POST.get('berat_kacang_5')
+    berat_skim_susu_5     = request.POST.get('berat_skim_susu_5')
+    berat_karbo_pagi_5    = request.POST.get('berat_karbo_pagi_5')
+    berat_karbo_siang_5   = request.POST.get('berat_karbo_siang_5')
+    berat_protein_pagi_5  = request.POST.get('berat_protein_pagi_5')
+    berat_protein_siang_5 = request.POST.get('berat_protein_siang_5')
+    berat_lemak_pagi_5    = request.POST.get('berat_lemak_pagi_5')
+    berat_lemak_siang_5   = request.POST.get('berat_lemak_siang_5')
+    kacang_5              = request.POST.get('kacang_5')
+    buah_5                = request.POST.get('buah_5')
+    skim_susu_5           = request.POST.get('skim_susu_5')
+    sayuran_a_5           = request.POST.get('sayuran_a_5')
+    sayuran_b_5           = request.POST.get('sayuran_b_5')
+    karbohidrat_5         = request.POST.get('karbohidrat_5')
+    protein_5             = request.POST.get('protein_5')
+    lemak_5               = request.POST.get('lemak_5')
+    total_karbohidrat_5   = request.POST.get('total_karbohidrat_5')
+    total_protein_5       = request.POST.get('total_protein_5')
+    total_lemak_5         = request.POST.get('total_lemak_5')
+    total_kalori_5        = request.POST.get('total_kalori_5')
+
+    nama_diet             = request.POST.get('nama_diet')
+    deskripsi_diet        = request.POST.get('deskripsi_diet')
+
+    data_personal = {
+        'nama'          : nama,
+        'jenis_kelamin' : jenis_kelamin,
+        'berat_badan'   : berat_badan,
+        'tinggi_badan'  : tinggi_badan,
+        'usia'          : usia,
+        'tingkat_aktivitas' : tingkat_aktivitas,
+        'penyakit_penyerta' : penyakit_penyerta,
+        'makanan_tidak_suka': makanan_tidak_suka,
+        'alergi'            : alergi,
+        'kategori_harga'    : kategori_harga,
+      }
+    
+    data_gizi_harian = {
+        'bmi' : bmi,
+        'bmi_2' : bmi_2,
+        'total_kalori'      : total_kalori,
+        'total_karbohidrat' : total_karbohidrat,
+        'total_protein'     : total_protein,
+        'total_lemak'       : total_lemak,
+      }
+    
+    menu_1 = {
+      'berat_buah'       : berat_buah_1,
+      'berat_kacang'     : berat_kacang_1,
+      'berat_skim_susu'  : berat_skim_susu_1,
+      'berat_karbo_pagi' : berat_karbo_pagi_1,
+      'berat_karbo_siang': berat_karbo_siang_1,
+      'berat_protein_pagi'  : berat_protein_pagi_1,
+      'berat_protein_siang' : berat_protein_siang_1,
+      'berat_lemak_pagi'    : berat_lemak_pagi_1,
+      'berat_lemak_siang'   : berat_lemak_siang_1,
+      'kacang'    : kacang_1,
+      'buah'      : buah_1,
+      'skim_susu' : skim_susu_1,
+      'sayuran_a' : sayuran_a_1,
+      'sayuran_b' : sayuran_b_1,
+      'karbohidrat': karbohidrat_1,
+      'protein'   : protein_1,
+      'lemak'     : lemak_1,
+      'total_karbo'     : total_karbohidrat_1,
+      'total_protein'   : total_protein_1,
+      'total_lemak'     : total_lemak_1,
+      'total_kalori'    : total_kalori_1,
+    }
+    menu_2 = {
+      'berat_buah'       : berat_buah_2,
+      'berat_kacang'     : berat_kacang_2,
+      'berat_skim_susu'  : berat_skim_susu_2,
+      'berat_karbo_pagi' : berat_karbo_pagi_2,
+      'berat_karbo_siang': berat_karbo_siang_2,
+      'berat_protein_pagi'  : berat_protein_pagi_2,
+      'berat_protein_siang' : berat_protein_siang_2,
+      'berat_lemak_pagi'    : berat_lemak_pagi_2,
+      'berat_lemak_siang'   : berat_lemak_siang_2,
+      'kacang'    : kacang_2,
+      'buah'      : buah_2,
+      'skim_susu' : skim_susu_2,
+      'sayuran_a' : sayuran_a_2,
+      'sayuran_b' : sayuran_b_2,
+      'karbohidrat': karbohidrat_2,
+      'protein'   : protein_2,
+      'lemak'     : lemak_2,
+      'total_karbo'     : total_karbohidrat_2,
+      'total_protein'   : total_protein_2,
+      'total_lemak'     : total_lemak_2,
+      'total_kalori'    : total_kalori_2,
+    }
+    menu_3 = {
+      'berat_buah'       : berat_buah_3,
+      'berat_kacang'     : berat_kacang_3,
+      'berat_skim_susu'  : berat_skim_susu_3,
+      'berat_karbo_pagi' : berat_karbo_pagi_3,
+      'berat_karbo_siang': berat_karbo_siang_3,
+      'berat_protein_pagi'  : berat_protein_pagi_3,
+      'berat_protein_siang' : berat_protein_siang_3,
+      'berat_lemak_pagi'    : berat_lemak_pagi_3,
+      'berat_lemak_siang'   : berat_lemak_siang_3,
+      'kacang'    : kacang_3,
+      'buah'      : buah_3,
+      'skim_susu' : skim_susu_3,
+      'sayuran_a' : sayuran_a_3,
+      'sayuran_b' : sayuran_b_3,
+      'karbohidrat': karbohidrat_3,
+      'protein'   : protein_3,
+      'lemak'     : lemak_3,
+      'total_karbo'     : total_karbohidrat_3,
+      'total_protein'   : total_protein_3,
+      'total_lemak'     : total_lemak_3,
+      'total_kalori'    : total_kalori_3,
+    }
+
+    menu_4 = {
+      'berat_buah'       : berat_buah_4,
+      'berat_kacang'     : berat_kacang_4,
+      'berat_skim_susu'  : berat_skim_susu_4,
+      'berat_karbo_pagi' : berat_karbo_pagi_4,
+      'berat_karbo_siang': berat_karbo_siang_4,
+      'berat_protein_pagi'  : berat_protein_pagi_4,
+      'berat_protein_siang' : berat_protein_siang_4,
+      'berat_lemak_pagi'    : berat_lemak_pagi_4,
+      'berat_lemak_siang'   : berat_lemak_siang_4,
+      'kacang'    : kacang_4,
+      'buah'      : buah_4,
+      'skim_susu' : skim_susu_4,
+      'sayuran_a' : sayuran_a_4,
+      'sayuran_b' : sayuran_b_4,
+      'karbohidrat': karbohidrat_4,
+      'protein'   : protein_4,
+      'lemak'     : lemak_4,
+      'total_karbo'     : total_karbohidrat_4,
+      'total_protein'   : total_protein_4,
+      'total_lemak'     : total_lemak_4,
+      'total_kalori'    : total_kalori_4,
+    }
+
+    menu_5 = {
+      'berat_buah'       : berat_buah_5,
+      'berat_kacang'     : berat_kacang_5,
+      'berat_skim_susu'  : berat_skim_susu_5,
+      'berat_karbo_pagi' : berat_karbo_pagi_5,
+      'berat_karbo_siang': berat_karbo_siang_5,
+      'berat_protein_pagi'  : berat_protein_pagi_5,
+      'berat_protein_siang' : berat_protein_siang_5,
+      'berat_lemak_pagi'    : berat_lemak_pagi_5,
+      'berat_lemak_siang'   : berat_lemak_siang_5,
+      'kacang'    : kacang_5,
+      'buah'      : buah_5,
+      'skim_susu' : skim_susu_5,
+      'sayuran_a' : sayuran_a_5,
+      'sayuran_b' : sayuran_b_5,
+      'karbohidrat': karbohidrat_5,
+      'protein'   : protein_5,
+      'lemak'     : lemak_5,
+      'total_karbo'     : total_karbohidrat_5,
+      'total_protein'   : total_protein_5,
+      'total_lemak'     : total_lemak_5,
+      'total_kalori'    : total_kalori_5,
+    }
+
+    jenis_diet = {
+        'nama_diet' : nama_diet,
+        'deskripsi_diet' : deskripsi_diet,
+      }
+    
+    template_path = 'pdftemplate.html'
+    template = get_template(template_path)
+    context = {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'jenis_diet' : jenis_diet, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5}
+    html = template.render(context)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="output.pdf"'
+
+    # Buat dokumen PDF dari HTML
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    
+    # Jika berhasil membuat PDF, kembalikan response
+    if pisa_status.err:
+        return HttpResponse('Gagal membuat PDF: %s' % pisa_status.err)
+    return response
+    
+  return render(request, 'inputpage.html')

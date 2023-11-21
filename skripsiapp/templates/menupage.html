@@ -48,6 +48,7 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
+      <a id="exporttopdf" class="book-a-table-btn scrollto" onclick="submitForm()">Export Pdf</a>
     </div>
   </header><!-- End Header -->
 
@@ -694,7 +695,142 @@
         <span class="menudot" onclick="currentSlide(5)"></span>
       </div>
     </section><!-- End Menu Section -->
+    <form id="export-pdf" action="{% url 'export_pdf' %}" method="POST" >
+      {% csrf_token %}
+      <input type="hidden" name="nama" value="{{ data_personal.nama}}">
+      <input type="hidden" name="jenis_kelamin" value="{{ data_personal.jenis_kelamin}}">
+      <input type="hidden" name="berat_badan" value="{{ data_personal.berat_badan}}">
+      <input type="hidden" name="tinggi_badan" value="{{ data_personal.tinggi_badan}}">
+      <input type="hidden" name="usia" value="{{ data_personal.usia}}">
+      <input type="hidden" name="tingkat_aktivitas" value="{{ data_personal.tingkat_aktivitas}}">
+      <input type="hidden" name="penyakit_penyerta" value="{{ data_personal.penyakit_penyerta}}">
+      <input type="hidden" name="makanan_tidak_suka" value="{{ data_personal.makanan_tidak_suka}}">
+      <input type="hidden" name="alergi" value="{{ data_personal.alergi}}">
+      <input type="hidden" name="kategori_harga" value="{{ data_personal.kategori_harga}}">
 
+      <input type="hidden" name="bmi" value="{{ data_gizi_harian.bmi}}">
+      <input type="hidden" name="bmi_2" value="{{ data_gizi_harian.bmi_2}}">
+      <input type="hidden" name="total_kalori" value="{{ data_gizi_harian.total_kalori}}">
+      <input type="hidden" name="total_karbohidrat" value="{{ data_gizi_harian.total_karbohidrat}}">
+      <input type="hidden" name="total_protein" value="{{ data_gizi_harian.total_protein}}">
+      <input type="hidden" name="total_lemak" value="{{ data_gizi_harian.total_lemak}}">
+
+
+      <input type="hidden" name="berat_buah_1" value="{{ menu_1.berat_buah}}">
+      <input type="hidden" name="berat_kacang_1" value="{{ menu_1.berat_kacang}}">
+      <input type="hidden" name="berat_skim_susu_1" value="{{ menu_1.berat_skim_susu}}">
+      <input type="hidden" name="berat_karbo_pagi_1" value="{{ menu_1.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_karbo_siang_1" value="{{ menu_1.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_pagi_1" value="{{ menu_1.berat_protein_pagi}}">
+      <input type="hidden" name="berat_protein_siang_1" value="{{ menu_1.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_pagi_1" value="{{ menu_1.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_lemak_siang_1" value="{{ menu_1.berat_lemak_siang}}">
+      <input type="hidden" name="kacang_1" value="{{ menu_1.kacang}}">
+      <input type="hidden" name="buah_1" value="{{ menu_1.buah}}">
+      <input type="hidden" name="skim_susu_1" value="{{ menu_1.skim_susu}}">
+      <input type="hidden" name="sayuran_a_1" value="{{ menu_1.sayuran_a}}">
+      <input type="hidden" name="sayuran_b_1" value="{{ menu_1.sayuran_b}}">
+      <input type="hidden" name="karbohidrat_1" value="{{ menu_1.karbohidrat}}">
+      <input type="hidden" name="protein_1" value="{{ menu_1.protein}}">
+      <input type="hidden" name="lemak_1" value="{{ menu_1.lemak}}">
+      <input type="hidden" name="total_karbohidrat_1" value="{{ menu_1.total_karbo}}">
+      <input type="hidden" name="total_protein_1" value="{{ menu_1.total_protein}}">
+      <input type="hidden" name="total_lemak_1" value="{{ menu_1.total_lemak}}">
+      <input type="hidden" name="total_kalori_1" value="{{ menu_1.total_kalori}}">
+
+      <input type="hidden" name="berat_buah_2" value="{{ menu_2.berat_buah}}">
+      <input type="hidden" name="berat_kacang_2" value="{{ menu_2.berat_kacang}}">
+      <input type="hidden" name="berat_skim_susu_2" value="{{ menu_2.berat_skim_susu}}">
+      <input type="hidden" name="berat_karbo_pagi_2" value="{{ menu_2.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_karbo_siang_2" value="{{ menu_2.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_pagi_2" value="{{ menu_2.berat_protein_pagi}}">
+      <input type="hidden" name="berat_protein_siang_2" value="{{ menu_2.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_pagi_2" value="{{ menu_2.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_lemak_siang_2" value="{{ menu_2.berat_lemak_siang}}">
+      <input type="hidden" name="kacang_2" value="{{ menu_2.kacang}}">
+      <input type="hidden" name="buah_2" value="{{ menu_2.buah}}">
+      <input type="hidden" name="skim_susu_2" value="{{ menu_2.skim_susu}}">
+      <input type="hidden" name="sayuran_a_2" value="{{ menu_2.sayuran_a}}">
+      <input type="hidden" name="sayuran_b_2" value="{{ menu_2.sayuran_b}}">
+      <input type="hidden" name="karbohidrat_2" value="{{ menu_2.karbohidrat}}">
+      <input type="hidden" name="protein_2" value="{{ menu_2.protein}}">
+      <input type="hidden" name="lemak_2" value="{{ menu_2.lemak}}">
+      <input type="hidden" name="total_karbohidrat_2" value="{{ menu_2.total_karbo}}">
+      <input type="hidden" name="total_protein_2" value="{{ menu_2.total_protein}}">
+      <input type="hidden" name="total_lemak_2" value="{{ menu_2.total_lemak}}">
+      <input type="hidden" name="total_kalori_2" value="{{ menu_2.total_kalori}}">
+
+      <input type="hidden" name="berat_buah_3" value="{{ menu_3.berat_buah}}">
+      <input type="hidden" name="berat_kacang_3" value="{{ menu_3.berat_kacang}}">
+      <input type="hidden" name="berat_skim_susu_3" value="{{ menu_3.berat_skim_susu}}">
+      <input type="hidden" name="berat_karbo_pagi_3" value="{{ menu_3.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_karbo_siang_3" value="{{ menu_3.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_pagi_3" value="{{ menu_3.berat_protein_pagi}}">
+      <input type="hidden" name="berat_protein_siang_3" value="{{ menu_3.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_pagi_3" value="{{ menu_3.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_lemak_siang_3" value="{{ menu_3.berat_lemak_siang}}">
+      <input type="hidden" name="kacang_3" value="{{ menu_3.kacang}}">
+      <input type="hidden" name="buah_3" value="{{ menu_3.buah}}">
+      <input type="hidden" name="skim_susu_3" value="{{ menu_3.skim_susu}}">
+      <input type="hidden" name="sayuran_a_3" value="{{ menu_3.sayuran_a}}">
+      <input type="hidden" name="sayuran_b_3" value="{{ menu_3.sayuran_b}}">
+      <input type="hidden" name="karbohidrat_3" value="{{ menu_3.karbohidrat}}">
+      <input type="hidden" name="protein_3" value="{{ menu_3.protein}}">
+      <input type="hidden" name="lemak_3" value="{{ menu_3.lemak}}">
+      <input type="hidden" name="total_karbohidrat_3" value="{{ menu_3.total_karbo}}">
+      <input type="hidden" name="total_protein_3" value="{{ menu_3.total_protein}}">
+      <input type="hidden" name="total_lemak_3" value="{{ menu_3.total_lemak}}">
+      <input type="hidden" name="total_kalori_3" value="{{ menu_3.total_kalori}}">
+
+      <input type="hidden" name="berat_buah_4" value="{{ menu_4.berat_buah}}">
+      <input type="hidden" name="berat_kacang_4" value="{{ menu_4.berat_kacang}}">
+      <input type="hidden" name="berat_skim_susu_4" value="{{ menu_4.berat_skim_susu}}">
+      <input type="hidden" name="berat_karbo_pagi_4" value="{{ menu_4.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_karbo_siang_4" value="{{ menu_4.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_pagi_4" value="{{ menu_4.berat_protein_pagi}}">
+      <input type="hidden" name="berat_protein_siang_4" value="{{ menu_4.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_pagi_4" value="{{ menu_4.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_lemak_siang_4" value="{{ menu_4.berat_lemak_siang}}">
+      <input type="hidden" name="kacang_4" value="{{ menu_4.kacang}}">
+      <input type="hidden" name="buah_4" value="{{ menu_4.buah}}">
+      <input type="hidden" name="skim_susu_4" value="{{ menu_4.skim_susu}}">
+      <input type="hidden" name="sayuran_a_4" value="{{ menu_4.sayuran_a}}">
+      <input type="hidden" name="sayuran_b_4" value="{{ menu_4.sayuran_b}}">
+      <input type="hidden" name="karbohidrat_4" value="{{ menu_4.karbohidrat}}">
+      <input type="hidden" name="protein_4" value="{{ menu_4.protein}}">
+      <input type="hidden" name="lemak_4" value="{{ menu_4.lemak}}">
+      <input type="hidden" name="total_karbohidrat_4" value="{{ menu_4.total_karbo}}">
+      <input type="hidden" name="total_protein_4" value="{{ menu_4.total_protein}}">
+      <input type="hidden" name="total_lemak_4" value="{{ menu_4.total_lemak}}">
+      <input type="hidden" name="total_kalori_4" value="{{ menu_4.total_kalori}}">
+
+      <input type="hidden" name="berat_buah_5" value="{{ menu_5.berat_buah}}">
+      <input type="hidden" name="berat_kacang_5" value="{{ menu_5.berat_kacang}}">
+      <input type="hidden" name="berat_skim_susu_5" value="{{ menu_5.berat_skim_susu}}">
+      <input type="hidden" name="berat_karbo_pagi_5" value="{{ menu_5.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_karbo_siang_5" value="{{ menu_5.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_pagi_5" value="{{ menu_5.berat_protein_pagi}}">
+      <input type="hidden" name="berat_protein_siang_5" value="{{ menu_5.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_pagi_5" value="{{ menu_5.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_lemak_siang_5" value="{{ menu_5.berat_lemak_siang}}">
+      <input type="hidden" name="kacang_5" value="{{ menu_5.kacang}}">
+      <input type="hidden" name="buah_5" value="{{ menu_5.buah}}">
+      <input type="hidden" name="skim_susu_5" value="{{ menu_5.skim_susu}}">
+      <input type="hidden" name="sayuran_a_5" value="{{ menu_5.sayuran_a}}">
+      <input type="hidden" name="sayuran_b_5" value="{{ menu_5.sayuran_b}}">
+      <input type="hidden" name="karbohidrat_5" value="{{ menu_5.karbohidrat}}">
+      <input type="hidden" name="protein_5" value="{{ menu_5.protein}}">
+      <input type="hidden" name="lemak_5" value="{{ menu_5.lemak}}">
+      <input type="hidden" name="total_karbohidrat_5" value="{{ menu_5.total_karbo}}">
+      <input type="hidden" name="total_protein_5" value="{{ menu_5.total_protein}}">
+      <input type="hidden" name="total_lemak_5" value="{{ menu_5.total_lemak}}">
+      <input type="hidden" name="total_kalori_5" value="{{ menu_5.total_kalori}}">
+
+      <input type="hidden" name="nama_diet" value="{{jenis_diet.nama_diet}}">
+      <input type="hidden" name="deskripsi_diet" value="{{jenis_diet.deskripsi_diet}}">
+
+    </form>
+  
   </main><!-- End #main -->
   <!-- https://www.bootdey.com/snippets/view/about-me -->
 
@@ -744,6 +880,11 @@
       }
       menuslides[slideIndex-1].style.display = "block";
       menudots[slideIndex-1].className += " activedot";
+    }
+
+    function submitForm() {
+      var form = document.getElementById("export-pdf");
+      form.submit();
     }
   </script>
 
