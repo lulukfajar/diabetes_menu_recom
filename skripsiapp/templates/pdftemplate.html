@@ -34,7 +34,7 @@
         <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;">
             <tbody>
               <tr>
-                <td style="text-align:center;vertical-align:bottom" colspan="10"><h1>Kebutuhan Giziku</h1></td>
+                <td style="text-align:center;vertical-align:bottom" colspan="10"><h1>Kebutuhan Gizi Pasien ({{ data_personal.nama }})</h1></td>
               </tr>
               <tr>
                 <td style="text-align:center;vertical-align:bottom" colspan="10">Bagian ini memuat kebutuhan gizi yang harus tercukupi setiap harinya</td>
@@ -46,9 +46,9 @@
               <tr>
                 <td class="tg-8d8j" colspan="3" rowspan="6">
                     {% if data_personal.jenis_kelamin == "perempuan" %}
-                    <img src="{% static 'assets/img/avatar8.png' %}" title="" alt="">
+                    <img style="height: 250px; width: auto;" src="{% static 'assets/img/avatar8.png' %}" title="" alt="">
                 {% else %}
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
+                    <img style="height: 250px; width: auto;" src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
                 {% endif %}
                 </td>
                 <td style="text-align:left;vertical-align:top; height: auto;">Berat Badan</td>
@@ -109,7 +109,7 @@
     </div>
     <br><br>
       <div style="margin-top: 90px; margin-bottom: 20px; align-items: center;">
-          <h2 style="text-align:center;">Diet Pasien<span> {{data_personal.nama}}</span></h2>
+          <h2 style="text-align:center;">Diet Pasien<span> ({{data_personal.nama}})</span></h2>
           <h3 style="text-align:center;"><span>{{jenis_diet.nama_diet}}</span></h3>
           <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{jenis_diet.deskripsi_diet}}</p>
       </div>

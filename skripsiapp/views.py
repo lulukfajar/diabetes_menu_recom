@@ -26,7 +26,7 @@ def inputpage(request):
  return render(request, 'inputpage.html', {'data_makanan' : data_makanan, 'tingkat_aktivitas': tingkat_aktivitas})
 
 def menupage(request):
-  template = loader.get_template('pdftemplate.html')
+  template = loader.get_template('inputpage2.html')
   return HttpResponse(template.render())
 
 def adminindex(request):
@@ -129,15 +129,19 @@ def prosesdata(request):
       berat_badan   = request.POST.get('berat_badan')
       tinggi_badan  = request.POST.get('tinggi_badan')
       usia          = request.POST.get('usia')
-      tingkat_aktivitas  = request.POST.get('tingkat_aktivitas')
+      tingkat_aktivitas  = request.POST.getlist('tingkat_aktivitas')
       penyakit_penyerta  = request.POST.get('penyakit_penyerta')
-      makanan_tidak_suka = request.POST.get('makanan_tidak_suka')
-      alergi             = request.POST.get('alergi')
+      makanan_tidak_suka = request.POST.getlist('makanan_tidak_suka')
+      alergi             = request.POST.getlist('alergi')
       kategori_harga     = request.POST.get('kategori_harga')
+      tidak_ada          = "tidak_ada"
       
-      if alergi != "" :
-        alergi_makanan = Makanan.objects.filter(id=alergi).values_list('nama', flat=True)
-        alergi_makanan = alergi_makanan[0] 
+      if tidak_ada not in alergi:
+        alergi_makanan_query = Makanan.objects.filter(id__in=alergi).values_list('nama', flat=True)
+        if alergi_makanan_query:
+            alergi_makanan = ', '.join(alergi_makanan_query)
+        else:
+            alergi_makanan = "-"
       else:
         alergi_makanan = "-"
 
@@ -273,11 +277,11 @@ def prosesdata(request):
 
       data_import = Makanan.objects.all()
       
-      if alergi != "":
-        data_import = data_import.exclude(id=alergi)
+      if tidak_ada not in alergi:
+        data_import = data_import.exclude(id__in=alergi)
 
-      if makanan_tidak_suka != "":
-        data_import = data_import.exclude(id=makanan_tidak_suka)
+      if tidak_ada not in makanan_tidak_suka:
+        data_import = data_import.exclude(id__in=makanan_tidak_suka)
 
       #mulai penerapan basis pengetahuan
 

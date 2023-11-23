@@ -58,7 +58,7 @@
             </select>
           </div>
           <div class="input-box">
-            <span class="details">Berat Badan</span>
+            <span class="details">Berat Badan (kg)</span>
             <input type="text" id="berat_badan" name="berat_badan" placeholder="" required>
             <p id="errorberatbadan" style="color: red;"></p>
           </div>
@@ -78,29 +78,29 @@
             </select>
           </div>
           <div class="input-box">
-            <span class="details">Tinggi Badan</span>
+            <span class="details">Tinggi Badan (cm)</span>
             <input type="text" id="tinggi_badan" name="tinggi_badan" placeholder="" required>
             <p id="errortinggibadan" style="color: red;"></p>
           </div>
 
           <div class="input-box">
             <span class="details">Alergi</span>
-            <select id="alergi" name="alergi" placeholder="Ketik untuk mencari..." data-live-search="true">
-                <option value="" selected>Tidak Ada</option>
+            <select id="alergi" name="alergi" placeholder="Ketik untuk mencari..." multiple data-live-search="true" required>
+                <option value="tidak_ada" selected>Tidak Ada</option>
                 {% for makanan in data_makanan %}  
                 <option value="{{ makanan.id }}">{{makanan.nama}}</option>
                 {% endfor %}  
             </select>
           </div>
           <div class="input-box">
-            <span class="details">Usia</span>
+            <span class="details">Usia (tahun)</span>
             <input type="text" id="usia" name="usia" placeholder="" required >
             <p id="errorusia" style="color: red;"></p>
           </div>
           <div class="input-box">
             <span class="details">Makanan Yang Tidak Disuka</span>
-            <select id="makanan_tidak_suka" name="makanan_tidak_suka" placeholder="Ketik untuk mencari..." data-live-search="true"> 
-                <option value="" selected>Tidak Ada</option>
+            <select id="makanan_tidak_suka" name="makanan_tidak_suka" placeholder="Ketik untuk mencari..." multiple data-live-search="true" required> 
+                <option value="tidak_ada" selected>Tidak Ada</option>
                 {% for makanan in data_makanan %}  
                 <option value="{{ makanan.id }}">{{makanan.nama}}</option>
                 {% endfor %}  
