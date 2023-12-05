@@ -50,7 +50,7 @@
             <input name="nama" id="nama">
           </div>
           <div class="input-box">
-            <span class="details">Tingkat Aktivitas</span>
+            <span class="details">Aktivitas</span>
             <select id="tingkat_aktivitas" name="tingkat_aktivitas" multiple data-live-search="true" required>
                 {% for aktivitas in tingkat_aktivitas %}  
                 <option value="{{ aktivitas.kategori }}">{{ aktivitas.nama_kegiatan}}</option>

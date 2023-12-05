@@ -310,6 +310,7 @@ def prosesdata(request):
       data_skim_susu = data_makanan[data_makanan['kategori'] == 'Skim Susu']
 
       data_karbohidrat  = data_makanan[data_makanan['kategori'] == 'Karbohidrat']
+      data_nasi         = data_karbohidrat[data_karbohidrat['nama'].str.contains('nasi|beras', case=False)]
       data_lemak        = data_makanan[(data_makanan['kategori'] == 'Lemak') | (data_makanan['kategori'] == 'Lemak Hewani')]
       data_sayuran_a    = data_makanan[data_makanan['kategori'] == 'Sayuran A']
       data_sayuran_b    = data_makanan[data_makanan['kategori'] == 'Sayuran B']
@@ -317,104 +318,21 @@ def prosesdata(request):
       
       if kategori_harga != "":
         if kategori_harga == "1":
-          data_buah_1 = data_buah[data_buah['harga'] < 3600]
-          if len(data_buah_1) < 7:
-            data_buah_1 = data_buah[data_buah['harga'] < 8000]
-          data_kacang_1 = data_kacang[data_kacang['harga'] < 3600]
-          if len(data_kacang_1) < 6:
-            data_kacang_1 = data_kacang[data_kacang['harga'] < 8000]
-          data_karbohidrat_1 = data_karbohidrat[data_karbohidrat['harga'] < 3600]
-          if len(data_karbohidrat_1) < 7:
-            data_karbohidrat_1 = data_karbohidrat[data_karbohidrat['harga'] < 8000]  
-          data_lemak_1 = data_lemak[data_lemak['harga'] < 3600]
-          if len(data_lemak_1) < 7:
-            data_lemak_1 = data_lemak[data_lemak['harga'] < 8000]  
-            if len(data_lemak_1) < 7:
-              data_lemak_1 = data_lemak                              
-          data_sayuran_a_1 = data_sayuran_a[data_sayuran_a['harga'] < 3600]
-          if len(data_sayuran_a_1) < 7:
-            data_sayuran_a_1 = data_sayuran_a[data_sayuran_a['harga'] < 8000]
-          data_sayuran_b_1 = data_sayuran_b[data_sayuran_b['harga'] < 3600]
-          if len(data_sayuran_b_1) < 7:
-            data_sayuran_b_1 = data_sayuran_b[data_sayuran_b['harga'] < 8000]
           data_protein_1 = data_protein[data_protein['harga'] < 3600]
           if len(data_protein_1) < 7:
             data_protein_1 = data_protein[data_protein['harga'] < 8000]
         elif kategori_harga == "2":
-          data_buah_1 = data_buah[(data_buah['harga'] >= 3600) & (data_buah['harga'] <= 8000)]
-          if len(data_buah_1) < 7:
-            data_buah_1 = data_buah[data_buah['harga'] <= 8000]
-          data_kacang_1 = data_kacang[(data_kacang['harga'] >= 3600) & (data_kacang['harga'] <= 8000)]
-          if len(data_kacang_1) < 6:
-            data_kacang_1 = data_kacang[data_kacang['harga'] <= 8000]
-          data_karbohidrat_1 = data_karbohidrat[(data_karbohidrat['harga'] >= 3600) & (data_karbohidrat['harga'] <= 8000)]
-          if len(data_karbohidrat_1) < 7:
-            data_karbohidrat_1 = data_karbohidrat[data_karbohidrat['harga'] < 8000]  
-          data_lemak_1 = data_lemak[(data_lemak['harga'] >= 3600) & (data_lemak['harga'] <= 8000)]
-          if len(data_lemak_1) < 7:
-            data_lemak_1 = data_lemak[data_lemak['harga'] <= 8000]
-            if len(data_lemak_1) < 7:
-              data_lemak_1 = data_lemak                   
-          data_sayuran_a_1 = data_sayuran_a[(data_sayuran_a['harga'] >= 3600) & (data_sayuran_a['harga'] <= 8000)]
-          if len(data_sayuran_a_1) < 7:
-            data_sayuran_a_1 = data_sayuran_a[data_sayuran_a['harga'] <= 8000]
-          data_sayuran_b_1 = data_sayuran_b[(data_sayuran_b['harga'] >= 3600) & (data_sayuran_b['harga'] <= 8000)]
-          if len(data_sayuran_b_1) < 7:
-            data_sayuran_b_1 = data_sayuran_b[data_sayuran_b['harga'] < 8000]
           data_protein_1 = data_protein[(data_protein['harga'] >= 3600) & (data_protein['harga'] <= 8000)]
           if len(data_protein_1) < 7:
             data_protein_1 = data_protein[data_protein['harga'] <= 8000]
         else:
-          data_buah_1 = data_buah[data_buah['harga'] > 8000]
-          if len(data_buah_1) < 7:
-            data_buah_1 = data_buah[data_buah['harga'] > 3600]
-            if len(data_buah_1) < 7:
-              data_buah_1 = data_buah[data_buah['harga'] > 0]
-          data_kacang_1 = data_kacang[data_kacang['harga'] > 8000]
-          if len(data_kacang_1) < 7:
-            data_kacang_1 = data_kacang[data_kacang['harga'] > 3600]
-            if len(data_kacang_1) < 7:
-              data_kacang_1 = data_kacang[data_kacang['harga'] > 0]
-          data_karbohidrat_1 = data_karbohidrat[data_karbohidrat['harga'] > 8000]
-          if len(data_karbohidrat_1) < 7:
-            data_karbohidrat_1 = data_karbohidrat[data_karbohidrat['harga'] > 3600]  
-            if len(data_karbohidrat_1) < 7:
-              data_karbohidrat_1 = data_karbohidrat[data_karbohidrat['harga'] > 0]  
-          data_lemak_1 = data_lemak[data_lemak['harga'] > 8000]
-          if len(data_lemak_1) < 7:
-            data_lemak_1 = data_lemak[data_lemak['harga'] > 3600]    
-            if len(data_lemak_1) < 7:
-              data_lemak_1 = data_lemak[data_lemak['harga'] > 0]
-          data_sayuran_a_1 = data_sayuran_a[data_sayuran_a['harga'] > 8000]
-          if len(data_sayuran_a_1) < 7:
-            data_sayuran_a_1 = data_sayuran_a[data_sayuran_a['harga'] > 3600]
-            if len(data_sayuran_a_1) < 7:
-              data_sayuran_a_1 = data_sayuran_a[data_sayuran_a['harga'] > 0]
-          data_sayuran_b_1 = data_sayuran_b[data_sayuran_b['harga'] > 8000]
-          if len(data_sayuran_b_1) < 7:
-            data_sayuran_b_1 = data_sayuran_b[data_sayuran_b['harga'] > 3600]
-            if len(data_sayuran_b_1) < 7:
-              data_sayuran_b_1 = data_sayuran_b[data_sayuran_b['harga'] > 0]
           data_protein_1 = data_protein[data_protein['harga'] > 8000]
           if len(data_protein_1) < 7:
             data_protein_1 = data_protein[data_protein['harga'] > 3600]
             if len(data_protein_1) < 7:
               data_protein_1 = data_protein[data_protein['harga'] > 0]
-        data_karbohidrat = data_karbohidrat_1
-        data_buah        = data_buah_1
         data_protein     = data_protein_1
-        data_lemak       = data_lemak_1
-        data_kacang      = data_kacang_1
-        data_sayuran_a   = data_sayuran_a_1
-        data_sayuran_b   = data_sayuran_b_1
-        data_karbohidrat_1 = ""
-        data_buah_1        = ""
         data_protein_1     = ""
-        data_lemak_1       = ""
-        data_kacang_1      = ""
-        data_sayuran_a_1   = ""
-        data_sayuran_b_1   = ""
-        # data_kacang_1      = ""
 
       #Data protein untuk diet KV dan G
       if kode_diet == 'G' or kode_diet == 'KV':
