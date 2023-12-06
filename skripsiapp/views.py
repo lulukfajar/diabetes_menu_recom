@@ -269,10 +269,10 @@ def prosesdata(request):
       data_gizi_harian = {
         'bmi' : round(bmi, 3),
         'bmi_2' : bmi_2,
-        'total_kalori'      : kalori_harian_final,
-        'total_karbohidrat' : total_karbo_actual,
-        'total_protein'     : total_protein_actual,
-        'total_lemak'       : total_lemak_actual
+        'total_kalori'      : int(kalori_harian_final),
+        'total_karbohidrat' : int(total_karbo_actual),
+        'total_protein'     : int(total_protein_actual),
+        'total_lemak'       : int(total_lemak_actual)
       }
 
       data_import = Makanan.objects.all()
@@ -310,7 +310,7 @@ def prosesdata(request):
       data_skim_susu = data_makanan[data_makanan['kategori'] == 'Skim Susu']
 
       data_karbohidrat  = data_makanan[data_makanan['kategori'] == 'Karbohidrat']
-      data_nasi         = data_karbohidrat[data_karbohidrat['nama'].str.contains('nasi|beras', case=False)]
+      data_nasi         = data_karbohidrat[data_karbohidrat['nama'].str.contains('nasi', case=False)]
       data_lemak        = data_makanan[(data_makanan['kategori'] == 'Lemak') | (data_makanan['kategori'] == 'Lemak Hewani')]
       data_sayuran_a    = data_makanan[data_makanan['kategori'] == 'Sayuran A']
       data_sayuran_b    = data_makanan[data_makanan['kategori'] == 'Sayuran B']
@@ -349,651 +349,308 @@ def prosesdata(request):
       kacang_exclude    = []
       buah_exclude      = []
 
-      #Menu 1
-      total_kalori_1 = 0
+      menus             =[]
 
-      while total_kalori_1 < kalori_harian_final * 0.9:
-        karbohidrat_index    = random.randint(0, data_karbohidrat.shape[0] - 1)
-        protein_index        = random.randint(0, data_protein.shape[0] - 1)
-        lemak_index          = random.randint(0, data_lemak.shape[0] - 1)
-        sayuran_a_index      = random.randint(0, data_sayuran_a.shape[0] - 1)
-        sayuran_b_index      = random.randint(0, data_sayuran_b.shape[0] - 1)
-        kacang_index         = random.randint(0, data_kacang.shape[0] - 1)
-        buah_index           = random.randint(0, data_buah.shape[0] - 1)
-        skim_susu_index      = random.randint(0, data_skim_susu.shape[0] - 1)
+      for i in range(1, 6):
+        total_kalori_i = 0
+        while total_kalori_i < kalori_harian_final * 0.95:
 
-        # Ambil baris secara acak dari DataFrame
-        karbohidrat_1  = data_karbohidrat.iloc[karbohidrat_index]
-        protein_1      = data_protein.iloc[protein_index]
-        lemak_1        = data_lemak.iloc[lemak_index]
-        sayuran_a_1    = data_sayuran_a.iloc[sayuran_a_index]
-        sayuran_b_1    = data_sayuran_b.iloc[sayuran_b_index]
-        buah_1         = data_buah.iloc[buah_index]
-        kacang_1       = data_kacang.iloc[kacang_index]
-        skim_susu_1    = data_skim_susu.iloc[skim_susu_index]
+          filtered_data_protein   = data_protein[~data_protein['id'].isin(protein_exclude)]
+          filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_exclude)]
+          filtered_data_sayuran_b = data_sayuran_b[~data_sayuran_b['id'].isin(sayuran_b_exclude)]
+          filtered_data_buah      = data_buah[~data_buah['id'].isin(buah_exclude)]
 
-        #camilan menu 1
-        #koefisien matriks
-        A = [[kacang_1['karbohidrat']/100, buah_1['karbohidrat']/100, skim_susu_1['karbohidrat']/100],
-            [kacang_1['protein']/100, buah_1['protein']/100, skim_susu_1['protein']/100],
-            [kacang_1['lemak']/100, buah_1['lemak']/100, skim_susu_1['lemak']/100]]
-        b = [karbo_camilan, protein_camilan, lemak_camilan]
-        c = [-1, -1, -1]
+          protein_i_exclude   = []
+          sayuran_a_i_exclude = []
+          sayuran_b_i_exclude = []
+          buah_i_exclude      = []
 
-        # Menentukan batasan-batasan variabel
-        x2_bounds = (1, None)
-        y2_bounds = (1, 125)
-        z2_bounds = (0, 50)
+          #Menu 1 Pagi
+          karbohidrat_index    = random.randint(0, data_karbohidrat.shape[0] - 1)
+          protein_index        = random.randint(0, filtered_data_protein.shape[0] - 1)
+          lemak_index          = random.randint(0, data_lemak.shape[0] - 1)
+          sayuran_a_index      = random.randint(0, filtered_data_sayuran_a.shape[0] - 1)
+          sayuran_b_index      = random.randint(0, filtered_data_sayuran_b.shape[0] - 1)
+          kacang_index         = random.randint(0, data_kacang.shape[0] - 1)
+          buah_index           = random.randint(0, filtered_data_buah.shape[0] - 1)
+          skim_susu_index      = random.randint(0, data_skim_susu.shape[0] - 1)
 
-        # Menyelesaikan permasalahan dengan metode simplex
-        result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-        berat_kacang_1    = round(result.x[0],3)
-        berat_buah_1      = round(result.x[1],3)
-        berat_skim_susu_1 = round(result.x[2],3)
+          # Ambil baris secara acak dari DataFrame
+          karbohidrat_pagi_i  = data_karbohidrat.iloc[karbohidrat_index]
+          protein_pagi_i      = filtered_data_protein.iloc[protein_index]
+          lemak_pagi_i        = data_lemak.iloc[lemak_index]
+          sayuran_a_pagi_i    = filtered_data_sayuran_a.iloc[sayuran_a_index]
+          sayuran_b_pagi_i    = filtered_data_sayuran_b.iloc[sayuran_b_index]
+          buah_pagi_i         = filtered_data_buah.iloc[buah_index]
+          kacang_pagi_i       = data_kacang.iloc[kacang_index]
+          skim_susu_pagi_i         = data_skim_susu.iloc[skim_susu_index]
 
-        #makan pagi menu 1
-        A = [[karbohidrat_1['karbohidrat']/100, protein_1['karbohidrat']/100, lemak_1['karbohidrat']/100],
-            [karbohidrat_1['protein']/100, protein_1['protein']/100, lemak_1['protein']/100],
-            [karbohidrat_1['lemak']/100, protein_1['lemak']/100, lemak_1['lemak']/100]]
-        b1 = [karbo_pagi - sayuran_a_1['karbohidrat'] - sayuran_b_1['karbohidrat']/4, protein_pagi - sayuran_a_1['protein'] - sayuran_b_1['protein']/4, lemak_pagi - sayuran_a_1['lemak'] - sayuran_b_1['lemak']/4]
-        b2 = [karbo_siang - sayuran_a_1['karbohidrat'] - sayuran_b_1['karbohidrat']/2, protein_siang - sayuran_a_1['protein'] - sayuran_b_1['protein']/2, lemak_siang - sayuran_a_1['lemak'] - sayuran_b_1['lemak']/2]
-        c = [-1, -1, -1]
+          #Menu 1 Camilan Pagi
+          A = [[kacang_pagi_i['karbohidrat']/100, buah_pagi_i['karbohidrat']/100, skim_susu_pagi_i['karbohidrat']/100],
+              [kacang_pagi_i['protein']/100, buah_pagi_i['protein']/100, skim_susu_pagi_i['protein']/100],
+              [kacang_pagi_i['lemak']/100, buah_pagi_i['lemak']/100, skim_susu_pagi_i['lemak']/100]]
+          b = [karbo_camilan, protein_camilan, lemak_camilan]
+          c = [-1, -1, -1]
 
-        # Menentukan batasan-batasan variabel
-        x3_bounds = (1, karbo_siang*2)
-        if kalori_harian_final < 1500:
-          y3_bounds = (15, None)
-        else:
-          y3_bounds = (20, None)
-        z3_bounds = (0, None)
+          # Menentukan batasan-batasan variabel
+          x2_bounds = (1, None)
+          y2_bounds = (1, 125)
+          z2_bounds = (0, 50)
 
-        # Menyelesaikan permasalahan dengan metode simplex
-        max_iterasi = 100 
+          # Menyelesaikan permasalahan dengan metode simplex
+          result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
+          berat_kacang_pagi_i    = round(result.x[0],3)
+          berat_buah_pagi_i      = round(result.x[1],3)
+          berat_skim_susu_pagi_i = round(result.x[2],3)
 
-        for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
-            if result is not None:
-                break
+          #Menu 1 Sarapan 
+          A = [[karbohidrat_pagi_i['karbohidrat']/100, protein_pagi_i['karbohidrat']/100, lemak_pagi_i['karbohidrat']/100],
+              [karbohidrat_pagi_i['protein']/100, protein_pagi_i['protein']/100, lemak_pagi_i['protein']/100],
+              [karbohidrat_pagi_i['lemak']/100, protein_pagi_i['lemak']/100, lemak_pagi_i['lemak']/100]]
+          b1 = [karbo_pagi - sayuran_a_pagi_i['karbohidrat'] - sayuran_b_pagi_i['karbohidrat']/4, protein_pagi - sayuran_a_pagi_i['protein'] - sayuran_b_pagi_i['protein']/4, lemak_pagi - sayuran_a_pagi_i['lemak'] - sayuran_b_pagi_i['lemak']/4]
+          c = [-1, -1, -1]
+          # Menentukan batasan-batasan variabel
+          x3_bounds = (1, karbo_siang*2)
+          if kalori_harian_final < 1500:
+            y3_bounds = (15, None)
+          else:
+            y3_bounds = (20, None)
+          z3_bounds = (0, None)
+          # Menyelesaikan permasalahan dengan metode simplex
+          max_iterasi = 100 
+          for _ in range(max_iterasi):
+              result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
+              if result is not None:
+                  break
 
-        berat_karbo_pagi_1   = round(result.x[0],3)
-        berat_protein_pagi_1 = round(result.x[1],3)
-        berat_lemak_pagi_1   = round(result.x[2],3)
+          berat_karbo_pagi_i   = round(result.x[0],3)
+          berat_protein_pagi_i = round(result.x[1],3)
+          berat_lemak_pagi_i   = round(result.x[2],3)
 
-        #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
-        berat_karbo_siang_1   = round(result2.x[0],3)
-        berat_protein_siang_1 = round(result2.x[1],3)
-        berat_lemak_siang_1   = round(result2.x[2],3)
+          protein_i_exclude.append(protein_pagi_i['id'])
+          sayuran_a_i_exclude.append(sayuran_a_pagi_i['id'])
+          sayuran_b_i_exclude.append(sayuran_b_pagi_i['id'])
+          buah_i_exclude.append(buah_pagi_i['id'])
 
-        total_karbohidrat_1 = round((karbohidrat_1['karbohidrat'] / 100) * (2 * berat_karbo_siang_1 + berat_karbo_pagi_1) + (protein_1['karbohidrat'] / 100) * (2 * berat_protein_siang_1 + berat_protein_pagi_1) + (lemak_1['karbohidrat'] / 100) * (2 * berat_lemak_siang_1 + berat_lemak_pagi_1) 
-        + (3 * sayuran_a_1['karbohidrat']) + (1.25 * sayuran_b_1['karbohidrat'])
-        + (buah_1['karbohidrat'] / 100) * (3 * berat_buah_1) + (kacang_1['karbohidrat'] / 100) * (3 * berat_kacang_1) + (skim_susu_1['karbohidrat'] / 100) * (3 * berat_skim_susu_1), 3)
+          filtered_data_protein   = data_protein[~data_protein['id'].isin(protein_i_exclude)]
+          filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_i_exclude)]
+          filtered_data_sayuran_b = data_sayuran_b[~data_sayuran_b['id'].isin(sayuran_b_i_exclude)]
+          filtered_data_buah      = data_buah[~data_buah['id'].isin(buah_i_exclude)]
+          
+          #Menu 1 makan siang
+          karbohidrat_index    = random.randint(0, data_nasi.shape[0] - 1)
+          protein_index        = random.randint(0, filtered_data_protein.shape[0] - 1)
+          lemak_index          = random.randint(0, data_lemak.shape[0] - 1)
+          sayuran_a_index      = random.randint(0, filtered_data_sayuran_a.shape[0] - 1)
+          sayuran_b_index      = random.randint(0, filtered_data_sayuran_b.shape[0] - 1)
+          kacang_index         = random.randint(0, data_kacang.shape[0] - 1)
+          buah_index           = random.randint(0, filtered_data_buah.shape[0] - 1)
+          skim_susu_index      = random.randint(0, data_skim_susu.shape[0] - 1)
 
-        total_protein_1 = round((karbohidrat_1['protein'] / 100) * (2 * berat_karbo_siang_1 + berat_karbo_pagi_1) + (protein_1['protein'] / 100) * (2 * berat_protein_siang_1 + berat_protein_pagi_1) + (lemak_1['protein'] / 100) * (2 * berat_lemak_siang_1 + berat_lemak_pagi_1) 
-        + (3 * sayuran_a_1['protein']) + (1.25 * sayuran_b_1['protein'])
-        + (buah_1['protein'] / 100) * (3 * berat_buah_1) + (kacang_1['protein'] / 100) * (3 * berat_kacang_1) + (skim_susu_1['protein'] / 100) * (3 * berat_skim_susu_1), 3)
+          # Ambil baris secara acak dari DataFrame
+          karbohidrat_siang_i = data_nasi.iloc[karbohidrat_index]
+          protein_siang_i     = filtered_data_protein.iloc[protein_index]
+          lemak_siang_i       = data_lemak.iloc[lemak_index]
+          sayuran_a_siang_i    = filtered_data_sayuran_a.iloc[sayuran_a_index]
+          sayuran_b_siang_i    = data_sayuran_b.iloc[sayuran_b_index]
+          buah_siang_i         = filtered_data_buah.iloc[buah_index]
+          kacang_siang_i       = data_kacang.iloc[kacang_index]
+          skim_susu_siang_i         = data_skim_susu.iloc[skim_susu_index]
 
-        total_lemak_1 = round((karbohidrat_1['lemak'] / 100) * (2 * berat_karbo_siang_1 + berat_karbo_pagi_1) + (protein_1['lemak'] / 100) * (2 * berat_protein_siang_1 + berat_protein_pagi_1) + (lemak_1['lemak'] / 100) * (2 * berat_lemak_siang_1 + berat_lemak_pagi_1) 
-        + (3 * sayuran_a_1['lemak']) + (1.25 * sayuran_b_1['lemak'])
-        + (buah_1['lemak'] / 100) * (3 * berat_buah_1) + (kacang_1['lemak'] / 100) * (3 * berat_kacang_1) + (skim_susu_1['lemak'] / 100) * (3 * berat_skim_susu_1), 3)
+          #Menu 1 Camilan siang
+          A = [[kacang_siang_i['karbohidrat']/100, buah_siang_i['karbohidrat']/100, skim_susu_siang_i['karbohidrat']/100],
+              [kacang_siang_i['protein']/100, buah_siang_i['protein']/100, skim_susu_siang_i['protein']/100],
+              [kacang_siang_i['lemak']/100, buah_siang_i['lemak']/100, skim_susu_siang_i['lemak']/100]]
+          b = [karbo_camilan, protein_camilan, lemak_camilan]
 
-        total_kalori_1 = round (total_karbohidrat_1 * 4 + total_protein_1 * 4 + total_lemak_1 * 9 , 3)
+          # Menyelesaikan permasalahan dengan metode simplex
+          result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
+          berat_kacang_siang_i    = round(result.x[0],3)
+          berat_buah_siang_i      = round(result.x[1],3)
+          berat_skim_susu_siang_i = round(result.x[2],3)
 
-      protein_exclude.append(protein_1['id'])
-      lemak_exclude.append(lemak_1['id'])
-      sayuran_a_exclude.append(sayuran_a_1['id'])
-      sayuran_b_exclude.append(sayuran_b_1['id'])
-      kacang_exclude.append(kacang_1['id'])
-      buah_exclude.append(buah_1['id'])
 
-      #Menu 2
+          #Menu 1 berat makan siang
+          A = [[karbohidrat_siang_i['karbohidrat']/100, protein_siang_i['karbohidrat']/100, lemak_siang_i['karbohidrat']/100],
+              [karbohidrat_siang_i['protein']/100, protein_siang_i['protein']/100, lemak_siang_i['protein']/100],
+              [karbohidrat_siang_i['lemak']/100, protein_siang_i['lemak']/100, lemak_siang_i['lemak']/100]]
+          b1 = [karbo_siang - sayuran_a_siang_i['karbohidrat'] - sayuran_b_siang_i['karbohidrat']/2, protein_siang - sayuran_a_siang_i['protein'] - sayuran_b_siang_i['protein']/2, lemak_siang - sayuran_a_siang_i['lemak'] - sayuran_b_siang_i['lemak']/2]
+          c = [-1, -1, -1]
+          
+          result2 = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
+          berat_karbo_siang_i   = round(result2.x[0],3)
+          berat_protein_siang_i = round(result2.x[1],3)
+          berat_lemak_siang_i   = round(result2.x[2],3)
 
-      total_kalori_2 = 0
+          protein_i_exclude.append(protein_siang_i['id'])
+          sayuran_a_i_exclude.append(sayuran_a_siang_i['id'])
+          sayuran_b_i_exclude.append(sayuran_b_siang_i['id'])
+          buah_i_exclude.append(buah_siang_i['id'])
 
-      while total_kalori_2 < kalori_harian_final * 0.9:
+          filtered_data_protein   = data_protein[~data_protein['id'].isin(protein_i_exclude)]
+          filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_i_exclude)]
+          filtered_data_sayuran_b = data_sayuran_b[~data_sayuran_b['id'].isin(sayuran_b_i_exclude)]
+          filtered_data_buah      = data_buah[~data_buah['id'].isin(buah_i_exclude)]
 
-        karbohidrat_index = random.randint(0, data_karbohidrat.shape[0] - 1)
-        karbohidrat_2     = data_karbohidrat.iloc[karbohidrat_index]
+          #Menu 1 makan malam
+          karbohidrat_index    = random.randint(0, data_nasi.shape[0] - 1)
+          protein_index        = random.randint(0, filtered_data_protein.shape[0] - 1)
+          lemak_index          = random.randint(0, data_lemak.shape[0] - 1)
+          sayuran_a_index      = random.randint(0, filtered_data_sayuran_a.shape[0] - 1)
+          sayuran_b_index      = random.randint(0, filtered_data_sayuran_b.shape[0] - 1)
+          kacang_index         = random.randint(0, data_kacang.shape[0] - 1)
+          buah_index           = random.randint(0, filtered_data_buah.shape[0] - 1)
+          skim_susu_index      = random.randint(0, data_skim_susu.shape[0] - 1)
 
-        filtered_data_protein = data_protein[~data_protein['id'].isin(protein_exclude)]
-        protein_index   = random.randint(0, filtered_data_protein.shape[0] - 1)
-        protein_2       = filtered_data_protein.iloc[protein_index]
+          # Ambil baris secara acak dari DataFrame
+          karbohidrat_malam_i = data_nasi.iloc[karbohidrat_index]
+          protein_malam_i     = filtered_data_protein.iloc[protein_index]
+          lemak_malam_i       = data_lemak.iloc[lemak_index]
+          sayuran_a_malam_i    = filtered_data_sayuran_a.iloc[sayuran_a_index]
+          sayuran_b_malam_i    = data_sayuran_b.iloc[sayuran_b_index]
+          buah_malam_i         = filtered_data_buah.iloc[buah_index]
+          kacang_malam_i       = data_kacang.iloc[kacang_index]
+          skim_susu_malam_i    = data_skim_susu.iloc[skim_susu_index]
 
-        filtered_data_lemak = data_lemak[~data_lemak['id'].isin(lemak_exclude)]
-        lemak_index     = random.randint(0, filtered_data_lemak.shape[0] - 1)
-        lemak_2         = filtered_data_lemak.iloc[lemak_index]
+          #Menu 1 Camilan malam
+          A = [[kacang_malam_i['karbohidrat']/100, buah_malam_i['karbohidrat']/100, skim_susu_malam_i['karbohidrat']/100],
+              [kacang_malam_i['protein']/100, buah_malam_i['protein']/100, skim_susu_malam_i['protein']/100],
+              [kacang_malam_i['lemak']/100, buah_malam_i['lemak']/100, skim_susu_malam_i['lemak']/100]]
+          b = [karbo_camilan, protein_camilan, lemak_camilan]
 
-        filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_exclude)]
-        sayuran_a_index = random.randint(0, filtered_data_sayuran_a.shape[0] - 1)
-        sayuran_a_2     = filtered_data_sayuran_a.iloc[sayuran_a_index]
+          # Menyelesaikan permasalahan dengan metode simplex
+          result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
+          berat_kacang_malam_i    = round(result.x[0],3)
+          berat_buah_malam_i      = round(result.x[1],3)
+          berat_skim_susu_malam_i = round(result.x[2],3)
 
-        filtered_data_sayuran_b = data_sayuran_b[~data_sayuran_b['id'].isin(sayuran_b_exclude)]
-        sayuran_b_index = random.randint(0, filtered_data_sayuran_b.shape[0] - 1)
-        sayuran_b_2     = filtered_data_sayuran_b.iloc[sayuran_b_index]
+          #Menu 1 berat makan malam
+          A = [[karbohidrat_malam_i['karbohidrat']/100, protein_malam_i['karbohidrat']/100, lemak_malam_i['karbohidrat']/100],
+              [karbohidrat_malam_i['protein']/100, protein_malam_i['protein']/100, lemak_malam_i['protein']/100],
+              [karbohidrat_malam_i['lemak']/100, protein_malam_i['lemak']/100, lemak_malam_i['lemak']/100]]
+          b1 = [karbo_siang - sayuran_a_malam_i['karbohidrat'] - sayuran_b_malam_i['karbohidrat']/2, protein_siang - sayuran_a_malam_i['protein'] - sayuran_b_malam_i['protein']/2, lemak_siang - sayuran_a_malam_i['lemak'] - sayuran_b_malam_i['lemak']/2]
+          c = [-1, -1, -1]
+          
+          result2 = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
+          berat_karbo_malam_i   = round(result2.x[0],3)
+          berat_protein_malam_i = round(result2.x[1],3)
+          berat_lemak_malam_i   = round(result2.x[2],3)
 
-        filtered_data_kacang = data_kacang[~data_kacang['id'].isin(kacang_exclude)]
-        kacang_index    = random.randint(0, filtered_data_kacang.shape[0] - 1)
-        kacang_2        = filtered_data_kacang.iloc[kacang_index]
+          protein_i_exclude.append(protein_malam_i['id'])
+          sayuran_a_i_exclude.append(sayuran_a_malam_i['id'])
+          sayuran_b_i_exclude.append(sayuran_b_malam_i['id'])
+          buah_i_exclude.append(buah_siang_i['id'])
+
+          total_karbohidrat_pagi_i = round(((karbohidrat_pagi_i['karbohidrat'] / 100) * berat_karbo_pagi_i) + ((protein_pagi_i['karbohidrat'] / 100) * berat_protein_pagi_i) + ((lemak_pagi_i['karbohidrat'] / 100) *berat_lemak_pagi_i)
+          + (sayuran_a_pagi_i['karbohidrat']) + (0.25 * sayuran_b_pagi_i['karbohidrat'])
+          + ((buah_pagi_i['karbohidrat'] / 100) * berat_buah_pagi_i) + ((kacang_pagi_i['karbohidrat'] / 100) * berat_kacang_pagi_i) + ((skim_susu_pagi_i['karbohidrat'] / 100) * berat_skim_susu_pagi_i), 3)
+
+          total_karbohidrat_siang_i = round(((karbohidrat_siang_i['karbohidrat'] / 100) * berat_karbo_siang_i) + ((protein_siang_i['karbohidrat'] / 100) * berat_protein_siang_i) + ((lemak_siang_i['karbohidrat'] / 100) *berat_lemak_siang_i)
+          + (sayuran_a_siang_i['karbohidrat']) + (0.5 * sayuran_b_siang_i['karbohidrat'])
+          + ((buah_siang_i['karbohidrat'] / 100) * berat_buah_siang_i) + ((kacang_siang_i['karbohidrat'] / 100) * berat_kacang_siang_i) + ((skim_susu_siang_i['karbohidrat'] / 100) * berat_skim_susu_siang_i), 3)
+
+          total_karbohidrat_malam_i = round(((karbohidrat_malam_i['karbohidrat'] / 100) * berat_karbo_malam_i) + ((protein_malam_i['karbohidrat'] / 100) * berat_protein_malam_i) + ((lemak_malam_i['karbohidrat'] / 100) *berat_lemak_malam_i)
+          + (sayuran_a_malam_i['karbohidrat']) + (0.5 * sayuran_b_malam_i['karbohidrat'])
+          + ((buah_malam_i['karbohidrat'] / 100) * berat_buah_malam_i) + ((kacang_malam_i['karbohidrat'] / 100) * berat_kacang_malam_i) + ((skim_susu_malam_i['karbohidrat'] / 100) * berat_skim_susu_malam_i), 3)
+
+          total_protein_pagi_i = round(((karbohidrat_pagi_i['protein'] / 100) * berat_karbo_pagi_i) + ((protein_pagi_i['protein'] / 100) * berat_protein_pagi_i) + ((lemak_pagi_i['protein'] / 100) *berat_lemak_pagi_i)
+          + (sayuran_a_pagi_i['protein']) + (0.25 * sayuran_b_pagi_i['protein'])
+          + ((buah_pagi_i['protein'] / 100) * berat_buah_pagi_i) + ((kacang_pagi_i['protein'] / 100) * berat_kacang_pagi_i) + ((skim_susu_pagi_i['protein'] / 100) * berat_skim_susu_pagi_i), 3)
+
+          total_protein_siang_i = round(((karbohidrat_siang_i['protein'] / 100) * berat_karbo_siang_i) + ((protein_siang_i['protein'] / 100) * berat_protein_siang_i) + ((lemak_siang_i['protein'] / 100) *berat_lemak_siang_i)
+          + (sayuran_a_siang_i['protein']) + (0.5 * sayuran_b_siang_i['protein'])
+          + ((buah_siang_i['protein'] / 100) * berat_buah_siang_i) + ((kacang_siang_i['protein'] / 100) * berat_kacang_siang_i) + ((skim_susu_siang_i['protein'] / 100) * berat_skim_susu_siang_i), 3)
+
+          total_protein_malam_i = round(((karbohidrat_malam_i['protein'] / 100) * berat_karbo_malam_i) + ((protein_malam_i['protein'] / 100) * berat_protein_malam_i) + ((lemak_malam_i['protein'] / 100) *berat_lemak_malam_i)
+          + (sayuran_a_malam_i['protein']) + (0.5 * sayuran_b_malam_i['protein'])
+          + ((buah_malam_i['protein'] / 100) * berat_buah_malam_i) + ((kacang_malam_i['protein'] / 100) * berat_kacang_malam_i) + ((skim_susu_malam_i['protein'] / 100) * berat_skim_susu_malam_i), 3)
+
+          total_lemak_pagi_i = round(((karbohidrat_pagi_i['lemak'] / 100) * berat_karbo_pagi_i) + ((protein_pagi_i['lemak'] / 100) * berat_protein_pagi_i) + ((lemak_pagi_i['lemak'] / 100) *berat_lemak_pagi_i)
+          + (sayuran_a_pagi_i['lemak']) + (0.25 * sayuran_b_pagi_i['lemak'])
+          + ((buah_pagi_i['lemak'] / 100) * berat_buah_pagi_i) + ((kacang_pagi_i['lemak'] / 100) * berat_kacang_pagi_i) + ((skim_susu_pagi_i['lemak'] / 100) * berat_skim_susu_pagi_i), 3)
+
+          total_lemak_siang_i = round(((karbohidrat_siang_i['lemak'] / 100) * berat_karbo_siang_i) + ((protein_siang_i['lemak'] / 100) * berat_protein_siang_i) + ((lemak_siang_i['lemak'] / 100) *berat_lemak_siang_i)
+          + (sayuran_a_siang_i['lemak']) + (0.5 * sayuran_b_siang_i['lemak'])
+          + ((buah_siang_i['lemak'] / 100) * berat_buah_siang_i) + ((kacang_siang_i['lemak'] / 100) * berat_kacang_siang_i) + ((skim_susu_siang_i['lemak'] / 100) * berat_skim_susu_siang_i), 3)
+
+          total_lemak_malam_i = round(((karbohidrat_malam_i['lemak'] / 100) * berat_karbo_malam_i) + ((protein_malam_i['lemak'] / 100) * berat_protein_malam_i) + ((lemak_malam_i['lemak'] / 100) *berat_lemak_malam_i)
+          + (sayuran_a_malam_i['lemak']) + (0.5 * sayuran_b_malam_i['lemak'])
+          + ((buah_malam_i['lemak'] / 100) * berat_buah_malam_i) + ((kacang_malam_i['lemak'] / 100) * berat_kacang_malam_i) + ((skim_susu_malam_i['lemak'] / 100) * berat_skim_susu_malam_i), 3)
+          
+          total_karbohidrat_i = int(total_karbohidrat_pagi_i + total_karbohidrat_siang_i + total_karbohidrat_malam_i)
+          total_protein_i     = int(total_protein_pagi_i + total_protein_siang_i + total_protein_malam_i)
+          total_lemak_i       = int(total_lemak_pagi_i + total_lemak_siang_i + total_lemak_malam_i)
+          total_kalori_i      = int(total_karbohidrat_i * 4 + total_protein_i * 4 + total_lemak_i * 9)
         
-        filtered_data_buah = data_buah[~data_buah['id'].isin(buah_exclude)]
-        buah_index      = random.randint(0, filtered_data_buah.shape[0] - 1)
-        buah_2          = filtered_data_buah.iloc[buah_index]
+        menu_i = {
+          'berat_buah_pagi'       : berat_buah_pagi_i,
+          'berat_kacang_pagi'     : berat_kacang_pagi_i,
+          'berat_skim_susu_pagi'  : berat_skim_susu_pagi_i,
+          'berat_karbo_pagi'    : berat_karbo_pagi_i,
+          'berat_protein_pagi'  : berat_protein_pagi_i,
+          'berat_lemak_pagi'    : berat_lemak_pagi_i,
+          'kacang_pagi'    : kacang_pagi_i['nama'],
+          'buah_pagi'      : buah_pagi_i['nama'],
+          'skim_susu_pagi' : skim_susu_pagi_i['nama'],
+          'sayuran_a_pagi' : sayuran_a_pagi_i['nama'],
+          'sayuran_b_pagi' : sayuran_b_pagi_i['nama'],
+          'karbohidrat_pagi': karbohidrat_pagi_i['nama'],
+          'protein_pagi'   : protein_pagi_i['nama'],
+          'lemak_pagi'     : lemak_pagi_i['nama'],
+          'berat_buah_siang'       : berat_buah_siang_i,
+          'berat_kacang_siang'     : berat_kacang_siang_i,
+          'berat_skim_susu_siang'  : berat_skim_susu_siang_i,
+          'berat_karbo_siang'    : berat_karbo_siang_i,
+          'berat_protein_siang'  : berat_protein_siang_i,
+          'berat_lemak_siang'    : berat_lemak_siang_i,
+          'kacang_siang'    : kacang_siang_i['nama'],
+          'buah_siang'      : buah_siang_i['nama'],
+          'skim_susu_siang' : skim_susu_siang_i['nama'],
+          'sayuran_a_siang' : sayuran_a_siang_i['nama'],
+          'sayuran_b_siang' : sayuran_b_siang_i['nama'],
+          'karbohidrat_siang': karbohidrat_siang_i['nama'],
+          'protein_siang'   : protein_siang_i['nama'],
+          'lemak_siang'     : lemak_siang_i['nama'],
+          'berat_buah_malam'       : berat_buah_malam_i,
+          'berat_kacang_malam'     : berat_kacang_malam_i,
+          'berat_skim_susu_malam'  : berat_skim_susu_malam_i,
+          'berat_karbo_malam'    : berat_karbo_malam_i,
+          'berat_protein_malam'  : berat_protein_malam_i,
+          'berat_lemak_malam'    : berat_lemak_malam_i,
+          'kacang_malam'    : kacang_malam_i['nama'],
+          'buah_malam'      : buah_malam_i['nama'],
+          'skim_susu_malam' : skim_susu_malam_i['nama'],
+          'sayuran_a_malam' : sayuran_a_malam_i['nama'],
+          'sayuran_b_malam' : sayuran_b_malam_i['nama'],
+          'karbohidrat_malam': karbohidrat_malam_i['nama'],
+          'protein_malam'   : protein_malam_i['nama'],
+          'lemak_malam'     : lemak_malam_i['nama'],
+          'total_karbo'     : total_karbohidrat_i,
+          'total_protein'   : total_protein_i,
+          'total_lemak'     : total_lemak_i,
+          'total_kalori'    : total_kalori_i,
+        }
 
-        skim_susu_index = random.randint(0, data_skim_susu.shape[0] - 1)
-        skim_susu_2     = data_skim_susu.iloc[skim_susu_index]
-
-        #camilan menu 2
-        #koefisien matriks
-        A = [[kacang_2['karbohidrat']/100, buah_2['karbohidrat']/100, skim_susu_2['karbohidrat']/100],
-            [kacang_2['protein']/100, buah_2['protein']/100, skim_susu_2['protein']/100],
-            [kacang_2['lemak']/100, buah_2['lemak']/100, skim_susu_2['lemak']/100]]
-        b = [karbo_camilan, protein_camilan, lemak_camilan]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x2_bounds = (1, None)
-        y2_bounds = (1, 125)
-        z2_bounds = (0, 50)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-        berat_kacang_2    = round(result.x[0],3)
-        berat_buah_2      = round(result.x[1],3)
-        berat_skim_susu_2 = round(result.x[2],3)
-
-        #makan pagi menu 2
-        A = [[karbohidrat_2['karbohidrat']/100, protein_2['karbohidrat']/100, lemak_2['karbohidrat']/100],
-            [karbohidrat_2['protein']/100, protein_2['protein']/100, lemak_2['protein']/100],
-            [karbohidrat_2['lemak']/100, protein_2['lemak']/100, lemak_2['lemak']/100]]
-        b1 = [karbo_pagi - sayuran_a_2['karbohidrat'] - sayuran_b_2['karbohidrat']/4, protein_pagi - sayuran_a_2['protein'] - sayuran_b_2['protein']/4, lemak_pagi - sayuran_a_2['lemak'] - sayuran_b_2['lemak']/4]
-        b2 = [karbo_siang - sayuran_a_2['karbohidrat'] - sayuran_b_2['karbohidrat']/2, protein_siang - sayuran_a_2['protein'] - sayuran_b_2['protein']/2, lemak_siang - sayuran_a_2['lemak'] - sayuran_b_2['lemak']/2]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x3_bounds = (1, karbo_siang*2)
-        if kalori_harian_final < 1500:
-          y3_bounds = (15, None)
-        else:
-          y3_bounds = (20, None)
-        z3_bounds = (0, None)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        max_iterasi = 100 
-
-        for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
-            if result is not None:
-                break
-
-        berat_karbo_pagi_2   = round(result.x[0],3)
-        berat_protein_pagi_2 = round(result.x[1],3)
-        berat_lemak_pagi_2   = round(result.x[2],3)
-
-        #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
-        berat_karbo_siang_2   = round(result2.x[0],3)
-        berat_protein_siang_2 = round(result2.x[1],3)
-        berat_lemak_siang_2   = round(result2.x[2],3)
-
-        total_karbohidrat_2 = round((karbohidrat_2['karbohidrat'] / 100) * (2 * berat_karbo_siang_2 + berat_karbo_pagi_2) + (protein_2['karbohidrat'] / 100) * (2 * berat_protein_siang_2 + berat_protein_pagi_2) + (lemak_2['karbohidrat'] / 100) * (2 * berat_lemak_siang_2 + berat_lemak_pagi_2) 
-        + (3 * sayuran_a_2['karbohidrat']) + (1.25 * sayuran_b_2['karbohidrat'])
-        + (buah_2['karbohidrat'] / 100) * (3 * berat_buah_2) + (kacang_2['karbohidrat'] / 100) * (3 * berat_kacang_2) + (skim_susu_2['karbohidrat'] / 100) * (3 * berat_skim_susu_2), 3)
-
-        total_protein_2 = round((karbohidrat_2['protein'] / 100) * (2 * berat_karbo_siang_2 + berat_karbo_pagi_2) + (protein_2['protein'] / 100) * (2 * berat_protein_siang_2 + berat_protein_pagi_2) + (lemak_2['protein'] / 100) * (2 * berat_lemak_siang_2 + berat_lemak_pagi_2) 
-        + (3 * sayuran_a_2['protein']) + (1.25 * sayuran_b_2['protein'])
-        + (buah_2['protein'] / 100) * (3 * berat_buah_2) + (kacang_2['protein'] / 100) * (3 * berat_kacang_2) + (skim_susu_2['protein'] / 100) * (3 * berat_skim_susu_2), 3)
-
-        total_lemak_2 = round((karbohidrat_2['lemak'] / 100) * (2 * berat_karbo_siang_2 + berat_karbo_pagi_2) + (protein_2['lemak'] / 100) * (2 * berat_protein_siang_2 + berat_protein_pagi_2) + (lemak_2['lemak'] / 100) * (2 * berat_lemak_siang_2 + berat_lemak_pagi_2) 
-        + (3 * sayuran_a_2['lemak']) + (1.25 * sayuran_b_2['lemak'])
-        + (buah_2['lemak'] / 100) * (3 * berat_buah_2) + (kacang_2['lemak'] / 100) * (3 * berat_kacang_2) + (skim_susu_2['lemak'] / 100) * (3 * berat_skim_susu_2), 3)
-
-        total_kalori_2 = round (total_karbohidrat_2 * 4 + total_protein_2 * 4 + total_lemak_2 * 9 , 3)
-
-      protein_exclude.append(protein_2['id'])
-      lemak_exclude.append(lemak_2['id'])
-      sayuran_a_exclude.append(sayuran_a_2['id'])
-      sayuran_b_exclude.append(sayuran_b_2['id'])
-      kacang_exclude.append(kacang_2['id'])
-      buah_exclude.append(buah_2['id'])
-
-      #Menu 3
-      total_kalori_3 = 0
-
-      while total_kalori_3 < kalori_harian_final * 0.9:
-        karbohidrat_index = random.randint(0, data_karbohidrat.shape[0] - 1)
-        karbohidrat_3     = data_karbohidrat.iloc[karbohidrat_index]
-
-        filtered_data_protein = data_protein[~data_protein['id'].isin(protein_exclude)]
-        protein_index   = random.randint(0, filtered_data_protein.shape[0] - 1)
-        protein_3       = filtered_data_protein.iloc[protein_index]
-
-        filtered_data_lemak = data_lemak[~data_lemak['id'].isin(lemak_exclude)]
-        lemak_index     = random.randint(0, filtered_data_lemak.shape[0] - 1)
-        lemak_3         = filtered_data_lemak.iloc[lemak_index]
-
-        filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_exclude)]
-        sayuran_a_index = random.randint(0, filtered_data_sayuran_a.shape[0] - 1)
-        sayuran_a_3     = filtered_data_sayuran_a.iloc[sayuran_a_index]
-
-        filtered_data_sayuran_b = data_sayuran_b[~data_sayuran_b['id'].isin(sayuran_b_exclude)]
-        sayuran_b_index = random.randint(0, filtered_data_sayuran_b.shape[0] - 1)
-        sayuran_b_3     = filtered_data_sayuran_b.iloc[sayuran_b_index]
-
-        filtered_data_kacang = data_kacang[~data_kacang['id'].isin(kacang_exclude)]
-        kacang_index    = random.randint(0, filtered_data_kacang.shape[0] - 1)
-        kacang_3        = filtered_data_kacang.iloc[kacang_index]
+        menus.append(menu_i)
         
-        filtered_data_buah = data_buah[~data_buah['id'].isin(buah_exclude)]
-        buah_index      = random.randint(0, filtered_data_buah.shape[0] - 1)
-        buah_3          = filtered_data_buah.iloc[buah_index]
-
-        skim_susu_index = random.randint(0, data_skim_susu.shape[0] - 1)
-        skim_susu_3     = data_skim_susu.iloc[skim_susu_index]
-        #camilan menu 3
-        #koefisien matriks
-        A = [[kacang_3['karbohidrat']/100, buah_3['karbohidrat']/100, skim_susu_3['karbohidrat']/100],
-            [kacang_3['protein']/100, buah_3['protein']/100, skim_susu_3['protein']/100],
-            [kacang_3['lemak']/100, buah_3['lemak']/100, skim_susu_3['lemak']/100]]
-        b = [karbo_camilan, protein_camilan, lemak_camilan]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x2_bounds = (1, None)
-        y2_bounds = (1, 125)
-        z2_bounds = (0, 50)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-        berat_kacang_3    = round(result.x[0],3)
-        berat_buah_3      = round(result.x[1],3)
-        berat_skim_susu_3 = round(result.x[2],3)
-
-        #makan pagi menu 2
-        A = [[karbohidrat_3['karbohidrat']/100, protein_3['karbohidrat']/100, lemak_3['karbohidrat']/100],
-            [karbohidrat_3['protein']/100, protein_3['protein']/100, lemak_3['protein']/100],
-            [karbohidrat_3['lemak']/100, protein_3['lemak']/100, lemak_3['lemak']/100]]
-        b1 = [karbo_pagi - sayuran_a_3['karbohidrat'] - sayuran_b_3['karbohidrat']/4, protein_pagi - sayuran_a_3['protein'] - sayuran_b_3['protein']/4, lemak_pagi - sayuran_a_3['lemak'] - sayuran_b_3['lemak']/4]
-        b2 = [karbo_siang - sayuran_a_3['karbohidrat'] - sayuran_b_3['karbohidrat']/2, protein_siang - sayuran_a_3['protein'] - sayuran_b_3['protein']/2, lemak_siang - sayuran_a_3['lemak'] - sayuran_b_3['lemak']/2]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x3_bounds = (1, karbo_siang*2)
-        if kalori_harian_final < 1500:
-          y3_bounds = (15, None)
+        if len(filtered_data_protein)-len(protein_i_exclude) > 15-3*i:
+          protein_exclude.extend(protein_i_exclude)
         else:
-          y3_bounds = (20, None)
-        z3_bounds = (0, None)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        max_iterasi = 100 
-
-        for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
-            if result is not None:
-                break
-
-        berat_karbo_pagi_3   = round(result.x[0],3)
-        berat_protein_pagi_3 = round(result.x[1],3)
-        berat_lemak_pagi_3   = round(result.x[2],3)
-
-        #makan siang malam menu 3
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
-        berat_karbo_siang_3   = round(result2.x[0],3)
-        berat_protein_siang_3 = round(result2.x[1],3)
-        berat_lemak_siang_3   = round(result2.x[2],3)
-
-        total_karbohidrat_3 = round((karbohidrat_3['karbohidrat'] / 100) * (2 * berat_karbo_siang_3 + berat_karbo_pagi_3) + (protein_3['karbohidrat'] / 100) * (2 * berat_protein_siang_3 + berat_protein_pagi_3) + (lemak_3['karbohidrat'] / 100) * (2 * berat_lemak_siang_3 + berat_lemak_pagi_3) 
-        + (3 * sayuran_a_3['karbohidrat']) + (1.25 * sayuran_b_3['karbohidrat'])
-        + (buah_3['karbohidrat'] / 100) * (3 * berat_buah_3) + (kacang_3['karbohidrat'] / 100) * (3 * berat_kacang_3) + (skim_susu_3['karbohidrat'] / 100) * (3 * berat_skim_susu_3), 3)
-
-        total_protein_3 = round((karbohidrat_3['protein'] / 100) * (2 * berat_karbo_siang_3 + berat_karbo_pagi_3) + (protein_3['protein'] / 100) * (2 * berat_protein_siang_3 + berat_protein_pagi_3) + (lemak_3['protein'] / 100) * (2 * berat_lemak_siang_3 + berat_lemak_pagi_3) 
-        + (3 * sayuran_a_3['protein']) + (1.25 * sayuran_b_3['protein'])
-        + (buah_3['protein'] / 100) * (3 * berat_buah_3) + (kacang_3['protein'] / 100) * (3 * berat_kacang_3) + (skim_susu_3['protein'] / 100) * (3 * berat_skim_susu_3), 3)
-
-        total_lemak_3 = round((karbohidrat_3['lemak'] / 100) * (2 * berat_karbo_siang_3 + berat_karbo_pagi_3) + (protein_3['lemak'] / 100) * (2 * berat_protein_siang_3 + berat_protein_pagi_3) + (lemak_3['lemak'] / 100) * (2 * berat_lemak_siang_3 + berat_lemak_pagi_3) 
-        + (3 * sayuran_a_3['lemak']) + (1.25 * sayuran_b_3['lemak'])
-        + (buah_3['lemak'] / 100) * (3 * berat_buah_3) + (kacang_3['lemak'] / 100) * (3 * berat_kacang_3) + (skim_susu_3['lemak'] / 100) * (3 * berat_skim_susu_3), 3)
-
-        total_kalori_3 = round (total_karbohidrat_3 * 4 + total_protein_3 * 4 + total_lemak_3 * 9 , 3)
-
-      protein_exclude.append(protein_3['id'])
-      lemak_exclude.append(lemak_3['id'])
-      sayuran_a_exclude.append(sayuran_a_3['id'])
-      sayuran_b_exclude.append(sayuran_b_3['id'])
-      kacang_exclude.append(kacang_3['id'])
-      buah_exclude.append(buah_3['id'])
-
-      #Menu 4
-      total_kalori_4 = 0
-
-      while total_kalori_4 < kalori_harian_final * 0.9:
-
-        karbohidrat_index = random.randint(0, data_karbohidrat.shape[0] - 1)
-        karbohidrat_4     = data_karbohidrat.iloc[karbohidrat_index]
-
-        filtered_data_protein = data_protein[~data_protein['id'].isin(protein_exclude)]
-        protein_index   = random.randint(0, filtered_data_protein.shape[0] - 1)
-        protein_4       = filtered_data_protein.iloc[protein_index]
-
-        filtered_data_lemak = data_lemak[~data_lemak['id'].isin(lemak_exclude)]
-        lemak_index     = random.randint(0, filtered_data_lemak.shape[0] - 1)
-        lemak_4         = filtered_data_lemak.iloc[lemak_index]
-
-        filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_exclude)]
-        sayuran_a_index = random.randint(0, filtered_data_sayuran_a.shape[0] - 1)
-        sayuran_a_4     = filtered_data_sayuran_a.iloc[sayuran_a_index]
-
-        filtered_data_sayuran_b = data_sayuran_b[~data_sayuran_b['id'].isin(sayuran_b_exclude)]
-        sayuran_b_index = random.randint(0, filtered_data_sayuran_b.shape[0] - 1)
-        sayuran_b_4     = filtered_data_sayuran_b.iloc[sayuran_b_index]
-
-        filtered_data_kacang = data_kacang[~data_kacang['id'].isin(kacang_exclude)]
-        kacang_index    = random.randint(0, filtered_data_kacang.shape[0] - 1)
-        kacang_4        = filtered_data_kacang.iloc[kacang_index]
-        
-        filtered_data_buah = data_buah[~data_buah['id'].isin(buah_exclude)]
-        buah_index      = random.randint(0, filtered_data_buah.shape[0] - 1)
-        buah_4          = filtered_data_buah.iloc[buah_index]
-
-        skim_susu_index = random.randint(0, data_skim_susu.shape[0] - 1)
-        skim_susu_4     = data_skim_susu.iloc[skim_susu_index]
-
-        #camilan menu 2
-        #koefisien matriks
-        A = [[kacang_4['karbohidrat']/100, buah_4['karbohidrat']/100, skim_susu_4['karbohidrat']/100],
-            [kacang_4['protein']/100, buah_4['protein']/100, skim_susu_4['protein']/100],
-            [kacang_4['lemak']/100, buah_4['lemak']/100, skim_susu_4['lemak']/100]]
-        b = [karbo_camilan, protein_camilan, lemak_camilan]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x2_bounds = (1, None)
-        y2_bounds = (1, 125)
-        z2_bounds = (0, 50)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-        berat_kacang_4    = round(result.x[0],3)
-        berat_buah_4      = round(result.x[1],3)
-        berat_skim_susu_4 = round(result.x[2],3)
-
-        #makan pagi menu 2
-        A = [[karbohidrat_4['karbohidrat']/100, protein_4['karbohidrat']/100, lemak_4['karbohidrat']/100],
-            [karbohidrat_4['protein']/100, protein_4['protein']/100, lemak_4['protein']/100],
-            [karbohidrat_4['lemak']/100, protein_4['lemak']/100, lemak_4['lemak']/100]]
-        b1 = [karbo_pagi - sayuran_a_4['karbohidrat'] - sayuran_b_4['karbohidrat']/4, protein_pagi - sayuran_a_4['protein'] - sayuran_b_4['protein']/4, lemak_pagi - sayuran_a_4['lemak'] - sayuran_b_4['lemak']/4]
-        b2 = [karbo_siang - sayuran_a_4['karbohidrat'] - sayuran_b_4['karbohidrat']/2, protein_siang - sayuran_a_4['protein'] - sayuran_b_4['protein']/2, lemak_siang - sayuran_a_4['lemak'] - sayuran_b_4['lemak']/2]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x3_bounds = (1, karbo_siang*2)
-        if kalori_harian_final < 1500:
-          y3_bounds = (15, None)
+          protein_exclude=[]
+        if len(filtered_data_sayuran_a)-len(sayuran_a_i_exclude) > 15-3*i:
+          sayuran_a_exclude.extend(sayuran_a_i_exclude)
         else:
-          y3_bounds = (20, None)
-        z3_bounds = (0, None)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        max_iterasi = 100 
-
-        for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
-            if result is not None:
-                break
-
-        berat_karbo_pagi_4   = round(result.x[0],3)
-        berat_protein_pagi_4 = round(result.x[1],3)
-        berat_lemak_pagi_4   = round(result.x[2],3)
-
-        #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
-        berat_karbo_siang_4   = round(result2.x[0],3)
-        berat_protein_siang_4 = round(result2.x[1],3)
-        berat_lemak_siang_4   = round(result2.x[2],3)
-
-        total_karbohidrat_4 = round((karbohidrat_4['karbohidrat'] / 100) * (2 * berat_karbo_siang_4 + berat_karbo_pagi_4) + (protein_4['karbohidrat'] / 100) * (2 * berat_protein_siang_4 + berat_protein_pagi_4) + (lemak_4['karbohidrat'] / 100) * (2 * berat_lemak_siang_4 + berat_lemak_pagi_4) 
-        + (3 * sayuran_a_4['karbohidrat']) + (1.25 * sayuran_b_4['karbohidrat'])
-        + (buah_4['karbohidrat'] / 100) * (3 * berat_buah_4) + (kacang_4['karbohidrat'] / 100) * (3 * berat_kacang_4) + (skim_susu_4['karbohidrat'] / 100) * (3 * berat_skim_susu_4), 3)
-
-        total_protein_4 = round((karbohidrat_4['protein'] / 100) * (2 * berat_karbo_siang_4 + berat_karbo_pagi_4) + (protein_4['protein'] / 100) * (2 * berat_protein_siang_4 + berat_protein_pagi_4) + (lemak_4['protein'] / 100) * (2 * berat_lemak_siang_4 + berat_lemak_pagi_4) 
-        + (3 * sayuran_a_4['protein']) + (1.25 * sayuran_b_4['protein'])
-        + (buah_4['protein'] / 100) * (3 * berat_buah_4) + (kacang_4['protein'] / 100) * (3 * berat_kacang_4) + (skim_susu_4['protein'] / 100) * (3 * berat_skim_susu_4), 3)
-
-        total_lemak_4 = round((karbohidrat_4['lemak'] / 100) * (2 * berat_karbo_siang_4 + berat_karbo_pagi_4) + (protein_4['lemak'] / 100) * (2 * berat_protein_siang_4 + berat_protein_pagi_4) + (lemak_4['lemak'] / 100) * (2 * berat_lemak_siang_4 + berat_lemak_pagi_4) 
-        + (3 * sayuran_a_4['lemak']) + (1.25 * sayuran_b_4['lemak'])
-        + (buah_4['lemak'] / 100) * (3 * berat_buah_4) + (kacang_4['lemak'] / 100) * (3 * berat_kacang_4) + (skim_susu_4['lemak'] / 100) * (3 * berat_skim_susu_4), 3)
-
-        total_kalori_4 = round (total_karbohidrat_4 * 4 + total_protein_4 * 4 + total_lemak_4 * 9 , 3)
-      
-
-      protein_exclude.append(protein_4['id'])
-      lemak_exclude.append(lemak_4['id'])
-      sayuran_a_exclude.append(sayuran_a_4['id'])
-      sayuran_b_exclude.append(sayuran_b_4['id'])
-      kacang_exclude.append(kacang_4['id'])
-      buah_exclude.append(buah_4['id'])
-
-      #Menu 5
-
-      total_kalori_5 = 0
-
-      while total_kalori_5 < kalori_harian_final * 0.9:
-        karbohidrat_index = random.randint(0, data_karbohidrat.shape[0] - 1)
-        karbohidrat_5     = data_karbohidrat.iloc[karbohidrat_index]
-
-        filtered_data_protein = data_protein[~data_protein['id'].isin(protein_exclude)]
-        protein_index   = random.randint(0, filtered_data_protein.shape[0] - 1)
-        protein_5       = filtered_data_protein.iloc[protein_index]
-
-        filtered_data_lemak = data_lemak[~data_lemak['id'].isin(lemak_exclude)]
-        lemak_index     = random.randint(0, filtered_data_lemak.shape[0] - 1)
-        lemak_5         = filtered_data_lemak.iloc[lemak_index]
-
-        filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_exclude)]
-        sayuran_a_index = random.randint(0, filtered_data_sayuran_a.shape[0] - 1)
-        sayuran_a_5     = filtered_data_sayuran_a.iloc[sayuran_a_index]
-
-        filtered_data_sayuran_b = data_sayuran_b[~data_sayuran_b['id'].isin(sayuran_b_exclude)]
-        sayuran_b_index = random.randint(0, filtered_data_sayuran_b.shape[0] - 1)
-        sayuran_b_5     = filtered_data_sayuran_b.iloc[sayuran_b_index]
-
-        filtered_data_kacang = data_kacang[~data_kacang['id'].isin(kacang_exclude)]
-        kacang_index    = random.randint(0, filtered_data_kacang.shape[0] - 1)
-        kacang_5        = filtered_data_kacang.iloc[kacang_index]
-        
-        filtered_data_buah = data_buah[~data_buah['id'].isin(buah_exclude)]
-        buah_index      = random.randint(0, filtered_data_buah.shape[0] - 1)
-        buah_5          = filtered_data_buah.iloc[buah_index]
-
-        skim_susu_index = random.randint(0, data_skim_susu.shape[0] - 1)
-        skim_susu_5     = data_skim_susu.iloc[skim_susu_index]
-
-        #camilan menu 2
-        #koefisien matriks
-        A = [[kacang_5['karbohidrat']/100, buah_5['karbohidrat']/100, skim_susu_5['karbohidrat']/100],
-            [kacang_5['protein']/100, buah_5['protein']/100, skim_susu_5['protein']/100],
-            [kacang_5['lemak']/100, buah_5['lemak']/100, skim_susu_5['lemak']/100]]
-        b = [karbo_camilan, protein_camilan, lemak_camilan]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x2_bounds = (1, None)
-        y2_bounds = (1, 125)
-        z2_bounds = (0, 50)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-        berat_kacang_5    = round(result.x[0],3)
-        berat_buah_5      = round(result.x[1],3)
-        berat_skim_susu_5 = round(result.x[2],3)
-
-        #makan pagi menu 2
-        A = [[karbohidrat_5['karbohidrat']/100, protein_5['karbohidrat']/100, lemak_5['karbohidrat']/100],
-            [karbohidrat_5['protein']/100, protein_5['protein']/100, lemak_5['protein']/100],
-            [karbohidrat_5['lemak']/100, protein_5['lemak']/100, lemak_5['lemak']/100]]
-        b1 = [karbo_pagi - sayuran_a_5['karbohidrat'] - sayuran_b_5['karbohidrat']/4, protein_pagi - sayuran_a_5['protein'] - sayuran_b_5['protein']/4, lemak_pagi - sayuran_a_5['lemak'] - sayuran_b_5['lemak']/4]
-        b2 = [karbo_siang - sayuran_a_5['karbohidrat'] - sayuran_b_5['karbohidrat']/2, protein_siang - sayuran_a_5['protein'] - sayuran_b_5['protein']/2, lemak_siang - sayuran_a_5['lemak'] - sayuran_b_5['lemak']/2]
-        c = [-1, -1, -1]
-
-        # Menentukan batasan-batasan variabel
-        x3_bounds = (1, karbo_siang*2)
-        if kalori_harian_final < 1500:
-          y3_bounds = (15, None)
+          sayuran_a_exclude=[]
+        if len(filtered_data_sayuran_b)-len(sayuran_b_i_exclude) > 15-3*i:
+          sayuran_b_exclude.extend(sayuran_b_i_exclude)
         else:
-          y3_bounds = (20, None)
-        z3_bounds = (0, None)
-
-        # Menyelesaikan permasalahan dengan metode simplex
-        max_iterasi = 100 
-
-        for _ in range(max_iterasi):
-            result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
-            if result is not None:
-                break
-
-        berat_karbo_pagi_5   = round(result.x[0],3)
-        berat_protein_pagi_5 = round(result.x[1],3)
-        berat_lemak_pagi_5   = round(result.x[2],3)
-
-        #makan siang malam menu 1
-        result2 = linprog(c, A_ub=A, b_ub=b2, bounds=[x3_bounds, y3_bounds, z3_bounds])
-        berat_karbo_siang_5   = round(result2.x[0],3)
-        berat_protein_siang_5 = round(result2.x[1],3)
-        berat_lemak_siang_5   = round(result2.x[2],3)
-
-        total_karbohidrat_5 = round((karbohidrat_5['karbohidrat'] / 100) * (2 * berat_karbo_siang_5 + berat_karbo_pagi_5) + (protein_5['karbohidrat'] / 100) * (2 * berat_protein_siang_5 + berat_protein_pagi_5) + (lemak_5['karbohidrat'] / 100) * (2 * berat_lemak_siang_5 + berat_lemak_pagi_5) 
-        + (3 * sayuran_a_5['karbohidrat']) + (1.25 * sayuran_b_5['karbohidrat'])
-        + (buah_5['karbohidrat'] / 100) * (3 * berat_buah_5) + (kacang_5['karbohidrat'] / 100) * (3 * berat_kacang_5) + (skim_susu_5['karbohidrat'] / 100) * (3 * berat_skim_susu_5), 3)
-
-        total_protein_5 = round((karbohidrat_5['protein'] / 100) * (2 * berat_karbo_siang_5 + berat_karbo_pagi_5) + (protein_5['protein'] / 100) * (2 * berat_protein_siang_5 + berat_protein_pagi_5) + (lemak_5['protein'] / 100) * (2 * berat_lemak_siang_5 + berat_lemak_pagi_5) 
-        + (3 * sayuran_a_5['protein']) + (1.25 * sayuran_b_5['protein'])
-        + (buah_5['protein'] / 100) * (3 * berat_buah_5) + (kacang_5['protein'] / 100) * (3 * berat_kacang_5) + (skim_susu_5['protein'] / 100) * (3 * berat_skim_susu_5), 3)
-
-        total_lemak_5 = round((karbohidrat_5['lemak'] / 100) * (2 * berat_karbo_siang_5 + berat_karbo_pagi_5) + (protein_5['lemak'] / 100) * (2 * berat_protein_siang_5 + berat_protein_pagi_5) + (lemak_5['lemak'] / 100) * (2 * berat_lemak_siang_5 + berat_lemak_pagi_5) 
-        + (3 * sayuran_a_5['lemak']) + (1.25 * sayuran_b_5['lemak'])
-        + (buah_5['lemak'] / 100) * (3 * berat_buah_5) + (kacang_5['lemak'] / 100) * (3 * berat_kacang_5) + (skim_susu_5['lemak'] / 100) * (3 * berat_skim_susu_5), 3)
-
-        total_kalori_5 = round (total_karbohidrat_5 * 4 + total_protein_5 * 4 + total_lemak_5 * 9 , 3)
-        
-      menu_1 = {
-        'berat_buah'       : berat_buah_1,
-        'berat_kacang'     : berat_kacang_1,
-        'berat_skim_susu'  : berat_skim_susu_1,
-        'berat_karbo_pagi' : berat_karbo_pagi_1,
-        'berat_karbo_siang': berat_karbo_siang_1,
-        'berat_protein_pagi'  : berat_protein_pagi_1,
-        'berat_protein_siang' : berat_protein_siang_1,
-        'berat_lemak_pagi'    : berat_lemak_pagi_1,
-        'berat_lemak_siang'   : berat_lemak_siang_1,
-        'kacang'    : kacang_1['nama'],
-        'buah'      : buah_1['nama'],
-        'skim_susu' : skim_susu_1['nama'],
-        'sayuran_a' : sayuran_a_1['nama'],
-        'sayuran_b' : sayuran_b_1['nama'],
-        'karbohidrat': karbohidrat_1['nama'],
-        'protein'   : protein_1['nama'],
-        'lemak'     : lemak_1['nama'],
-        'total_karbo'     : total_karbohidrat_1,
-        'total_protein'   : total_protein_1,
-        'total_lemak'     : total_lemak_1,
-        'total_kalori'    : total_kalori_1,
-      }
-      menu_2 = {
-        'berat_buah'       : berat_buah_2,
-        'berat_kacang'     : berat_kacang_2,
-        'berat_skim_susu'  : berat_skim_susu_2,
-        'berat_karbo_pagi' : berat_karbo_pagi_2,
-        'berat_karbo_siang': berat_karbo_siang_2,
-        'berat_protein_pagi'  : berat_protein_pagi_2,
-        'berat_protein_siang' : berat_protein_siang_2,
-        'berat_lemak_pagi'    : berat_lemak_pagi_2,
-        'berat_lemak_siang'   : berat_lemak_siang_2,
-        'kacang'    : kacang_2['nama'],
-        'buah'      : buah_2['nama'],
-        'skim_susu' : skim_susu_2['nama'],
-        'sayuran_a' : sayuran_a_2['nama'],
-        'sayuran_b' : sayuran_b_2['nama'],
-        'karbohidrat': karbohidrat_2['nama'],
-        'protein'   : protein_2['nama'],
-        'lemak'     : lemak_2['nama'],
-        'total_karbo'     : total_karbohidrat_2,
-        'total_protein'   : total_protein_2,
-        'total_lemak'     : total_lemak_2,
-        'total_kalori'    : total_kalori_2,
-      }
-      menu_3 = {
-        'berat_buah'       : berat_buah_3,
-        'berat_kacang'     : berat_kacang_3,
-        'berat_skim_susu'  : berat_skim_susu_3,
-        'berat_karbo_pagi' : berat_karbo_pagi_3,
-        'berat_karbo_siang': berat_karbo_siang_3,
-        'berat_protein_pagi'  : berat_protein_pagi_3,
-        'berat_protein_siang' : berat_protein_siang_3,
-        'berat_lemak_pagi'    : berat_lemak_pagi_3,
-        'berat_lemak_siang'   : berat_lemak_siang_3,
-        'kacang'    : kacang_3['nama'],
-        'buah'      : buah_3['nama'],
-        'skim_susu' : skim_susu_3['nama'],
-        'sayuran_a' : sayuran_a_3['nama'],
-        'sayuran_b' : sayuran_b_3['nama'],
-        'karbohidrat': karbohidrat_3['nama'],
-        'protein'   : protein_3['nama'],
-        'lemak'     : lemak_3['nama'],
-        'total_karbo'     : total_karbohidrat_3,
-        'total_protein'   : total_protein_3,
-        'total_lemak'     : total_lemak_3,
-        'total_kalori'    : total_kalori_3,
-      }
-
-      menu_4 = {
-        'berat_buah'       : berat_buah_4,
-        'berat_kacang'     : berat_kacang_4,
-        'berat_skim_susu'  : berat_skim_susu_4,
-        'berat_karbo_pagi' : berat_karbo_pagi_4,
-        'berat_karbo_siang': berat_karbo_siang_4,
-        'berat_protein_pagi'  : berat_protein_pagi_4,
-        'berat_protein_siang' : berat_protein_siang_4,
-        'berat_lemak_pagi'    : berat_lemak_pagi_4,
-        'berat_lemak_siang'   : berat_lemak_siang_4,
-        'kacang'    : kacang_4['nama'],
-        'buah'      : buah_4['nama'],
-        'skim_susu' : skim_susu_4['nama'],
-        'sayuran_a' : sayuran_a_4['nama'],
-        'sayuran_b' : sayuran_b_4['nama'],
-        'karbohidrat': karbohidrat_4['nama'],
-        'protein'   : protein_4['nama'],
-        'lemak'     : lemak_4['nama'],
-        'total_karbo'     : total_karbohidrat_4,
-        'total_protein'   : total_protein_4,
-        'total_lemak'     : total_lemak_4,
-        'total_kalori'    : total_kalori_4,
-      }
-
-      menu_5 = {
-        'berat_buah'       : berat_buah_5,
-        'berat_kacang'     : berat_kacang_5,
-        'berat_skim_susu'  : berat_skim_susu_5,
-        'berat_karbo_pagi' : berat_karbo_pagi_5,
-        'berat_karbo_siang': berat_karbo_siang_5,
-        'berat_protein_pagi'  : berat_protein_pagi_5,
-        'berat_protein_siang' : berat_protein_siang_5,
-        'berat_lemak_pagi'    : berat_lemak_pagi_5,
-        'berat_lemak_siang'   : berat_lemak_siang_5,
-        'kacang'    : kacang_5['nama'],
-        'buah'      : buah_5['nama'],
-        'skim_susu' : skim_susu_5['nama'],
-        'sayuran_a' : sayuran_a_5['nama'],
-        'sayuran_b' : sayuran_b_5['nama'],
-        'karbohidrat': karbohidrat_5['nama'],
-        'protein'   : protein_5['nama'],
-        'lemak'     : lemak_5['nama'],
-        'total_karbo'     : total_karbohidrat_5,
-        'total_protein'   : total_protein_5,
-        'total_lemak'     : total_lemak_5,
-        'total_kalori'    : total_kalori_5,
-      }
-
-      return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'jenis_diet' : jenis_diet, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5})
+          sayuran_b_exclude=[]
+        if len(filtered_data_buah)-len(buah_exclude) > 15-3*i:
+          buah_exclude.extend(buah_i_exclude)
+        else:
+          buah_exclude=[]
+      array_range = [1,2,3,4,5]
+      return render(request, 'menupage.html', {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'jenis_diet' : jenis_diet, 'menu' : menus, 'array_range' : array_range})
     
     # except Exception as e:
     #   return render(request, 'errorhandling.html')
@@ -1021,111 +678,236 @@ def export_pdf(request):
     total_protein     = request.POST.get('total_protein')
     total_lemak       = request.POST.get('total_lemak')
 
-    berat_buah_1          = request.POST.get('berat_buah_1')
-    berat_kacang_1        = request.POST.get('berat_kacang_1')
-    berat_skim_susu_1     = request.POST.get('berat_skim_susu_1')
+    berat_buah_pagi_1     = request.POST.get('berat_buah_pagi_1')
+    berat_kacang_pagi_1   = request.POST.get('berat_kacang_pagi_1')
+    berat_skim_susu_pagi_1= request.POST.get('berat_skim_susu_pagi_1')
     berat_karbo_pagi_1    = request.POST.get('berat_karbo_pagi_1')
-    berat_karbo_siang_1   = request.POST.get('berat_karbo_siang_1')
     berat_protein_pagi_1  = request.POST.get('berat_protein_pagi_1')
-    berat_protein_siang_1 = request.POST.get('berat_protein_siang_1')
     berat_lemak_pagi_1    = request.POST.get('berat_lemak_pagi_1')
-    berat_lemak_siang_1   = request.POST.get('berat_lemak_siang_1')
-    kacang_1              = request.POST.get('kacang_1')
-    buah_1                = request.POST.get('buah_1')
-    skim_susu_1           = request.POST.get('skim_susu_1')
-    sayuran_a_1           = request.POST.get('sayuran_a_1')
-    sayuran_b_1           = request.POST.get('sayuran_b_1')
-    karbohidrat_1         = request.POST.get('karbohidrat_1')
-    protein_1             = request.POST.get('protein_1')
-    lemak_1               = request.POST.get('lemak_1')
+    berat_buah_siang_1    = request.POST.get('berat_buah_siang_1')
+    berat_kacang_siang_1   = request.POST.get('berat_kacang_siang_1')
+    berat_skim_susu_siang_1= request.POST.get('berat_skim_susu_siang_1')
+    berat_karbo_siang_1    = request.POST.get('berat_karbo_siang_1')
+    berat_protein_siang_1  = request.POST.get('berat_protein_siang_1')
+    berat_lemak_siang_1    = request.POST.get('berat_lemak_siang_1')
+    berat_buah_malam_1     = request.POST.get('berat_buah_malam_1')
+    berat_kacang_malam_1   = request.POST.get('berat_kacang_malam_1')
+    berat_skim_susu_malam_1= request.POST.get('berat_skim_susu_malam_1')
+    berat_karbo_malam_1    = request.POST.get('berat_karbo_malam_1')
+    berat_protein_malam_1  = request.POST.get('berat_protein_malam_1')
+    berat_lemak_malam_1    = request.POST.get('berat_lemak_malam_1')
+    buah_pagi_1            = request.POST.get('buah_pagi_1')
+    kacang_pagi_1          = request.POST.get('kacang_pagi_1')
+    skim_susu_pagi_1       = request.POST.get('skim_susu_pagi_1')
+    karbohidrat_pagi_1     = request.POST.get('karbohidrat_pagi_1')
+    protein_pagi_1         = request.POST.get('protein_pagi_1')
+    lemak_pagi_1           = request.POST.get('lemak_pagi_1')
+    sayuran_a_pagi_1       = request.POST.get('sayuran_a_pagi_1')
+    sayuran_b_pagi_1       = request.POST.get('sayuran_b_pagi_1')
+    buah_siang_1           = request.POST.get('buah_siang_1')
+    kacang_siang_1         = request.POST.get('kacang_siang_1')
+    skim_susu_siang_1      = request.POST.get('skim_susu_siang_1')
+    karbohidrat_siang_1    = request.POST.get('karbohidrat_siang_1')
+    protein_siang_1        = request.POST.get('protein_siang_1')
+    lemak_siang_1          = request.POST.get('lemak_siang_1')
+    sayuran_a_siang_1      = request.POST.get('sayuran_a_siang_1')
+    sayuran_b_siang_1      = request.POST.get('sayuran_b_siang_1')
+    buah_malam_1           = request.POST.get('buah_malam_1')
+    kacang_malam_1         = request.POST.get('kacang_malam_1')
+    skim_susu_malam_1      = request.POST.get('skim_susu_malam_1')
+    karbohidrat_malam_1    = request.POST.get('karbohidrat_malam_1')
+    protein_malam_1        = request.POST.get('protein_malam_1')
+    lemak_malam_1          = request.POST.get('lemak_malam_1')
+    sayuran_a_malam_1      = request.POST.get('sayuran_a_malam_1')
+    sayuran_b_malam_1      = request.POST.get('sayuran_b_malam_1')
     total_karbohidrat_1   = request.POST.get('total_karbohidrat_1')
     total_protein_1       = request.POST.get('total_protein_1')
     total_lemak_1         = request.POST.get('total_lemak_1')
     total_kalori_1        = request.POST.get('total_kalori_1')
 
-    berat_buah_2          = request.POST.get('berat_buah_2')
-    berat_kacang_2        = request.POST.get('berat_kacang_2')
-    berat_skim_susu_2     = request.POST.get('berat_skim_susu_2')
+    berat_buah_pagi_2     = request.POST.get('berat_buah_pagi_2')
+    berat_kacang_pagi_2   = request.POST.get('berat_kacang_pagi_2')
+    berat_skim_susu_pagi_2= request.POST.get('berat_skim_susu_pagi_2')
     berat_karbo_pagi_2    = request.POST.get('berat_karbo_pagi_2')
-    berat_karbo_siang_2   = request.POST.get('berat_karbo_siang_2')
     berat_protein_pagi_2  = request.POST.get('berat_protein_pagi_2')
-    berat_protein_siang_2 = request.POST.get('berat_protein_siang_2')
     berat_lemak_pagi_2    = request.POST.get('berat_lemak_pagi_2')
-    berat_lemak_siang_2   = request.POST.get('berat_lemak_siang_2')
-    kacang_2              = request.POST.get('kacang_2')
-    buah_2                = request.POST.get('buah_2')
-    skim_susu_2           = request.POST.get('skim_susu_2')
-    sayuran_a_2           = request.POST.get('sayuran_a_2')
-    sayuran_b_2           = request.POST.get('sayuran_b_2')
-    karbohidrat_2         = request.POST.get('karbohidrat_2')
-    protein_2             = request.POST.get('protein_2')
-    lemak_2               = request.POST.get('lemak_2')
+    berat_buah_siang_2    = request.POST.get('berat_buah_siang_2')
+    berat_kacang_siang_2   = request.POST.get('berat_kacang_siang_2')
+    berat_skim_susu_siang_2= request.POST.get('berat_skim_susu_siang_2')
+    berat_karbo_siang_2    = request.POST.get('berat_karbo_siang_2')
+    berat_protein_siang_2  = request.POST.get('berat_protein_siang_2')
+    berat_lemak_siang_2    = request.POST.get('berat_lemak_siang_2')
+    berat_buah_malam_2     = request.POST.get('berat_buah_malam_2')
+    berat_kacang_malam_2   = request.POST.get('berat_kacang_malam_2')
+    berat_skim_susu_malam_2= request.POST.get('berat_skim_susu_malam_2')
+    berat_karbo_malam_2    = request.POST.get('berat_karbo_malam_2')
+    berat_protein_malam_2  = request.POST.get('berat_protein_malam_2')
+    berat_lemak_malam_2    = request.POST.get('berat_lemak_malam_2')
+    buah_pagi_2            = request.POST.get('buah_pagi_2')
+    kacang_pagi_2          = request.POST.get('kacang_pagi_2')
+    skim_susu_pagi_2       = request.POST.get('skim_susu_pagi_2')
+    karbohidrat_pagi_2     = request.POST.get('karbohidrat_pagi_2')
+    protein_pagi_2         = request.POST.get('protein_pagi_2')
+    lemak_pagi_2           = request.POST.get('lemak_pagi_2')
+    sayuran_a_pagi_2       = request.POST.get('sayuran_a_pagi_2')
+    sayuran_b_pagi_2       = request.POST.get('sayuran_b_pagi_2')
+    buah_siang_2           = request.POST.get('buah_siang_2')
+    kacang_siang_2         = request.POST.get('kacang_siang_2')
+    skim_susu_siang_2      = request.POST.get('skim_susu_siang_2')
+    karbohidrat_siang_2    = request.POST.get('karbohidrat_siang_2')
+    protein_siang_2        = request.POST.get('protein_siang_2')
+    lemak_siang_2          = request.POST.get('lemak_siang_2')
+    sayuran_a_siang_2      = request.POST.get('sayuran_a_siang_2')
+    sayuran_b_siang_2      = request.POST.get('sayuran_b_siang_2')
+    buah_malam_2           = request.POST.get('buah_malam_2')
+    kacang_malam_2         = request.POST.get('kacang_malam_2')
+    skim_susu_malam_2      = request.POST.get('skim_susu_malam_2')
+    karbohidrat_malam_2    = request.POST.get('karbohidrat_malam_2')
+    protein_malam_2        = request.POST.get('protein_malam_2')
+    lemak_malam_2          = request.POST.get('lemak_malam_2')
+    sayuran_a_malam_2      = request.POST.get('sayuran_a_malam_2')
+    sayuran_b_malam_2      = request.POST.get('sayuran_b_malam_2')
     total_karbohidrat_2   = request.POST.get('total_karbohidrat_2')
     total_protein_2       = request.POST.get('total_protein_2')
     total_lemak_2         = request.POST.get('total_lemak_2')
     total_kalori_2        = request.POST.get('total_kalori_2')
 
-    berat_buah_3          = request.POST.get('berat_buah_3')
-    berat_kacang_3        = request.POST.get('berat_kacang_3')
-    berat_skim_susu_3     = request.POST.get('berat_skim_susu_3')
+    berat_buah_pagi_3     = request.POST.get('berat_buah_pagi_3')
+    berat_kacang_pagi_3   = request.POST.get('berat_kacang_pagi_3')
+    berat_skim_susu_pagi_3= request.POST.get('berat_skim_susu_pagi_3')
     berat_karbo_pagi_3    = request.POST.get('berat_karbo_pagi_3')
-    berat_karbo_siang_3   = request.POST.get('berat_karbo_siang_3')
     berat_protein_pagi_3  = request.POST.get('berat_protein_pagi_3')
-    berat_protein_siang_3 = request.POST.get('berat_protein_siang_3')
     berat_lemak_pagi_3    = request.POST.get('berat_lemak_pagi_3')
-    berat_lemak_siang_3   = request.POST.get('berat_lemak_siang_3')
-    kacang_3              = request.POST.get('kacang_3')
-    buah_3                = request.POST.get('buah_3')
-    skim_susu_3           = request.POST.get('skim_susu_3')
-    sayuran_a_3           = request.POST.get('sayuran_a_3')
-    sayuran_b_3           = request.POST.get('sayuran_b_3')
-    karbohidrat_3         = request.POST.get('karbohidrat_3')
-    protein_3             = request.POST.get('protein_3')
-    lemak_3               = request.POST.get('lemak_3')
+    berat_buah_siang_3    = request.POST.get('berat_buah_siang_3')
+    berat_kacang_siang_3   = request.POST.get('berat_kacang_siang_3')
+    berat_skim_susu_siang_3= request.POST.get('berat_skim_susu_siang_3')
+    berat_karbo_siang_3    = request.POST.get('berat_karbo_siang_3')
+    berat_protein_siang_3  = request.POST.get('berat_protein_siang_3')
+    berat_lemak_siang_3    = request.POST.get('berat_lemak_siang_3')
+    berat_buah_malam_3     = request.POST.get('berat_buah_malam_3')
+    berat_kacang_malam_3   = request.POST.get('berat_kacang_malam_3')
+    berat_skim_susu_malam_3= request.POST.get('berat_skim_susu_malam_3')
+    berat_karbo_malam_3    = request.POST.get('berat_karbo_malam_3')
+    berat_protein_malam_3  = request.POST.get('berat_protein_malam_3')
+    berat_lemak_malam_3    = request.POST.get('berat_lemak_malam_3')
+    buah_pagi_3            = request.POST.get('buah_pagi_3')
+    kacang_pagi_3          = request.POST.get('kacang_pagi_3')
+    skim_susu_pagi_3       = request.POST.get('skim_susu_pagi_3')
+    karbohidrat_pagi_3     = request.POST.get('karbohidrat_pagi_3')
+    protein_pagi_3         = request.POST.get('protein_pagi_3')
+    lemak_pagi_3           = request.POST.get('lemak_pagi_3')
+    sayuran_a_pagi_3       = request.POST.get('sayuran_a_pagi_3')
+    sayuran_b_pagi_3       = request.POST.get('sayuran_b_pagi_3')
+    buah_siang_3           = request.POST.get('buah_siang_3')
+    kacang_siang_3         = request.POST.get('kacang_siang_3')
+    skim_susu_siang_3      = request.POST.get('skim_susu_siang_3')
+    karbohidrat_siang_3    = request.POST.get('karbohidrat_siang_3')
+    protein_siang_3        = request.POST.get('protein_siang_3')
+    lemak_siang_3          = request.POST.get('lemak_siang_3')
+    sayuran_a_siang_3      = request.POST.get('sayuran_a_siang_3')
+    sayuran_b_siang_3      = request.POST.get('sayuran_b_siang_3')
+    buah_malam_3           = request.POST.get('buah_malam_3')
+    kacang_malam_3         = request.POST.get('kacang_malam_3')
+    skim_susu_malam_3      = request.POST.get('skim_susu_malam_3')
+    karbohidrat_malam_3    = request.POST.get('karbohidrat_malam_3')
+    protein_malam_3        = request.POST.get('protein_malam_3')
+    lemak_malam_3          = request.POST.get('lemak_malam_3')
+    sayuran_a_malam_3      = request.POST.get('sayuran_a_malam_3')
+    sayuran_b_malam_3      = request.POST.get('sayuran_b_malam_3')
     total_karbohidrat_3   = request.POST.get('total_karbohidrat_3')
     total_protein_3       = request.POST.get('total_protein_3')
     total_lemak_3         = request.POST.get('total_lemak_3')
     total_kalori_3        = request.POST.get('total_kalori_3')
 
-    berat_buah_4          = request.POST.get('berat_buah_4')
-    berat_kacang_4        = request.POST.get('berat_kacang_4')
-    berat_skim_susu_4     = request.POST.get('berat_skim_susu_4')
+    berat_buah_pagi_4     = request.POST.get('berat_buah_pagi_4')
+    berat_kacang_pagi_4   = request.POST.get('berat_kacang_pagi_4')
+    berat_skim_susu_pagi_4= request.POST.get('berat_skim_susu_pagi_4')
     berat_karbo_pagi_4    = request.POST.get('berat_karbo_pagi_4')
-    berat_karbo_siang_4   = request.POST.get('berat_karbo_siang_4')
     berat_protein_pagi_4  = request.POST.get('berat_protein_pagi_4')
-    berat_protein_siang_4 = request.POST.get('berat_protein_siang_4')
     berat_lemak_pagi_4    = request.POST.get('berat_lemak_pagi_4')
-    berat_lemak_siang_4   = request.POST.get('berat_lemak_siang_4')
-    kacang_4              = request.POST.get('kacang_4')
-    buah_4                = request.POST.get('buah_4')
-    skim_susu_4           = request.POST.get('skim_susu_4')
-    sayuran_a_4           = request.POST.get('sayuran_a_4')
-    sayuran_b_4           = request.POST.get('sayuran_b_4')
-    karbohidrat_4         = request.POST.get('karbohidrat_4')
-    protein_4             = request.POST.get('protein_4')
-    lemak_4               = request.POST.get('lemak_4')
+    berat_buah_siang_4    = request.POST.get('berat_buah_siang_4')
+    berat_kacang_siang_4   = request.POST.get('berat_kacang_siang_4')
+    berat_skim_susu_siang_4= request.POST.get('berat_skim_susu_siang_4')
+    berat_karbo_siang_4    = request.POST.get('berat_karbo_siang_4')
+    berat_protein_siang_4  = request.POST.get('berat_protein_siang_4')
+    berat_lemak_siang_4    = request.POST.get('berat_lemak_siang_4')
+    berat_buah_malam_4     = request.POST.get('berat_buah_malam_4')
+    berat_kacang_malam_4   = request.POST.get('berat_kacang_malam_4')
+    berat_skim_susu_malam_4= request.POST.get('berat_skim_susu_malam_4')
+    berat_karbo_malam_4    = request.POST.get('berat_karbo_malam_4')
+    berat_protein_malam_4  = request.POST.get('berat_protein_malam_4')
+    berat_lemak_malam_4    = request.POST.get('berat_lemak_malam_4')
+    buah_pagi_4            = request.POST.get('buah_pagi_4')
+    kacang_pagi_4          = request.POST.get('kacang_pagi_4')
+    skim_susu_pagi_4       = request.POST.get('skim_susu_pagi_4')
+    karbohidrat_pagi_4     = request.POST.get('karbohidrat_pagi_4')
+    protein_pagi_4         = request.POST.get('protein_pagi_4')
+    lemak_pagi_4           = request.POST.get('lemak_pagi_4')
+    sayuran_a_pagi_4       = request.POST.get('sayuran_a_pagi_4')
+    sayuran_b_pagi_4       = request.POST.get('sayuran_b_pagi_4')
+    buah_siang_4           = request.POST.get('buah_siang_4')
+    kacang_siang_4         = request.POST.get('kacang_siang_4')
+    skim_susu_siang_4      = request.POST.get('skim_susu_siang_4')
+    karbohidrat_siang_4    = request.POST.get('karbohidrat_siang_4')
+    protein_siang_4        = request.POST.get('protein_siang_4')
+    lemak_siang_4          = request.POST.get('lemak_siang_4')
+    sayuran_a_siang_4      = request.POST.get('sayuran_a_siang_4')
+    sayuran_b_siang_4      = request.POST.get('sayuran_b_siang_4')
+    buah_malam_4           = request.POST.get('buah_malam_4')
+    kacang_malam_4         = request.POST.get('kacang_malam_4')
+    skim_susu_malam_4      = request.POST.get('skim_susu_malam_4')
+    karbohidrat_malam_4    = request.POST.get('karbohidrat_malam_4')
+    protein_malam_4        = request.POST.get('protein_malam_4')
+    lemak_malam_4          = request.POST.get('lemak_malam_4')
+    sayuran_a_malam_4      = request.POST.get('sayuran_a_malam_4')
+    sayuran_b_malam_4      = request.POST.get('sayuran_b_malam_4')
     total_karbohidrat_4   = request.POST.get('total_karbohidrat_4')
     total_protein_4       = request.POST.get('total_protein_4')
     total_lemak_4         = request.POST.get('total_lemak_4')
     total_kalori_4        = request.POST.get('total_kalori_4')
 
-    berat_buah_5          = request.POST.get('berat_buah_5')
-    berat_kacang_5        = request.POST.get('berat_kacang_5')
-    berat_skim_susu_5     = request.POST.get('berat_skim_susu_5')
+    berat_buah_pagi_5     = request.POST.get('berat_buah_pagi_5')
+    berat_kacang_pagi_5   = request.POST.get('berat_kacang_pagi_5')
+    berat_skim_susu_pagi_5= request.POST.get('berat_skim_susu_pagi_5')
     berat_karbo_pagi_5    = request.POST.get('berat_karbo_pagi_5')
-    berat_karbo_siang_5   = request.POST.get('berat_karbo_siang_5')
     berat_protein_pagi_5  = request.POST.get('berat_protein_pagi_5')
-    berat_protein_siang_5 = request.POST.get('berat_protein_siang_5')
     berat_lemak_pagi_5    = request.POST.get('berat_lemak_pagi_5')
-    berat_lemak_siang_5   = request.POST.get('berat_lemak_siang_5')
-    kacang_5              = request.POST.get('kacang_5')
-    buah_5                = request.POST.get('buah_5')
-    skim_susu_5           = request.POST.get('skim_susu_5')
-    sayuran_a_5           = request.POST.get('sayuran_a_5')
-    sayuran_b_5           = request.POST.get('sayuran_b_5')
-    karbohidrat_5         = request.POST.get('karbohidrat_5')
-    protein_5             = request.POST.get('protein_5')
-    lemak_5               = request.POST.get('lemak_5')
+    berat_buah_siang_5    = request.POST.get('berat_buah_siang_5')
+    berat_kacang_siang_5   = request.POST.get('berat_kacang_siang_5')
+    berat_skim_susu_siang_5= request.POST.get('berat_skim_susu_siang_5')
+    berat_karbo_siang_5    = request.POST.get('berat_karbo_siang_5')
+    berat_protein_siang_5  = request.POST.get('berat_protein_siang_5')
+    berat_lemak_siang_5    = request.POST.get('berat_lemak_siang_5')
+    berat_buah_malam_5     = request.POST.get('berat_buah_malam_5')
+    berat_kacang_malam_5   = request.POST.get('berat_kacang_malam_5')
+    berat_skim_susu_malam_5= request.POST.get('berat_skim_susu_malam_5')
+    berat_karbo_malam_5    = request.POST.get('berat_karbo_malam_5')
+    berat_protein_malam_5  = request.POST.get('berat_protein_malam_5')
+    berat_lemak_malam_5    = request.POST.get('berat_lemak_malam_5')
+    buah_pagi_5            = request.POST.get('buah_pagi_5')
+    kacang_pagi_5          = request.POST.get('kacang_pagi_5')
+    skim_susu_pagi_5       = request.POST.get('skim_susu_pagi_5')
+    karbohidrat_pagi_5     = request.POST.get('karbohidrat_pagi_5')
+    protein_pagi_5         = request.POST.get('protein_pagi_5')
+    lemak_pagi_5           = request.POST.get('lemak_pagi_5')
+    sayuran_a_pagi_5       = request.POST.get('sayuran_a_pagi_5')
+    sayuran_b_pagi_5       = request.POST.get('sayuran_b_pagi_5')
+    buah_siang_5           = request.POST.get('buah_siang_5')
+    kacang_siang_5         = request.POST.get('kacang_siang_5')
+    skim_susu_siang_5      = request.POST.get('skim_susu_siang_5')
+    karbohidrat_siang_5    = request.POST.get('karbohidrat_siang_5')
+    protein_siang_5        = request.POST.get('protein_siang_5')
+    lemak_siang_5          = request.POST.get('lemak_siang_5')
+    sayuran_a_siang_5      = request.POST.get('sayuran_a_siang_5')
+    sayuran_b_siang_5      = request.POST.get('sayuran_b_siang_5')
+    buah_malam_5           = request.POST.get('buah_malam_5')
+    kacang_malam_5         = request.POST.get('kacang_malam_5')
+    skim_susu_malam_5      = request.POST.get('skim_susu_malam_5')
+    karbohidrat_malam_5    = request.POST.get('karbohidrat_malam_5')
+    protein_malam_5        = request.POST.get('protein_malam_5')
+    lemak_malam_5          = request.POST.get('lemak_malam_5')
+    sayuran_a_malam_5      = request.POST.get('sayuran_a_malam_5')
+    sayuran_b_malam_5      = request.POST.get('sayuran_b_malam_5')
     total_karbohidrat_5   = request.POST.get('total_karbohidrat_5')
     total_protein_5       = request.POST.get('total_protein_5')
     total_lemak_5         = request.POST.get('total_lemak_5')
@@ -1157,69 +939,144 @@ def export_pdf(request):
       }
     
     menu_1 = {
-      'berat_buah'       : berat_buah_1,
-      'berat_kacang'     : berat_kacang_1,
-      'berat_skim_susu'  : berat_skim_susu_1,
-      'berat_karbo_pagi' : berat_karbo_pagi_1,
-      'berat_karbo_siang': berat_karbo_siang_1,
+      'berat_buah_pagi'       : berat_buah_pagi_1,
+      'berat_kacang_pagi'     : berat_kacang_pagi_1,
+      'berat_skim_susu_pagi'  : berat_skim_susu_pagi_1,
+      'berat_karbo_pagi'    : berat_karbo_pagi_1,
       'berat_protein_pagi'  : berat_protein_pagi_1,
-      'berat_protein_siang' : berat_protein_siang_1,
       'berat_lemak_pagi'    : berat_lemak_pagi_1,
-      'berat_lemak_siang'   : berat_lemak_siang_1,
-      'kacang'    : kacang_1,
-      'buah'      : buah_1,
-      'skim_susu' : skim_susu_1,
-      'sayuran_a' : sayuran_a_1,
-      'sayuran_b' : sayuran_b_1,
-      'karbohidrat': karbohidrat_1,
-      'protein'   : protein_1,
-      'lemak'     : lemak_1,
+      'kacang_pagi'    : kacang_pagi_1,
+      'buah_pagi'      : buah_pagi_1,
+      'skim_susu_pagi' : skim_susu_pagi_1,
+      'sayuran_a_pagi' : sayuran_a_pagi_1,
+      'sayuran_b_pagi' : sayuran_b_pagi_1,
+      'karbohidrat_pagi': karbohidrat_pagi_1,
+      'protein_pagi'   : protein_pagi_1,
+      'lemak_pagi'     : lemak_pagi_1,
+      'berat_buah_siang'       : berat_buah_siang_1,
+      'berat_kacang_siang'     : berat_kacang_siang_1,
+      'berat_skim_susu_siang'  : berat_skim_susu_siang_1,
+      'berat_karbo_siang'    : berat_karbo_siang_1,
+      'berat_protein_siang'  : berat_protein_siang_1,
+      'berat_lemak_siang'    : berat_lemak_siang_1,
+      'kacang_siang'    : kacang_siang_1,
+      'buah_siang'      : buah_siang_1,
+      'skim_susu_siang' : skim_susu_siang_1,
+      'sayuran_a_siang' : sayuran_a_siang_1,
+      'sayuran_b_siang' : sayuran_b_siang_1,
+      'karbohidrat_siang': karbohidrat_siang_1,
+      'protein_siang'   : protein_siang_1,
+      'lemak_siang'     : lemak_siang_1,
+      'berat_buah_malam'       : berat_buah_malam_1,
+      'berat_kacang_malam'     : berat_kacang_malam_1,
+      'berat_skim_susu_malam'  : berat_skim_susu_malam_1,
+      'berat_karbo_malam'    : berat_karbo_malam_1,
+      'berat_protein_malam'  : berat_protein_malam_1,
+      'berat_lemak_malam'    : berat_lemak_malam_1,
+      'kacang_malam'    : kacang_malam_1,
+      'buah_malam'      : buah_malam_1,
+      'skim_susu_malam' : skim_susu_malam_1,
+      'sayuran_a_malam' : sayuran_a_malam_1,
+      'sayuran_b_malam' : sayuran_b_malam_1,
+      'karbohidrat_malam': karbohidrat_malam_1,
+      'protein_malam'   : protein_malam_1,
+      'lemak_malam'     : lemak_malam_1,
       'total_karbo'     : total_karbohidrat_1,
       'total_protein'   : total_protein_1,
       'total_lemak'     : total_lemak_1,
       'total_kalori'    : total_kalori_1,
     }
     menu_2 = {
-      'berat_buah'       : berat_buah_2,
-      'berat_kacang'     : berat_kacang_2,
-      'berat_skim_susu'  : berat_skim_susu_2,
-      'berat_karbo_pagi' : berat_karbo_pagi_2,
-      'berat_karbo_siang': berat_karbo_siang_2,
+      'berat_buah_pagi'       : berat_buah_pagi_2,
+      'berat_kacang_pagi'     : berat_kacang_pagi_2,
+      'berat_skim_susu_pagi'  : berat_skim_susu_pagi_2,
+      'berat_karbo_pagi'    : berat_karbo_pagi_2,
       'berat_protein_pagi'  : berat_protein_pagi_2,
-      'berat_protein_siang' : berat_protein_siang_2,
       'berat_lemak_pagi'    : berat_lemak_pagi_2,
-      'berat_lemak_siang'   : berat_lemak_siang_2,
-      'kacang'    : kacang_2,
-      'buah'      : buah_2,
-      'skim_susu' : skim_susu_2,
-      'sayuran_a' : sayuran_a_2,
-      'sayuran_b' : sayuran_b_2,
-      'karbohidrat': karbohidrat_2,
-      'protein'   : protein_2,
-      'lemak'     : lemak_2,
+      'kacang_pagi'    : kacang_pagi_2,
+      'buah_pagi'      : buah_pagi_2,
+      'skim_susu_pagi' : skim_susu_pagi_2,
+      'sayuran_a_pagi' : sayuran_a_pagi_2,
+      'sayuran_b_pagi' : sayuran_b_pagi_2,
+      'karbohidrat_pagi': karbohidrat_pagi_2,
+      'protein_pagi'   : protein_pagi_2,
+      'lemak_pagi'     : lemak_pagi_2,
+      'berat_buah_siang'       : berat_buah_siang_2,
+      'berat_kacang_siang'     : berat_kacang_siang_2,
+      'berat_skim_susu_siang'  : berat_skim_susu_siang_2,
+      'berat_karbo_siang'    : berat_karbo_siang_2,
+      'berat_protein_siang'  : berat_protein_siang_2,
+      'berat_lemak_siang'    : berat_lemak_siang_2,
+      'kacang_siang'    : kacang_siang_2,
+      'buah_siang'      : buah_siang_2,
+      'skim_susu_siang' : skim_susu_siang_2,
+      'sayuran_a_siang' : sayuran_a_siang_2,
+      'sayuran_b_siang' : sayuran_b_siang_2,
+      'karbohidrat_siang': karbohidrat_siang_2,
+      'protein_siang'   : protein_siang_2,
+      'lemak_siang'     : lemak_siang_2,
+      'berat_buah_malam'       : berat_buah_malam_2,
+      'berat_kacang_malam'     : berat_kacang_malam_2,
+      'berat_skim_susu_malam'  : berat_skim_susu_malam_2,
+      'berat_karbo_malam'    : berat_karbo_malam_2,
+      'berat_protein_malam'  : berat_protein_malam_2,
+      'berat_lemak_malam'    : berat_lemak_malam_2,
+      'kacang_malam'    : kacang_malam_2,
+      'buah_malam'      : buah_malam_2,
+      'skim_susu_malam' : skim_susu_malam_2,
+      'sayuran_a_malam' : sayuran_a_malam_2,
+      'sayuran_b_malam' : sayuran_b_malam_2,
+      'karbohidrat_malam': karbohidrat_malam_2,
+      'protein_malam'   : protein_malam_2,
+      'lemak_malam'     : lemak_malam_2,
       'total_karbo'     : total_karbohidrat_2,
       'total_protein'   : total_protein_2,
       'total_lemak'     : total_lemak_2,
       'total_kalori'    : total_kalori_2,
     }
     menu_3 = {
-      'berat_buah'       : berat_buah_3,
-      'berat_kacang'     : berat_kacang_3,
-      'berat_skim_susu'  : berat_skim_susu_3,
-      'berat_karbo_pagi' : berat_karbo_pagi_3,
-      'berat_karbo_siang': berat_karbo_siang_3,
+      'berat_buah_pagi'       : berat_buah_pagi_3,
+      'berat_kacang_pagi'     : berat_kacang_pagi_3,
+      'berat_skim_susu_pagi'  : berat_skim_susu_pagi_3,
+      'berat_karbo_pagi'    : berat_karbo_pagi_3,
       'berat_protein_pagi'  : berat_protein_pagi_3,
-      'berat_protein_siang' : berat_protein_siang_3,
       'berat_lemak_pagi'    : berat_lemak_pagi_3,
-      'berat_lemak_siang'   : berat_lemak_siang_3,
-      'kacang'    : kacang_3,
-      'buah'      : buah_3,
-      'skim_susu' : skim_susu_3,
-      'sayuran_a' : sayuran_a_3,
-      'sayuran_b' : sayuran_b_3,
-      'karbohidrat': karbohidrat_3,
-      'protein'   : protein_3,
-      'lemak'     : lemak_3,
+      'kacang_pagi'    : kacang_pagi_3,
+      'buah_pagi'      : buah_pagi_3,
+      'skim_susu_pagi' : skim_susu_pagi_3,
+      'sayuran_a_pagi' : sayuran_a_pagi_3,
+      'sayuran_b_pagi' : sayuran_b_pagi_3,
+      'karbohidrat_pagi': karbohidrat_pagi_3,
+      'protein_pagi'   : protein_pagi_3,
+      'lemak_pagi'     : lemak_pagi_3,
+      'berat_buah_siang'       : berat_buah_siang_3,
+      'berat_kacang_siang'     : berat_kacang_siang_3,
+      'berat_skim_susu_siang'  : berat_skim_susu_siang_3,
+      'berat_karbo_siang'    : berat_karbo_siang_3,
+      'berat_protein_siang'  : berat_protein_siang_3,
+      'berat_lemak_siang'    : berat_lemak_siang_3,
+      'kacang_siang'    : kacang_siang_3,
+      'buah_siang'      : buah_siang_3,
+      'skim_susu_siang' : skim_susu_siang_3,
+      'sayuran_a_siang' : sayuran_a_siang_3,
+      'sayuran_b_siang' : sayuran_b_siang_3,
+      'karbohidrat_siang': karbohidrat_siang_3,
+      'protein_siang'   : protein_siang_3,
+      'lemak_siang'     : lemak_siang_3,
+      'berat_buah_malam'       : berat_buah_malam_3,
+      'berat_kacang_malam'     : berat_kacang_malam_3,
+      'berat_skim_susu_malam'  : berat_skim_susu_malam_3,
+      'berat_karbo_malam'    : berat_karbo_malam_3,
+      'berat_protein_malam'  : berat_protein_malam_3,
+      'berat_lemak_malam'    : berat_lemak_malam_3,
+      'kacang_malam'    : kacang_malam_3,
+      'buah_malam'      : buah_malam_3,
+      'skim_susu_malam' : skim_susu_malam_3,
+      'sayuran_a_malam' : sayuran_a_malam_3,
+      'sayuran_b_malam' : sayuran_b_malam_3,
+      'karbohidrat_malam': karbohidrat_malam_3,
+      'protein_malam'   : protein_malam_3,
+      'lemak_malam'     : lemak_malam_3,
       'total_karbo'     : total_karbohidrat_3,
       'total_protein'   : total_protein_3,
       'total_lemak'     : total_lemak_3,
@@ -1227,23 +1084,48 @@ def export_pdf(request):
     }
 
     menu_4 = {
-      'berat_buah'       : berat_buah_4,
-      'berat_kacang'     : berat_kacang_4,
-      'berat_skim_susu'  : berat_skim_susu_4,
-      'berat_karbo_pagi' : berat_karbo_pagi_4,
-      'berat_karbo_siang': berat_karbo_siang_4,
+      'berat_buah_pagi'       : berat_buah_pagi_4,
+      'berat_kacang_pagi'     : berat_kacang_pagi_4,
+      'berat_skim_susu_pagi'  : berat_skim_susu_pagi_4,
+      'berat_karbo_pagi'    : berat_karbo_pagi_4,
       'berat_protein_pagi'  : berat_protein_pagi_4,
-      'berat_protein_siang' : berat_protein_siang_4,
       'berat_lemak_pagi'    : berat_lemak_pagi_4,
-      'berat_lemak_siang'   : berat_lemak_siang_4,
-      'kacang'    : kacang_4,
-      'buah'      : buah_4,
-      'skim_susu' : skim_susu_4,
-      'sayuran_a' : sayuran_a_4,
-      'sayuran_b' : sayuran_b_4,
-      'karbohidrat': karbohidrat_4,
-      'protein'   : protein_4,
-      'lemak'     : lemak_4,
+      'kacang_pagi'    : kacang_pagi_4,
+      'buah_pagi'      : buah_pagi_4,
+      'skim_susu_pagi' : skim_susu_pagi_4,
+      'sayuran_a_pagi' : sayuran_a_pagi_4,
+      'sayuran_b_pagi' : sayuran_b_pagi_4,
+      'karbohidrat_pagi': karbohidrat_pagi_4,
+      'protein_pagi'   : protein_pagi_4,
+      'lemak_pagi'     : lemak_pagi_4,
+      'berat_buah_siang'       : berat_buah_siang_4,
+      'berat_kacang_siang'     : berat_kacang_siang_4,
+      'berat_skim_susu_siang'  : berat_skim_susu_siang_4,
+      'berat_karbo_siang'    : berat_karbo_siang_4,
+      'berat_protein_siang'  : berat_protein_siang_4,
+      'berat_lemak_siang'    : berat_lemak_siang_4,
+      'kacang_siang'    : kacang_siang_4,
+      'buah_siang'      : buah_siang_4,
+      'skim_susu_siang' : skim_susu_siang_4,
+      'sayuran_a_siang' : sayuran_a_siang_4,
+      'sayuran_b_siang' : sayuran_b_siang_4,
+      'karbohidrat_siang': karbohidrat_siang_4,
+      'protein_siang'   : protein_siang_4,
+      'lemak_siang'     : lemak_siang_4,
+      'berat_buah_malam'       : berat_buah_malam_4,
+      'berat_kacang_malam'     : berat_kacang_malam_4,
+      'berat_skim_susu_malam'  : berat_skim_susu_malam_4,
+      'berat_karbo_malam'    : berat_karbo_malam_4,
+      'berat_protein_malam'  : berat_protein_malam_4,
+      'berat_lemak_malam'    : berat_lemak_malam_4,
+      'kacang_malam'    : kacang_malam_4,
+      'buah_malam'      : buah_malam_4,
+      'skim_susu_malam' : skim_susu_malam_4,
+      'sayuran_a_malam' : sayuran_a_malam_4,
+      'sayuran_b_malam' : sayuran_b_malam_4,
+      'karbohidrat_malam': karbohidrat_malam_4,
+      'protein_malam'   : protein_malam_4,
+      'lemak_malam'     : lemak_malam_4,
       'total_karbo'     : total_karbohidrat_4,
       'total_protein'   : total_protein_4,
       'total_lemak'     : total_lemak_4,
@@ -1251,23 +1133,48 @@ def export_pdf(request):
     }
 
     menu_5 = {
-      'berat_buah'       : berat_buah_5,
-      'berat_kacang'     : berat_kacang_5,
-      'berat_skim_susu'  : berat_skim_susu_5,
-      'berat_karbo_pagi' : berat_karbo_pagi_5,
-      'berat_karbo_siang': berat_karbo_siang_5,
+            'berat_buah_pagi'       : berat_buah_pagi_5,
+      'berat_kacang_pagi'     : berat_kacang_pagi_5,
+      'berat_skim_susu_pagi'  : berat_skim_susu_pagi_5,
+      'berat_karbo_pagi'    : berat_karbo_pagi_5,
       'berat_protein_pagi'  : berat_protein_pagi_5,
-      'berat_protein_siang' : berat_protein_siang_5,
       'berat_lemak_pagi'    : berat_lemak_pagi_5,
-      'berat_lemak_siang'   : berat_lemak_siang_5,
-      'kacang'    : kacang_5,
-      'buah'      : buah_5,
-      'skim_susu' : skim_susu_5,
-      'sayuran_a' : sayuran_a_5,
-      'sayuran_b' : sayuran_b_5,
-      'karbohidrat': karbohidrat_5,
-      'protein'   : protein_5,
-      'lemak'     : lemak_5,
+      'kacang_pagi'    : kacang_pagi_5,
+      'buah_pagi'      : buah_pagi_5,
+      'skim_susu_pagi' : skim_susu_pagi_5,
+      'sayuran_a_pagi' : sayuran_a_pagi_5,
+      'sayuran_b_pagi' : sayuran_b_pagi_5,
+      'karbohidrat_pagi': karbohidrat_pagi_5,
+      'protein_pagi'   : protein_pagi_5,
+      'lemak_pagi'     : lemak_pagi_5,
+      'berat_buah_siang'       : berat_buah_siang_5,
+      'berat_kacang_siang'     : berat_kacang_siang_5,
+      'berat_skim_susu_siang'  : berat_skim_susu_siang_5,
+      'berat_karbo_siang'    : berat_karbo_siang_5,
+      'berat_protein_siang'  : berat_protein_siang_5,
+      'berat_lemak_siang'    : berat_lemak_siang_5,
+      'kacang_siang'    : kacang_siang_5,
+      'buah_siang'      : buah_siang_5,
+      'skim_susu_siang' : skim_susu_siang_5,
+      'sayuran_a_siang' : sayuran_a_siang_5,
+      'sayuran_b_siang' : sayuran_b_siang_5,
+      'karbohidrat_siang': karbohidrat_siang_5,
+      'protein_siang'   : protein_siang_5,
+      'lemak_siang'     : lemak_siang_5,
+      'berat_buah_malam'       : berat_buah_malam_5,
+      'berat_kacang_malam'     : berat_kacang_malam_5,
+      'berat_skim_susu_malam'  : berat_skim_susu_malam_5,
+      'berat_karbo_malam'    : berat_karbo_malam_5,
+      'berat_protein_malam'  : berat_protein_malam_5,
+      'berat_lemak_malam'    : berat_lemak_malam_5,
+      'kacang_malam'    : kacang_malam_5,
+      'buah_malam'      : buah_malam_5,
+      'skim_susu_malam' : skim_susu_malam_5,
+      'sayuran_a_malam' : sayuran_a_malam_5,
+      'sayuran_b_malam' : sayuran_b_malam_5,
+      'karbohidrat_malam': karbohidrat_malam_5,
+      'protein_malam'   : protein_malam_5,
+      'lemak_malam'     : lemak_malam_5,
       'total_karbo'     : total_karbohidrat_5,
       'total_protein'   : total_protein_5,
       'total_lemak'     : total_lemak_5,

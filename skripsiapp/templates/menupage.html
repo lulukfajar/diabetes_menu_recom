@@ -54,7 +54,7 @@
 
   <main id="main">
 
-    <!-- ======= Hero Section ======= -->
+    <!-- ======= Biodata Section ======= -->
     <section class="section about-section gray-bg" id="about">
       <div class="container" style="margin-top: 30px;">
         <div class="section-title">
@@ -150,8 +150,9 @@
           </div>
       </div>
     </section>
+    <!-- End Biodata Section -->
 
-    <!-- ======= Specials Section ======= -->
+    <!-- Diet Section -->
     <section id="specials" class="specials" style="box-shadow: 0 0 60px rgba(50, 41, 24, 0.125);">
       <div class="container">
         <div class="section-title">
@@ -180,7 +181,8 @@
           </div>
         </div>
       </div>
-    </section><!-- End Specials Section -->
+    </section>
+    <!-- End Diet Section -->
 
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu" style="position: relative;">
@@ -205,7 +207,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_pagi }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_pagi }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 25 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_pagi}} gr
+                    {{ menu.0.karbohidrat_pagi }} {{ menu.0.berat_karbo_pagi }} gr, {{ menu.0.protein_pagi }} {{ menu.0.berat_protein_pagi }} gr, {{ menu.0.sayuran_a_pagi }} 100 gr, {{ menu.0.sayuran_b_pagi }} 25 gr, {{menu.0.lemak_pagi}} {{menu.0.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -214,7 +216,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml
+                    {{ menu.0.buah_pagi }} {{ menu.0.berat_buah_pagi }} gr, {{ menu.0.kacang_pagi }} {{ menu.0.berat_kacang_pagi }} gr, {{ menu.0.skim_susu_pagi }} {{ menu.0.berat_skim_susu_pagi }} ml
                   </div>
                 </div>
 
@@ -223,7 +225,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_siang }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_siang }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 50 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_siang}} gr
+                    {{ menu.0.karbohidrat_siang }} {{ menu.0.berat_karbo_siang }} gr, {{ menu.0.protein_siang }} {{ menu.0.berat_protein_siang }} gr, {{ menu.0.sayuran_a_siang }} 100 gr, {{ menu.0.sayuran_b_siang }} 50 gr, {{menu.0.lemak_siang}} {{menu.0.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -232,7 +234,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml
+                    {{ menu.0.buah_siang }} {{ menu.0.berat_buah_siang }} gr, {{ menu.0.kacang_siang }} {{ menu.0.berat_kacang_siang }} gr, {{ menu.0.skim_susu_siang }} {{ menu.0.berat_skim_susu_siang }} ml
                   </div>
                 </div>
 
@@ -241,7 +243,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_siang }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_siang }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 50 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_siang}} gr
+                    {{ menu.0.karbohidrat_malam }} {{ menu.0.berat_karbo_malam }} gr, {{ menu.0.protein_malam }} {{ menu.0.berat_protein_malam }} gr, {{ menu.0.sayuran_a_malam }} 100 gr, {{ menu.0.sayuran_b_malam }} 50 gr, {{menu.0.lemak_malam}} {{menu.0.berat_lemak_malam}} gr
                   </div>
                 </div>
 
@@ -250,7 +252,7 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml
+                    {{ menu.0.buah_malam }} {{ menu.0.berat_buah_malam }} gr, {{ menu.0.kacang_malam }} {{ menu.0.berat_kacang_malam }} gr, {{ menu.0.skim_susu_malam }} {{ menu.0.berat_skim_susu_malam }} ml
                   </div>
                 </div>
               </div>
@@ -258,25 +260,25 @@
                 <div class="row">
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="500" data-speed="500">{{menu_1.total_kalori}}</h6>
+                            <h6 class="count h2" data-to="500" data-speed="500">{{menu.0.total_kalori}}</h6>
                             <p class="m-0px font-w-600">Kalori (kkal)</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="150" data-speed="150">{{menu_1.total_karbo}}</h6>
+                            <h6 class="count h2" data-to="150" data-speed="150">{{menu.0.total_karbo}}</h6>
                             <p class="m-0px font-w-600">Karbohidrat (gr)</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="850" data-speed="850">{{menu_1.total_protein}}</h6>
+                            <h6 class="count h2" data-to="850" data-speed="850">{{menu.0.total_protein}}</h6>
                             <p class="m-0px font-w-600">Protein (gr)</p>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3">
                         <div class="count-data text-center">
-                            <h6 class="count h2" data-to="190" data-speed="190">{{menu_1.total_lemak}}</h6>
+                            <h6 class="count h2" data-to="190" data-speed="190">{{menu.0.total_lemak}}</h6>
                             <p class="m-0px font-w-600">Lemak (gr)</p>
                         </div>
                     </div>
@@ -287,7 +289,7 @@
           <div class="mySlides">
             <div class="container">
               <div class="section-title">
-                <h2>Menu 2 <span></span></h2>
+                <h2>Menu 2<span></span></h2>
               </div>
 
               <div class="row">
@@ -304,7 +306,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_pagi }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_pagi }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 25 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_pagi}} gr
+                    {{ menu.1.karbohidrat_pagi }} {{ menu.1.berat_karbo_pagi }} gr, {{ menu.1.protein_pagi }} {{ menu.1.berat_protein_pagi }} gr, {{ menu.1.sayuran_a_pagi }} 100 gr, {{ menu.1.sayuran_b_pagi }} 25 gr, {{menu.1.lemak_pagi}} {{menu.1.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -313,7 +315,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml
+                    {{ menu.1.buah_pagi }} {{ menu.1.berat_buah_pagi }} gr, {{ menu.1.kacang_pagi }} {{ menu.1.berat_kacang_pagi }} gr, {{ menu.1.skim_susu_pagi }} {{ menu.1.berat_skim_susu_pagi }} ml
                   </div>
                 </div>
 
@@ -322,7 +324,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_siang }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_siang }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 50 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_siang}} gr
+                    {{ menu.1.karbohidrat_siang }} {{ menu.1.berat_karbo_siang }} gr, {{ menu.1.protein_siang }} {{ menu.1.berat_protein_siang }} gr, {{ menu.1.sayuran_a_siang }} 100 gr, {{ menu.1.sayuran_b_siang }} 50 gr, {{menu.1.lemak_siang}} {{menu.1.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -331,7 +333,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml
+                    {{ menu.1.buah_siang }} {{ menu.1.berat_buah_siang }} gr, {{ menu.1.kacang_siang }} {{ menu.1.berat_kacang_siang }} gr, {{ menu.1.skim_susu_siang }} {{ menu.1.berat_skim_susu_siang }} ml
                   </div>
                 </div>
 
@@ -340,7 +342,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_siang }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_siang }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 50 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_siang}} gr
+                    {{ menu.1.karbohidrat_malam }} {{ menu.1.berat_karbo_malam }} gr, {{ menu.1.protein_malam }} {{ menu.1.berat_protein_malam }} gr, {{ menu.1.sayuran_a_malam }} 100 gr, {{ menu.1.sayuran_b_malam }} 50 gr, {{menu.1.lemak_malam}} {{menu.1.berat_lemak_malam}} gr
                   </div>
                 </div>
 
@@ -349,43 +351,42 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml
+                    {{ menu.1.buah_malam }} {{ menu.1.berat_buah_malam }} gr, {{ menu.1.kacang_malam }} {{ menu.1.berat_kacang_malam }} gr, {{ menu.1.skim_susu_malam }} {{ menu.1.berat_skim_susu_malam }} ml
                   </div>
                 </div>
               </div>
               <div class="counter" style="margin-top: 40px;">
                 <div class="row">
-                  <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_2.total_kalori}}</h6>
-                        <p class="m-0px font-w-600">Kalori (kkal)</p>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="500" data-speed="500">{{menu.1.total_kalori}}</h6>
+                            <p class="m-0px font-w-600">Kalori (kkal)</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="150" data-speed="150">{{menu_2.total_karbo}}</h6>
-                        <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="150" data-speed="150">{{menu.1.total_karbo}}</h6>
+                            <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="850" data-speed="850">{{menu_2.total_protein}}</h6>
-                        <p class="m-0px font-w-600">Protein (gr)</p>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="850" data-speed="850">{{menu.1.total_protein}}</h6>
+                            <p class="m-0px font-w-600">Protein (gr)</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="190" data-speed="190">{{menu_2.total_lemak}}</h6>
-                        <p class="m-0px font-w-600">Lemak (gr)</p>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="190" data-speed="190">{{menu.1.total_lemak}}</h6>
+                            <p class="m-0px font-w-600">Lemak (gr)</p>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
             </div>
           </div>
           <div class="mySlides">
             <div class="container">
-
               <div class="section-title">
                 <h2>Menu 3<span></span></h2>
               </div>
@@ -404,7 +405,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_pagi }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_pagi }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 25 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_pagi}} gr
+                    {{ menu.2.karbohidrat_pagi }} {{ menu.2.berat_karbo_pagi }} gr, {{ menu.2.protein_pagi }} {{ menu.2.berat_protein_pagi }} gr, {{ menu.2.sayuran_a_pagi }} 100 gr, {{ menu.2.sayuran_b_pagi }} 25 gr, {{menu.2.lemak_pagi}} {{menu.2.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -413,7 +414,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml
+                    {{ menu.2.buah_pagi }} {{ menu.2.berat_buah_pagi }} gr, {{ menu.2.kacang_pagi }} {{ menu.2.berat_kacang_pagi }} gr, {{ menu.2.skim_susu_pagi }} {{ menu.2.berat_skim_susu_pagi }} ml
                   </div>
                 </div>
 
@@ -422,7 +423,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_siang }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_siang }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 50 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_siang}} gr
+                    {{ menu.2.karbohidrat_siang }} {{ menu.2.berat_karbo_siang }} gr, {{ menu.2.protein_siang }} {{ menu.2.berat_protein_siang }} gr, {{ menu.2.sayuran_a_siang }} 100 gr, {{ menu.2.sayuran_b_siang }} 50 gr, {{menu.2.lemak_siang}} {{menu.2.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -431,7 +432,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml
+                    {{ menu.2.buah_siang }} {{ menu.2.berat_buah_siang }} gr, {{ menu.2.kacang_siang }} {{ menu.2.berat_kacang_siang }} gr, {{ menu.2.skim_susu_siang }} {{ menu.2.berat_skim_susu_siang }} ml
                   </div>
                 </div>
 
@@ -440,7 +441,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_siang }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_siang }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 50 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_siang}} gr
+                    {{ menu.2.karbohidrat_malam }} {{ menu.2.berat_karbo_malam }} gr, {{ menu.2.protein_malam }} {{ menu.2.berat_protein_malam }} gr, {{ menu.2.sayuran_a_malam }} 100 gr, {{ menu.2.sayuran_b_malam }} 50 gr, {{menu.2.lemak_malam}} {{menu.2.berat_lemak_malam}} gr
                   </div>
                 </div>
 
@@ -449,43 +450,42 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml
+                    {{ menu.2.buah_malam }} {{ menu.2.berat_buah_malam }} gr, {{ menu.2.kacang_malam }} {{ menu.2.berat_kacang_malam }} gr, {{ menu.2.skim_susu_malam }} {{ menu.2.berat_skim_susu_malam }} ml
                   </div>
                 </div>
               </div>
               <div class="counter" style="margin-top: 40px;">
                 <div class="row">
-                  <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_3.total_kalori}}</h6>
-                        <p class="m-0px font-w-600">Kalori (kkal)</p>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="500" data-speed="500">{{menu.2.total_kalori}}</h6>
+                            <p class="m-0px font-w-600">Kalori (kkal)</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="150" data-speed="150">{{menu_3.total_karbo}}</h6>
-                          <p class="m-0px font-w-600">Karbohidrat (gr)</p>
-                      </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="850" data-speed="850">{{menu_3.total_protein}}</h6>
-                          <p class="m-0px font-w-600">Protein (gr)</p>
-                      </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="190" data-speed="190">{{menu_3.total_lemak}}</h6>
-                          <p class="m-0px font-w-600">Lemak (gr)</p>
-                      </div>
-                  </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="150" data-speed="150">{{menu.2.total_karbo}}</h6>
+                            <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="850" data-speed="850">{{menu.2.total_protein}}</h6>
+                            <p class="m-0px font-w-600">Protein (gr)</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="190" data-speed="190">{{menu.2.total_lemak}}</h6>
+                            <p class="m-0px font-w-600">Lemak (gr)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
           </div>
           <div class="mySlides">
             <div class="container">
-
               <div class="section-title">
                 <h2>Menu 4<span></span></h2>
               </div>
@@ -504,7 +504,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_pagi }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_pagi }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 25 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_pagi}} gr
+                    {{ menu.3.karbohidrat_pagi }} {{ menu.3.berat_karbo_pagi }} gr, {{ menu.3.protein_pagi }} {{ menu.3.berat_protein_pagi }} gr, {{ menu.3.sayuran_a_pagi }} 100 gr, {{ menu.3.sayuran_b_pagi }} 25 gr, {{menu.3.lemak_pagi}} {{menu.3.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -513,7 +513,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml
+                    {{ menu.3.buah_pagi }} {{ menu.3.berat_buah_pagi }} gr, {{ menu.3.kacang_pagi }} {{ menu.3.berat_kacang_pagi }} gr, {{ menu.3.skim_susu_pagi }} {{ menu.3.berat_skim_susu_pagi }} ml
                   </div>
                 </div>
 
@@ -522,7 +522,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_siang }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_siang }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 50 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_siang}} gr
+                    {{ menu.3.karbohidrat_siang }} {{ menu.3.berat_karbo_siang }} gr, {{ menu.3.protein_siang }} {{ menu.3.berat_protein_siang }} gr, {{ menu.3.sayuran_a_siang }} 100 gr, {{ menu.3.sayuran_b_siang }} 50 gr, {{menu.3.lemak_siang}} {{menu.3.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -531,7 +531,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml
+                    {{ menu.3.buah_siang }} {{ menu.3.berat_buah_siang }} gr, {{ menu.3.kacang_siang }} {{ menu.3.berat_kacang_siang }} gr, {{ menu.3.skim_susu_siang }} {{ menu.3.berat_skim_susu_siang }} ml
                   </div>
                 </div>
 
@@ -540,7 +540,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_siang }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_siang }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 50 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_siang}} gr
+                    {{ menu.3.karbohidrat_malam }} {{ menu.3.berat_karbo_malam }} gr, {{ menu.3.protein_malam }} {{ menu.3.berat_protein_malam }} gr, {{ menu.3.sayuran_a_malam }} 100 gr, {{ menu.3.sayuran_b_malam }} 50 gr, {{menu.3.lemak_malam}} {{menu.3.berat_lemak_malam}} gr
                   </div>
                 </div>
 
@@ -549,43 +549,42 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml
+                    {{ menu.3.buah_malam }} {{ menu.3.berat_buah_malam }} gr, {{ menu.3.kacang_malam }} {{ menu.3.berat_kacang_malam }} gr, {{ menu.3.skim_susu_malam }} {{ menu.3.berat_skim_susu_malam }} ml
                   </div>
                 </div>
               </div>
               <div class="counter" style="margin-top: 40px;">
                 <div class="row">
-                  <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_4.total_kalori}}</h6>
-                        <p class="m-0px font-w-600">Kalori (kkal)</p>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="500" data-speed="500">{{menu.3.total_kalori}}</h6>
+                            <p class="m-0px font-w-600">Kalori (kkal)</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="150" data-speed="150">{{menu_4.total_karbo}}</h6>
-                          <p class="m-0px font-w-600">Karbohidrat (gr)</p>
-                      </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="850" data-speed="850">{{menu_4.total_protein}}</h6>
-                          <p class="m-0px font-w-600">Protein (gr)</p>
-                      </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="190" data-speed="190">{{menu_4.total_lemak}}</h6>
-                          <p class="m-0px font-w-600">Lemak (gr)</p>
-                      </div>
-                  </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="150" data-speed="150">{{menu.3.total_karbo}}</h6>
+                            <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="850" data-speed="850">{{menu.3.total_protein}}</h6>
+                            <p class="m-0px font-w-600">Protein (gr)</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="190" data-speed="190">{{menu.3.total_lemak}}</h6>
+                            <p class="m-0px font-w-600">Lemak (gr)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
           </div>
           <div class="mySlides">
             <div class="container">
-
               <div class="section-title">
                 <h2>Menu 5<span></span></h2>
               </div>
@@ -604,7 +603,7 @@
                     <a href="#">Sarapan</a><span>06.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_pagi }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_pagi }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 25 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_pagi}} gr
+                    {{ menu.4.karbohidrat_pagi }} {{ menu.4.berat_karbo_pagi }} gr, {{ menu.4.protein_pagi }} {{ menu.4.berat_protein_pagi }} gr, {{ menu.4.sayuran_a_pagi }} 100 gr, {{ menu.4.sayuran_b_pagi }} 25 gr, {{menu.4.lemak_pagi}} {{menu.4.berat_lemak_pagi}} gr
                   </div>
                 </div>
 
@@ -613,7 +612,7 @@
                     <a href="#">Camilan Pagi</a><span>09.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml
+                    {{ menu.4.buah_pagi }} {{ menu.4.berat_buah_pagi }} gr, {{ menu.4.kacang_pagi }} {{ menu.4.berat_kacang_pagi }} gr, {{ menu.4.skim_susu_pagi }} {{ menu.4.berat_skim_susu_pagi }} ml
                   </div>
                 </div>
 
@@ -622,7 +621,7 @@
                     <a href="#">Makan Siang</a><span>12.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_siang }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_siang }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 50 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_siang}} gr
+                    {{ menu.4.karbohidrat_siang }} {{ menu.4.berat_karbo_siang }} gr, {{ menu.4.protein_siang }} {{ menu.4.berat_protein_siang }} gr, {{ menu.4.sayuran_a_siang }} 100 gr, {{ menu.4.sayuran_b_siang }} 50 gr, {{menu.4.lemak_siang}} {{menu.4.berat_lemak_siang}} gr
                   </div>
                 </div>
 
@@ -631,7 +630,7 @@
                     <a href="#">Camilan Siang</a><span>15.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml
+                    {{ menu.4.buah_siang }} {{ menu.4.berat_buah_siang }} gr, {{ menu.4.kacang_siang }} {{ menu.4.berat_kacang_siang }} gr, {{ menu.4.skim_susu_siang }} {{ menu.4.berat_skim_susu_siang }} ml
                   </div>
                 </div>
 
@@ -640,7 +639,7 @@
                     <a href="#">Makan Malam</a><span>18.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_siang }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_siang }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 50 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_siang}} gr
+                    {{ menu.4.karbohidrat_malam }} {{ menu.4.berat_karbo_malam }} gr, {{ menu.4.protein_malam }} {{ menu.4.berat_protein_malam }} gr, {{ menu.4.sayuran_a_malam }} 100 gr, {{ menu.4.sayuran_b_malam }} 50 gr, {{menu.4.lemak_malam}} {{menu.4.berat_lemak_malam}} gr
                   </div>
                 </div>
 
@@ -649,36 +648,36 @@
                     <a href="#">Camilan malam</a><span>21.30</span>
                   </div>
                   <div class="menu-ingredients">
-                    {{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml
+                    {{ menu.4.buah_malam }} {{ menu.4.berat_buah_malam }} gr, {{ menu.4.kacang_malam }} {{ menu.4.berat_kacang_malam }} gr, {{ menu.4.skim_susu_malam }} {{ menu.4.berat_skim_susu_malam }} ml
                   </div>
                 </div>
               </div>
               <div class="counter" style="margin-top: 40px;">
                 <div class="row">
-                  <div class="col-6 col-lg-3">
-                    <div class="count-data text-center">
-                        <h6 class="count h2" data-to="500" data-speed="500">{{menu_5.total_kalori}}</h6>
-                        <p class="m-0px font-w-600">Kalori (kkal)</p>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="500" data-speed="500">{{menu.4.total_kalori}}</h6>
+                            <p class="m-0px font-w-600">Kalori (kkal)</p>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="150" data-speed="150">{{menu_5.total_karbo}}</h6>
-                          <p class="m-0px font-w-600">Karbohidrat (gr)</p>
-                      </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="850" data-speed="850">{{menu_5.total_protein}}</h6>
-                          <p class="m-0px font-w-600">Protein (gr)</p>
-                      </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                      <div class="count-data text-center">
-                          <h6 class="count h2" data-to="190" data-speed="190">{{menu_5.total_lemak}}</h6>
-                          <p class="m-0px font-w-600">Lemak (gr)</p>
-                      </div>
-                  </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="150" data-speed="150">{{menu.4.total_karbo}}</h6>
+                            <p class="m-0px font-w-600">Karbohidrat (gr)</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="850" data-speed="850">{{menu.4.total_protein}}</h6>
+                            <p class="m-0px font-w-600">Protein (gr)</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="count-data text-center">
+                            <h6 class="count h2" data-to="190" data-speed="190">{{menu.4.total_lemak}}</h6>
+                            <p class="m-0px font-w-600">Lemak (gr)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -695,7 +694,9 @@
         <span class="menudot" onclick="currentSlide(4)"></span>
         <span class="menudot" onclick="currentSlide(5)"></span>
       </div>
-    </section><!-- End Menu Section -->
+    </section>
+    
+    <!-- End Menu Section -->
     <form id="export-pdf" action="{% url 'export_pdf' %}" method="POST" >
       {% csrf_token %}
       <input type="hidden" name="nama" value="{{ data_personal.nama}}">
@@ -716,116 +717,255 @@
       <input type="hidden" name="total_protein" value="{{ data_gizi_harian.total_protein}}">
       <input type="hidden" name="total_lemak" value="{{ data_gizi_harian.total_lemak}}">
 
+      
+      <input type="hidden" name="berat_buah_pagi_1" value="{{ menu.0.berat_buah_pagi}}">
+      <input type="hidden" name="berat_kacang_pagi_1" value="{{ menu.0.berat_kacang_pagi}}">
+      <input type="hidden" name="berat_skim_susu_pagi_1" value="{{ menu.0.berat_skim_susu_pagi}}">
+      <input type="hidden" name="berat_karbo_pagi_1" value="{{ menu.0.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_protein_pagi_1" value="{{ menu.0.berat_protein_pagi}}">
+      <input type="hidden" name="berat_lemak_pagi_1" value="{{ menu.0.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_buah_siang_1" value="{{ menu.0.berat_buah_siang}}">
+      <input type="hidden" name="berat_kacang_siang_1" value="{{ menu.0.berat_kacang_siang}}">
+      <input type="hidden" name="berat_skim_susu_siang_1" value="{{ menu.0.berat_skim_susu_siang}}">
+      <input type="hidden" name="berat_karbo_siang_1" value="{{ menu.0.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_siang_1" value="{{ menu.0.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_siang_1" value="{{ menu.0.berat_lemak_siang}}">
+      <input type="hidden" name="berat_buah_malam_1" value="{{ menu.0.berat_buah_malam}}">
+      <input type="hidden" name="berat_kacang_malam_1" value="{{ menu.0.berat_kacang_malam}}">
+      <input type="hidden" name="berat_skim_susu_malam_1" value="{{ menu.0.berat_skim_susu_malam}}">
+      <input type="hidden" name="berat_karbo_malam_1" value="{{ menu.0.berat_karbo_malam}}">
+      <input type="hidden" name="berat_protein_malam_1" value="{{ menu.0.berat_protein_malam}}">
+      <input type="hidden" name="berat_lemak_malam_1" value="{{ menu.0.berat_lemak_malam}}">
+      <input type="hidden" name="buah_pagi_1" value="{{ menu.0.buah_pagi}}">
+      <input type="hidden" name="kacang_pagi_1" value="{{ menu.0.kacang_pagi}}">
+      <input type="hidden" name="skim_susu_pagi_1" value="{{ menu.0.skim_susu_pagi}}">
+      <input type="hidden" name="karbohidrat_pagi_1" value="{{ menu.0.karbohidrat_pagi}}">
+      <input type="hidden" name="protein_pagi_1" value="{{ menu.0.protein_pagi}}">
+      <input type="hidden" name="lemak_pagi_1" value="{{ menu.0.lemak_pagi}}">
+      <input type="hidden" name="buah_siang_1" value="{{ menu.0.buah_siang}}">
+      <input type="hidden" name="kacang_siang_1" value="{{ menu.0.kacang_siang}}">
+      <input type="hidden" name="skim_susu_siang_1" value="{{ menu.0.skim_susu_siang}}">
+      <input type="hidden" name="karbohidrat_siang_1" value="{{ menu.0.karbohidrat_siang}}">
+      <input type="hidden" name="protein_siang_1" value="{{ menu.0.protein_siang}}">
+      <input type="hidden" name="lemak_siang_1" value="{{ menu.0.lemak_siang}}">
+      <input type="hidden" name="buah_malam_1" value="{{ menu.0.buah_malam}}">
+      <input type="hidden" name="kacang_malam_1" value="{{ menu.0.kacang_malam}}">
+      <input type="hidden" name="skim_susu_malam_1" value="{{ menu.0.skim_susu_malam}}">
+      <input type="hidden" name="karbohidrat_malam_1" value="{{ menu.0.karbohidrat_malam}}">
+      <input type="hidden" name="protein_malam_1" value="{{ menu.0.protein_malam}}">
+      <input type="hidden" name="lemak_malam_1" value="{{ menu.0.lemak_malam}}">
+      <input type="hidden" name="protein_malam_1" value="{{ menu.0.protein_malam}}">
+      <input type="hidden" name="lemak_malam_1" value="{{ menu.0.lemak_malam}}">
+      <input type="hidden" name="sayuran_a_pagi_1" value="{{ menu.0.sayuran_a_pagi}}">
+      <input type="hidden" name="sayuran_b_pagi_1" value="{{ menu.0.sayuran_b_pagi}}">
+      <input type="hidden" name="sayuran_a_siang_1" value="{{ menu.0.sayuran_a_siang}}">
+      <input type="hidden" name="sayuran_b_siang_1" value="{{ menu.0.sayuran_b_siang}}">
+      <input type="hidden" name="sayuran_a_malam_1" value="{{ menu.0.sayuran_a_malam}}">
+      <input type="hidden" name="sayuran_b_malam_1" value="{{ menu.0.sayuran_b_malam}}">
+      <input type="hidden" name="total_karbohidrat_1" value="{{ menu.0.total_karbo}}">
+      <input type="hidden" name="total_protein_1" value="{{ menu.0.total_protein}}">
+      <input type="hidden" name="total_lemak_1" value="{{ menu.0.total_lemak}}">
+      <input type="hidden" name="total_kalori_1" value="{{ menu.0.total_kalori}}">
 
-      <input type="hidden" name="berat_buah_1" value="{{ menu_1.berat_buah}}">
-      <input type="hidden" name="berat_kacang_1" value="{{ menu_1.berat_kacang}}">
-      <input type="hidden" name="berat_skim_susu_1" value="{{ menu_1.berat_skim_susu}}">
-      <input type="hidden" name="berat_karbo_pagi_1" value="{{ menu_1.berat_karbo_pagi}}">
-      <input type="hidden" name="berat_karbo_siang_1" value="{{ menu_1.berat_karbo_siang}}">
-      <input type="hidden" name="berat_protein_pagi_1" value="{{ menu_1.berat_protein_pagi}}">
-      <input type="hidden" name="berat_protein_siang_1" value="{{ menu_1.berat_protein_siang}}">
-      <input type="hidden" name="berat_lemak_pagi_1" value="{{ menu_1.berat_lemak_pagi}}">
-      <input type="hidden" name="berat_lemak_siang_1" value="{{ menu_1.berat_lemak_siang}}">
-      <input type="hidden" name="kacang_1" value="{{ menu_1.kacang}}">
-      <input type="hidden" name="buah_1" value="{{ menu_1.buah}}">
-      <input type="hidden" name="skim_susu_1" value="{{ menu_1.skim_susu}}">
-      <input type="hidden" name="sayuran_a_1" value="{{ menu_1.sayuran_a}}">
-      <input type="hidden" name="sayuran_b_1" value="{{ menu_1.sayuran_b}}">
-      <input type="hidden" name="karbohidrat_1" value="{{ menu_1.karbohidrat}}">
-      <input type="hidden" name="protein_1" value="{{ menu_1.protein}}">
-      <input type="hidden" name="lemak_1" value="{{ menu_1.lemak}}">
-      <input type="hidden" name="total_karbohidrat_1" value="{{ menu_1.total_karbo}}">
-      <input type="hidden" name="total_protein_1" value="{{ menu_1.total_protein}}">
-      <input type="hidden" name="total_lemak_1" value="{{ menu_1.total_lemak}}">
-      <input type="hidden" name="total_kalori_1" value="{{ menu_1.total_kalori}}">
+      
+      <input type="hidden" name="berat_buah_pagi_2" value="{{ menu.1.berat_buah_pagi}}">
+      <input type="hidden" name="berat_kacang_pagi_2" value="{{ menu.1.berat_kacang_pagi}}">
+      <input type="hidden" name="berat_skim_susu_pagi_2" value="{{ menu.1.berat_skim_susu_pagi}}">
+      <input type="hidden" name="berat_karbo_pagi_2" value="{{ menu.1.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_protein_pagi_2" value="{{ menu.1.berat_protein_pagi}}">
+      <input type="hidden" name="berat_lemak_pagi_2" value="{{ menu.1.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_buah_siang_2" value="{{ menu.1.berat_buah_siang}}">
+      <input type="hidden" name="berat_kacang_siang_2" value="{{ menu.1.berat_kacang_siang}}">
+      <input type="hidden" name="berat_skim_susu_siang_2" value="{{ menu.1.berat_skim_susu_siang}}">
+      <input type="hidden" name="berat_karbo_siang_2" value="{{ menu.1.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_siang_2" value="{{ menu.1.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_siang_2" value="{{ menu.1.berat_lemak_siang}}">
+      <input type="hidden" name="berat_buah_malam_2" value="{{ menu.1.berat_buah_malam}}">
+      <input type="hidden" name="berat_kacang_malam_2" value="{{ menu.1.berat_kacang_malam}}">
+      <input type="hidden" name="berat_skim_susu_malam_2" value="{{ menu.1.berat_skim_susu_malam}}">
+      <input type="hidden" name="berat_karbo_malam_2" value="{{ menu.1.berat_karbo_malam}}">
+      <input type="hidden" name="berat_protein_malam_2" value="{{ menu.1.berat_protein_malam}}">
+      <input type="hidden" name="berat_lemak_malam_2" value="{{ menu.1.berat_lemak_malam}}">
+      <input type="hidden" name="buah_pagi_2" value="{{ menu.1.buah_pagi}}">
+      <input type="hidden" name="kacang_pagi_2" value="{{ menu.1.kacang_pagi}}">
+      <input type="hidden" name="skim_susu_pagi_2" value="{{ menu.1.skim_susu_pagi}}">
+      <input type="hidden" name="karbohidrat_pagi_2" value="{{ menu.1.karbohidrat_pagi}}">
+      <input type="hidden" name="protein_pagi_2" value="{{ menu.1.protein_pagi}}">
+      <input type="hidden" name="lemak_pagi_2" value="{{ menu.1.lemak_pagi}}">
+      <input type="hidden" name="buah_siang_2" value="{{ menu.1.buah_siang}}">
+      <input type="hidden" name="kacang_siang_2" value="{{ menu.1.kacang_siang}}">
+      <input type="hidden" name="skim_susu_siang_2" value="{{ menu.1.skim_susu_siang}}">
+      <input type="hidden" name="karbohidrat_siang_2" value="{{ menu.1.karbohidrat_siang}}">
+      <input type="hidden" name="protein_siang_2" value="{{ menu.1.protein_siang}}">
+      <input type="hidden" name="lemak_siang_2" value="{{ menu.1.lemak_siang}}">
+      <input type="hidden" name="buah_malam_2" value="{{ menu.1.buah_malam}}">
+      <input type="hidden" name="kacang_malam_2" value="{{ menu.1.kacang_malam}}">
+      <input type="hidden" name="skim_susu_malam_2" value="{{ menu.1.skim_susu_malam}}">
+      <input type="hidden" name="karbohidrat_malam_2" value="{{ menu.1.karbohidrat_malam}}">
+      <input type="hidden" name="protein_malam_2" value="{{ menu.1.protein_malam}}">
+      <input type="hidden" name="lemak_malam_2" value="{{ menu.1.lemak_malam}}">
+      <input type="hidden" name="protein_malam_2" value="{{ menu.1.protein_malam}}">
+      <input type="hidden" name="lemak_malam_2" value="{{ menu.1.lemak_malam}}">
+      <input type="hidden" name="sayuran_a_pagi_2" value="{{ menu.1.sayuran_a_pagi}}">
+      <input type="hidden" name="sayuran_b_pagi_2" value="{{ menu.1.sayuran_b_pagi}}">
+      <input type="hidden" name="sayuran_a_siang_2" value="{{ menu.1.sayuran_a_siang}}">
+      <input type="hidden" name="sayuran_b_siang_2" value="{{ menu.1.sayuran_b_siang}}">
+      <input type="hidden" name="sayuran_a_malam_2" value="{{ menu.1.sayuran_a_malam}}">
+      <input type="hidden" name="sayuran_b_malam_2" value="{{ menu.1.sayuran_b_malam}}">
+      <input type="hidden" name="total_karbohidrat_2" value="{{ menu.1.total_karbo}}">
+      <input type="hidden" name="total_protein_2" value="{{ menu.1.total_protein}}">
+      <input type="hidden" name="total_lemak_2" value="{{ menu.1.total_lemak}}">
+      <input type="hidden" name="total_kalori_2" value="{{ menu.1.total_kalori}}">
 
-      <input type="hidden" name="berat_buah_2" value="{{ menu_2.berat_buah}}">
-      <input type="hidden" name="berat_kacang_2" value="{{ menu_2.berat_kacang}}">
-      <input type="hidden" name="berat_skim_susu_2" value="{{ menu_2.berat_skim_susu}}">
-      <input type="hidden" name="berat_karbo_pagi_2" value="{{ menu_2.berat_karbo_pagi}}">
-      <input type="hidden" name="berat_karbo_siang_2" value="{{ menu_2.berat_karbo_siang}}">
-      <input type="hidden" name="berat_protein_pagi_2" value="{{ menu_2.berat_protein_pagi}}">
-      <input type="hidden" name="berat_protein_siang_2" value="{{ menu_2.berat_protein_siang}}">
-      <input type="hidden" name="berat_lemak_pagi_2" value="{{ menu_2.berat_lemak_pagi}}">
-      <input type="hidden" name="berat_lemak_siang_2" value="{{ menu_2.berat_lemak_siang}}">
-      <input type="hidden" name="kacang_2" value="{{ menu_2.kacang}}">
-      <input type="hidden" name="buah_2" value="{{ menu_2.buah}}">
-      <input type="hidden" name="skim_susu_2" value="{{ menu_2.skim_susu}}">
-      <input type="hidden" name="sayuran_a_2" value="{{ menu_2.sayuran_a}}">
-      <input type="hidden" name="sayuran_b_2" value="{{ menu_2.sayuran_b}}">
-      <input type="hidden" name="karbohidrat_2" value="{{ menu_2.karbohidrat}}">
-      <input type="hidden" name="protein_2" value="{{ menu_2.protein}}">
-      <input type="hidden" name="lemak_2" value="{{ menu_2.lemak}}">
-      <input type="hidden" name="total_karbohidrat_2" value="{{ menu_2.total_karbo}}">
-      <input type="hidden" name="total_protein_2" value="{{ menu_2.total_protein}}">
-      <input type="hidden" name="total_lemak_2" value="{{ menu_2.total_lemak}}">
-      <input type="hidden" name="total_kalori_2" value="{{ menu_2.total_kalori}}">
+      
+      <input type="hidden" name="berat_buah_pagi_3" value="{{ menu.2.berat_buah_pagi}}">
+      <input type="hidden" name="berat_kacang_pagi_3" value="{{ menu.2.berat_kacang_pagi}}">
+      <input type="hidden" name="berat_skim_susu_pagi_3" value="{{ menu.2.berat_skim_susu_pagi}}">
+      <input type="hidden" name="berat_karbo_pagi_3" value="{{ menu.2.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_protein_pagi_3" value="{{ menu.2.berat_protein_pagi}}">
+      <input type="hidden" name="berat_lemak_pagi_3" value="{{ menu.2.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_buah_siang_3" value="{{ menu.2.berat_buah_siang}}">
+      <input type="hidden" name="berat_kacang_siang_3" value="{{ menu.2.berat_kacang_siang}}">
+      <input type="hidden" name="berat_skim_susu_siang_3" value="{{ menu.2.berat_skim_susu_siang}}">
+      <input type="hidden" name="berat_karbo_siang_3" value="{{ menu.2.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_siang_3" value="{{ menu.2.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_siang_3" value="{{ menu.2.berat_lemak_siang}}">
+      <input type="hidden" name="berat_buah_malam_3" value="{{ menu.2.berat_buah_malam}}">
+      <input type="hidden" name="berat_kacang_malam_3" value="{{ menu.2.berat_kacang_malam}}">
+      <input type="hidden" name="berat_skim_susu_malam_3" value="{{ menu.2.berat_skim_susu_malam}}">
+      <input type="hidden" name="berat_karbo_malam_3" value="{{ menu.2.berat_karbo_malam}}">
+      <input type="hidden" name="berat_protein_malam_3" value="{{ menu.2.berat_protein_malam}}">
+      <input type="hidden" name="berat_lemak_malam_3" value="{{ menu.2.berat_lemak_malam}}">
+      <input type="hidden" name="buah_pagi_3" value="{{ menu.2.buah_pagi}}">
+      <input type="hidden" name="kacang_pagi_3" value="{{ menu.2.kacang_pagi}}">
+      <input type="hidden" name="skim_susu_pagi_3" value="{{ menu.2.skim_susu_pagi}}">
+      <input type="hidden" name="karbohidrat_pagi_3" value="{{ menu.2.karbohidrat_pagi}}">
+      <input type="hidden" name="protein_pagi_3" value="{{ menu.2.protein_pagi}}">
+      <input type="hidden" name="lemak_pagi_3" value="{{ menu.2.lemak_pagi}}">
+      <input type="hidden" name="buah_siang_3" value="{{ menu.2.buah_siang}}">
+      <input type="hidden" name="kacang_siang_3" value="{{ menu.2.kacang_siang}}">
+      <input type="hidden" name="skim_susu_siang_3" value="{{ menu.2.skim_susu_siang}}">
+      <input type="hidden" name="karbohidrat_siang_3" value="{{ menu.2.karbohidrat_siang}}">
+      <input type="hidden" name="protein_siang_3" value="{{ menu.2.protein_siang}}">
+      <input type="hidden" name="lemak_siang_3" value="{{ menu.2.lemak_siang}}">
+      <input type="hidden" name="buah_malam_3" value="{{ menu.2.buah_malam}}">
+      <input type="hidden" name="kacang_malam_3" value="{{ menu.2.kacang_malam}}">
+      <input type="hidden" name="skim_susu_malam_3" value="{{ menu.2.skim_susu_malam}}">
+      <input type="hidden" name="karbohidrat_malam_3" value="{{ menu.2.karbohidrat_malam}}">
+      <input type="hidden" name="protein_malam_3" value="{{ menu.2.protein_malam}}">
+      <input type="hidden" name="lemak_malam_3" value="{{ menu.2.lemak_malam}}">
+      <input type="hidden" name="protein_malam_3" value="{{ menu.2.protein_malam}}">
+      <input type="hidden" name="lemak_malam_3" value="{{ menu.2.lemak_malam}}">
+      <input type="hidden" name="sayuran_a_pagi_3" value="{{ menu.2.sayuran_a_pagi}}">
+      <input type="hidden" name="sayuran_b_pagi_3" value="{{ menu.2.sayuran_b_pagi}}">
+      <input type="hidden" name="sayuran_a_siang_3" value="{{ menu.2.sayuran_a_siang}}">
+      <input type="hidden" name="sayuran_b_siang_3" value="{{ menu.2.sayuran_b_siang}}">
+      <input type="hidden" name="sayuran_a_malam_3" value="{{ menu.2.sayuran_a_malam}}">
+      <input type="hidden" name="sayuran_b_malam_3" value="{{ menu.2.sayuran_b_malam}}">
+      <input type="hidden" name="total_karbohidrat_3" value="{{ menu.2.total_karbo}}">
+      <input type="hidden" name="total_protein_3" value="{{ menu.2.total_protein}}">
+      <input type="hidden" name="total_lemak_3" value="{{ menu.2.total_lemak}}">
+      <input type="hidden" name="total_kalori_3" value="{{ menu.2.total_kalori}}">
 
-      <input type="hidden" name="berat_buah_3" value="{{ menu_3.berat_buah}}">
-      <input type="hidden" name="berat_kacang_3" value="{{ menu_3.berat_kacang}}">
-      <input type="hidden" name="berat_skim_susu_3" value="{{ menu_3.berat_skim_susu}}">
-      <input type="hidden" name="berat_karbo_pagi_3" value="{{ menu_3.berat_karbo_pagi}}">
-      <input type="hidden" name="berat_karbo_siang_3" value="{{ menu_3.berat_karbo_siang}}">
-      <input type="hidden" name="berat_protein_pagi_3" value="{{ menu_3.berat_protein_pagi}}">
-      <input type="hidden" name="berat_protein_siang_3" value="{{ menu_3.berat_protein_siang}}">
-      <input type="hidden" name="berat_lemak_pagi_3" value="{{ menu_3.berat_lemak_pagi}}">
-      <input type="hidden" name="berat_lemak_siang_3" value="{{ menu_3.berat_lemak_siang}}">
-      <input type="hidden" name="kacang_3" value="{{ menu_3.kacang}}">
-      <input type="hidden" name="buah_3" value="{{ menu_3.buah}}">
-      <input type="hidden" name="skim_susu_3" value="{{ menu_3.skim_susu}}">
-      <input type="hidden" name="sayuran_a_3" value="{{ menu_3.sayuran_a}}">
-      <input type="hidden" name="sayuran_b_3" value="{{ menu_3.sayuran_b}}">
-      <input type="hidden" name="karbohidrat_3" value="{{ menu_3.karbohidrat}}">
-      <input type="hidden" name="protein_3" value="{{ menu_3.protein}}">
-      <input type="hidden" name="lemak_3" value="{{ menu_3.lemak}}">
-      <input type="hidden" name="total_karbohidrat_3" value="{{ menu_3.total_karbo}}">
-      <input type="hidden" name="total_protein_3" value="{{ menu_3.total_protein}}">
-      <input type="hidden" name="total_lemak_3" value="{{ menu_3.total_lemak}}">
-      <input type="hidden" name="total_kalori_3" value="{{ menu_3.total_kalori}}">
+      
+      <input type="hidden" name="berat_buah_pagi_4" value="{{ menu.3.berat_buah_pagi}}">
+      <input type="hidden" name="berat_kacang_pagi_4" value="{{ menu.3.berat_kacang_pagi}}">
+      <input type="hidden" name="berat_skim_susu_pagi_4" value="{{ menu.3.berat_skim_susu_pagi}}">
+      <input type="hidden" name="berat_karbo_pagi_4" value="{{ menu.3.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_protein_pagi_4" value="{{ menu.3.berat_protein_pagi}}">
+      <input type="hidden" name="berat_lemak_pagi_4" value="{{ menu.3.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_buah_siang_4" value="{{ menu.3.berat_buah_siang}}">
+      <input type="hidden" name="berat_kacang_siang_4" value="{{ menu.3.berat_kacang_siang}}">
+      <input type="hidden" name="berat_skim_susu_siang_4" value="{{ menu.3.berat_skim_susu_siang}}">
+      <input type="hidden" name="berat_karbo_siang_4" value="{{ menu.3.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_siang_4" value="{{ menu.3.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_siang_4" value="{{ menu.3.berat_lemak_siang}}">
+      <input type="hidden" name="berat_buah_malam_4" value="{{ menu.3.berat_buah_malam}}">
+      <input type="hidden" name="berat_kacang_malam_4" value="{{ menu.3.berat_kacang_malam}}">
+      <input type="hidden" name="berat_skim_susu_malam_4" value="{{ menu.3.berat_skim_susu_malam}}">
+      <input type="hidden" name="berat_karbo_malam_4" value="{{ menu.3.berat_karbo_malam}}">
+      <input type="hidden" name="berat_protein_malam_4" value="{{ menu.3.berat_protein_malam}}">
+      <input type="hidden" name="berat_lemak_malam_4" value="{{ menu.3.berat_lemak_malam}}">
+      <input type="hidden" name="buah_pagi_4" value="{{ menu.3.buah_pagi}}">
+      <input type="hidden" name="kacang_pagi_4" value="{{ menu.3.kacang_pagi}}">
+      <input type="hidden" name="skim_susu_pagi_4" value="{{ menu.3.skim_susu_pagi}}">
+      <input type="hidden" name="karbohidrat_pagi_4" value="{{ menu.3.karbohidrat_pagi}}">
+      <input type="hidden" name="protein_pagi_4" value="{{ menu.3.protein_pagi}}">
+      <input type="hidden" name="lemak_pagi_4" value="{{ menu.3.lemak_pagi}}">
+      <input type="hidden" name="buah_siang_4" value="{{ menu.3.buah_siang}}">
+      <input type="hidden" name="kacang_siang_4" value="{{ menu.3.kacang_siang}}">
+      <input type="hidden" name="skim_susu_siang_4" value="{{ menu.3.skim_susu_siang}}">
+      <input type="hidden" name="karbohidrat_siang_4" value="{{ menu.3.karbohidrat_siang}}">
+      <input type="hidden" name="protein_siang_4" value="{{ menu.3.protein_siang}}">
+      <input type="hidden" name="lemak_siang_4" value="{{ menu.3.lemak_siang}}">
+      <input type="hidden" name="buah_malam_4" value="{{ menu.3.buah_malam}}">
+      <input type="hidden" name="kacang_malam_4" value="{{ menu.3.kacang_malam}}">
+      <input type="hidden" name="skim_susu_malam_4" value="{{ menu.3.skim_susu_malam}}">
+      <input type="hidden" name="karbohidrat_malam_4" value="{{ menu.3.karbohidrat_malam}}">
+      <input type="hidden" name="protein_malam_4" value="{{ menu.3.protein_malam}}">
+      <input type="hidden" name="lemak_malam_4" value="{{ menu.3.lemak_malam}}">
+      <input type="hidden" name="protein_malam_4" value="{{ menu.3.protein_malam}}">
+      <input type="hidden" name="lemak_malam_4" value="{{ menu.3.lemak_malam}}">
+      <input type="hidden" name="sayuran_a_pagi_4" value="{{ menu.3.sayuran_a_pagi}}">
+      <input type="hidden" name="sayuran_b_pagi_4" value="{{ menu.3.sayuran_b_pagi}}">
+      <input type="hidden" name="sayuran_a_siang_4" value="{{ menu.3.sayuran_a_siang}}">
+      <input type="hidden" name="sayuran_b_siang_4" value="{{ menu.3.sayuran_b_siang}}">
+      <input type="hidden" name="sayuran_a_malam_4" value="{{ menu.3.sayuran_a_malam}}">
+      <input type="hidden" name="sayuran_b_malam_4" value="{{ menu.3.sayuran_b_malam}}">
+      <input type="hidden" name="total_karbohidrat_4" value="{{ menu.3.total_karbo}}">
+      <input type="hidden" name="total_protein_4" value="{{ menu.3.total_protein}}">
+      <input type="hidden" name="total_lemak_4" value="{{ menu.3.total_lemak}}">
+      <input type="hidden" name="total_kalori_4" value="{{ menu.3.total_kalori}}">
 
-      <input type="hidden" name="berat_buah_4" value="{{ menu_4.berat_buah}}">
-      <input type="hidden" name="berat_kacang_4" value="{{ menu_4.berat_kacang}}">
-      <input type="hidden" name="berat_skim_susu_4" value="{{ menu_4.berat_skim_susu}}">
-      <input type="hidden" name="berat_karbo_pagi_4" value="{{ menu_4.berat_karbo_pagi}}">
-      <input type="hidden" name="berat_karbo_siang_4" value="{{ menu_4.berat_karbo_siang}}">
-      <input type="hidden" name="berat_protein_pagi_4" value="{{ menu_4.berat_protein_pagi}}">
-      <input type="hidden" name="berat_protein_siang_4" value="{{ menu_4.berat_protein_siang}}">
-      <input type="hidden" name="berat_lemak_pagi_4" value="{{ menu_4.berat_lemak_pagi}}">
-      <input type="hidden" name="berat_lemak_siang_4" value="{{ menu_4.berat_lemak_siang}}">
-      <input type="hidden" name="kacang_4" value="{{ menu_4.kacang}}">
-      <input type="hidden" name="buah_4" value="{{ menu_4.buah}}">
-      <input type="hidden" name="skim_susu_4" value="{{ menu_4.skim_susu}}">
-      <input type="hidden" name="sayuran_a_4" value="{{ menu_4.sayuran_a}}">
-      <input type="hidden" name="sayuran_b_4" value="{{ menu_4.sayuran_b}}">
-      <input type="hidden" name="karbohidrat_4" value="{{ menu_4.karbohidrat}}">
-      <input type="hidden" name="protein_4" value="{{ menu_4.protein}}">
-      <input type="hidden" name="lemak_4" value="{{ menu_4.lemak}}">
-      <input type="hidden" name="total_karbohidrat_4" value="{{ menu_4.total_karbo}}">
-      <input type="hidden" name="total_protein_4" value="{{ menu_4.total_protein}}">
-      <input type="hidden" name="total_lemak_4" value="{{ menu_4.total_lemak}}">
-      <input type="hidden" name="total_kalori_4" value="{{ menu_4.total_kalori}}">
-
-      <input type="hidden" name="berat_buah_5" value="{{ menu_5.berat_buah}}">
-      <input type="hidden" name="berat_kacang_5" value="{{ menu_5.berat_kacang}}">
-      <input type="hidden" name="berat_skim_susu_5" value="{{ menu_5.berat_skim_susu}}">
-      <input type="hidden" name="berat_karbo_pagi_5" value="{{ menu_5.berat_karbo_pagi}}">
-      <input type="hidden" name="berat_karbo_siang_5" value="{{ menu_5.berat_karbo_siang}}">
-      <input type="hidden" name="berat_protein_pagi_5" value="{{ menu_5.berat_protein_pagi}}">
-      <input type="hidden" name="berat_protein_siang_5" value="{{ menu_5.berat_protein_siang}}">
-      <input type="hidden" name="berat_lemak_pagi_5" value="{{ menu_5.berat_lemak_pagi}}">
-      <input type="hidden" name="berat_lemak_siang_5" value="{{ menu_5.berat_lemak_siang}}">
-      <input type="hidden" name="kacang_5" value="{{ menu_5.kacang}}">
-      <input type="hidden" name="buah_5" value="{{ menu_5.buah}}">
-      <input type="hidden" name="skim_susu_5" value="{{ menu_5.skim_susu}}">
-      <input type="hidden" name="sayuran_a_5" value="{{ menu_5.sayuran_a}}">
-      <input type="hidden" name="sayuran_b_5" value="{{ menu_5.sayuran_b}}">
-      <input type="hidden" name="karbohidrat_5" value="{{ menu_5.karbohidrat}}">
-      <input type="hidden" name="protein_5" value="{{ menu_5.protein}}">
-      <input type="hidden" name="lemak_5" value="{{ menu_5.lemak}}">
-      <input type="hidden" name="total_karbohidrat_5" value="{{ menu_5.total_karbo}}">
-      <input type="hidden" name="total_protein_5" value="{{ menu_5.total_protein}}">
-      <input type="hidden" name="total_lemak_5" value="{{ menu_5.total_lemak}}">
-      <input type="hidden" name="total_kalori_5" value="{{ menu_5.total_kalori}}">
+      
+      <input type="hidden" name="berat_buah_pagi_5" value="{{ menu.4.berat_buah_pagi}}">
+      <input type="hidden" name="berat_kacang_pagi_5" value="{{ menu.4.berat_kacang_pagi}}">
+      <input type="hidden" name="berat_skim_susu_pagi_5" value="{{ menu.4.berat_skim_susu_pagi}}">
+      <input type="hidden" name="berat_karbo_pagi_5" value="{{ menu.4.berat_karbo_pagi}}">
+      <input type="hidden" name="berat_protein_pagi_5" value="{{ menu.4.berat_protein_pagi}}">
+      <input type="hidden" name="berat_lemak_pagi_5" value="{{ menu.4.berat_lemak_pagi}}">
+      <input type="hidden" name="berat_buah_siang_5" value="{{ menu.4.berat_buah_siang}}">
+      <input type="hidden" name="berat_kacang_siang_5" value="{{ menu.4.berat_kacang_siang}}">
+      <input type="hidden" name="berat_skim_susu_siang_5" value="{{ menu.4.berat_skim_susu_siang}}">
+      <input type="hidden" name="berat_karbo_siang_5" value="{{ menu.4.berat_karbo_siang}}">
+      <input type="hidden" name="berat_protein_siang_5" value="{{ menu.4.berat_protein_siang}}">
+      <input type="hidden" name="berat_lemak_siang_5" value="{{ menu.4.berat_lemak_siang}}">
+      <input type="hidden" name="berat_buah_malam_5" value="{{ menu.4.berat_buah_malam}}">
+      <input type="hidden" name="berat_kacang_malam_5" value="{{ menu.4.berat_kacang_malam}}">
+      <input type="hidden" name="berat_skim_susu_malam_5" value="{{ menu.4.berat_skim_susu_malam}}">
+      <input type="hidden" name="berat_karbo_malam_5" value="{{ menu.4.berat_karbo_malam}}">
+      <input type="hidden" name="berat_protein_malam_5" value="{{ menu.4.berat_protein_malam}}">
+      <input type="hidden" name="berat_lemak_malam_5" value="{{ menu.4.berat_lemak_malam}}">
+      <input type="hidden" name="buah_pagi_5" value="{{ menu.4.buah_pagi}}">
+      <input type="hidden" name="kacang_pagi_5" value="{{ menu.4.kacang_pagi}}">
+      <input type="hidden" name="skim_susu_pagi_5" value="{{ menu.4.skim_susu_pagi}}">
+      <input type="hidden" name="karbohidrat_pagi_5" value="{{ menu.4.karbohidrat_pagi}}">
+      <input type="hidden" name="protein_pagi_5" value="{{ menu.4.protein_pagi}}">
+      <input type="hidden" name="lemak_pagi_5" value="{{ menu.4.lemak_pagi}}">
+      <input type="hidden" name="buah_siang_5" value="{{ menu.4.buah_siang}}">
+      <input type="hidden" name="kacang_siang_5" value="{{ menu.4.kacang_siang}}">
+      <input type="hidden" name="skim_susu_siang_5" value="{{ menu.4.skim_susu_siang}}">
+      <input type="hidden" name="karbohidrat_siang_5" value="{{ menu.4.karbohidrat_siang}}">
+      <input type="hidden" name="protein_siang_5" value="{{ menu.4.protein_siang}}">
+      <input type="hidden" name="lemak_siang_5" value="{{ menu.4.lemak_siang}}">
+      <input type="hidden" name="buah_malam_5" value="{{ menu.4.buah_malam}}">
+      <input type="hidden" name="kacang_malam_5" value="{{ menu.4.kacang_malam}}">
+      <input type="hidden" name="skim_susu_malam_5" value="{{ menu.4.skim_susu_malam}}">
+      <input type="hidden" name="karbohidrat_malam_5" value="{{ menu.4.karbohidrat_malam}}">
+      <input type="hidden" name="protein_malam_5" value="{{ menu.4.protein_malam}}">
+      <input type="hidden" name="lemak_malam_5" value="{{ menu.4.lemak_malam}}">
+      <input type="hidden" name="protein_malam_5" value="{{ menu.4.protein_malam}}">
+      <input type="hidden" name="lemak_malam_5" value="{{ menu.4.lemak_malam}}">
+      <input type="hidden" name="sayuran_a_pagi_5" value="{{ menu.4.sayuran_a_pagi}}">
+      <input type="hidden" name="sayuran_b_pagi_5" value="{{ menu.4.sayuran_b_pagi}}">
+      <input type="hidden" name="sayuran_a_siang_5" value="{{ menu.4.sayuran_a_siang}}">
+      <input type="hidden" name="sayuran_b_siang_5" value="{{ menu.4.sayuran_b_siang}}">
+      <input type="hidden" name="sayuran_a_malam_5" value="{{ menu.4.sayuran_a_malam}}">
+      <input type="hidden" name="sayuran_b_malam_5" value="{{ menu.4.sayuran_b_malam}}">
+      <input type="hidden" name="total_karbohidrat_5" value="{{ menu.4.total_karbo}}">
+      <input type="hidden" name="total_protein_5" value="{{ menu.4.total_protein}}">
+      <input type="hidden" name="total_lemak_5" value="{{ menu.4.total_lemak}}">
+      <input type="hidden" name="total_kalori_5" value="{{ menu.4.total_kalori}}">
 
       <input type="hidden" name="nama_diet" value="{{jenis_diet.nama_diet}}">
       <input type="hidden" name="deskripsi_diet" value="{{jenis_diet.deskripsi_diet}}">

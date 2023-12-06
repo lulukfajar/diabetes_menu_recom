@@ -34,19 +34,16 @@
         <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;">
             <tbody>
               <tr>
-                <td style="text-align:center;vertical-align:bottom" colspan="10"><h1>Kebutuhan Gizi Pasien ({{ data_personal.nama }})</h1></td>
+                <td style="text-align:center;vertical-align:bottom" colspan="7"><h1>Kebutuhan Gizi Pasien ({{ data_personal.nama }})</h1></td>
               </tr>
               <tr>
-                <td style="text-align:center;vertical-align:bottom" colspan="10">Bagian ini memuat kebutuhan gizi yang harus tercukupi setiap harinya</td>
+                <td style="text-align:center;vertical-align:bottom" colspan="7">Bagian ini memuat kebutuhan gizi yang harus tercukupi setiap harinya</td>
                 <br>
               </tr>
               <tr>
-                <td style="text-align:center;vertical-align:bottom; height: 20px;" colspan="10"></td>
+                <td style="text-align:center;vertical-align:bottom; height: 20px;" colspan="7"></td>
               </tr>
               <tr>
-                <td class="tg-8d8j" colspan="3" rowspan="6">
-                  <img style="height: 250px; width: auto;" src="https://bootdey.com/img/Content/avatar/avatar7.png" title="" alt="">
-                </td>
                 <td style="text-align:left;vertical-align:top; height: auto;">Berat Badan</td>
                 <td style="text-align:left;vertical-align:top; width: 10px;">:</td>
                 <td style="text-align:left;vertical-align:top; height: auto;">{{ data_personal.berat_badan}} kg</td>
@@ -110,7 +107,7 @@
           <p> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{jenis_diet.deskripsi_diet}}</p>
       </div>
     <br><br>
-    <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
+        <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
         <thead>
           <tr>
             <th class="tg-c3ow" colspan="8"><h1>Menu 1</h1></th>
@@ -122,7 +119,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>06.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_pagi }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_pagi }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 25 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_pagi}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.karbohidrat_pagi }} {{ menu_1.berat_karbo_pagi}} gr, {{ menu_1.protein_pagi }} {{ menu_1.berat_protein_pagi }} gr, {{ menu_1.sayuran_a_pagi }} 100 gr, {{ menu_1.sayuran_b_pagi }} 25 gr, {{menu_1.lemak_pagi}} {{menu_1.berat_lemak_pagi}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -130,7 +127,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>09.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.buah_pagi }} {{ menu_1.berat_buah_pagi }} gr, {{ menu_1.kacang_pagi }} {{ menu_1.berat_kacang_pagi }} gr, {{ menu_1.skim_susu_pagi }} {{ menu_1.berat_skim_susu_pagi }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -138,7 +135,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>12.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_siang }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_siang }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 50 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_1.karbohidrat_siang }} {{ menu_1.berat_karbo_siang }} gr, {{ menu_1.protein_siang }} {{ menu_1.berat_protein_siang }} gr, {{ menu_1.sayuran_a_siang }} 100 gr, {{ menu_1.sayuran_b_siang }} 50 gr, {{menu_1.lemak_siang}} {{menu_1.berat_lemak_siang}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -146,7 +143,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>15.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.buah_siang }} {{ menu_1.berat_buah_siang }} gr, {{ menu_1.kacang_siang }} {{ menu_1.berat_kacang_siang }} gr, {{ menu_1.skim_susu_siang }} {{ menu_1.berat_skim_susu_siang }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -154,7 +151,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>18.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_1.karbohidrat }} {{ menu_1.berat_karbo_siang }} gr, {{ menu_1.protein }} {{ menu_1.berat_protein_siang }} gr, {{ menu_1.sayuran_a }} 100 gr, {{ menu_1.sayuran_b }} 50 gr, {{menu_1.lemak}} {{menu_1.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_1.karbohidrat_malam }} {{ menu_1.berat_karbo_malam }} gr, {{ menu_1.protein_malam }} {{ menu_1.berat_protein_malam }} gr, {{ menu_1.sayuran_a_malam }} 100 gr, {{ menu_1.sayuran_b_malam }} 50 gr, {{menu_1.lemak_malam}} {{menu_1.berat_lemak_malam}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -162,7 +159,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>21.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.buah }} {{ menu_1.berat_buah }} gr, {{ menu_1.kacang }} {{ menu_1.berat_kacang }} gr, {{ menu_1.skim_susu }} {{ menu_1.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_1.buah_malam }} {{ menu_1.berat_buah_malam }} gr, {{ menu_1.kacang_malam }} {{ menu_1.berat_kacang_malam }} gr, {{ menu_1.skim_susu_malam }} {{ menu_1.berat_skim_susu_malam }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
         </tbody>
@@ -185,7 +182,7 @@
     
         
         <br><br>
-    <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
+        <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
         <thead>
           <tr>
             <th class="tg-c3ow" colspan="8"><h1>Menu 2</h1></th>
@@ -197,7 +194,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>06.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_pagi }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_pagi }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 25 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_pagi}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.karbohidrat_pagi }} {{ menu_2.berat_karbo_pagi}} gr, {{ menu_2.protein_pagi }} {{ menu_2.berat_protein_pagi }} gr, {{ menu_2.sayuran_a_pagi }} 100 gr, {{ menu_2.sayuran_b_pagi }} 25 gr, {{menu_2.lemak_pagi}} {{menu_2.berat_lemak_pagi}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -205,7 +202,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>09.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.buah_pagi }} {{ menu_2.berat_buah_pagi }} gr, {{ menu_2.kacang_pagi }} {{ menu_2.berat_kacang_pagi }} gr, {{ menu_2.skim_susu_pagi }} {{ menu_2.berat_skim_susu_pagi }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -213,7 +210,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>12.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_siang }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_siang }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 50 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_2.karbohidrat_siang }} {{ menu_2.berat_karbo_siang }} gr, {{ menu_2.protein_siang }} {{ menu_2.berat_protein_siang }} gr, {{ menu_2.sayuran_a_siang }} 100 gr, {{ menu_2.sayuran_b_siang }} 50 gr, {{menu_2.lemak_siang}} {{menu_2.berat_lemak_siang}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -221,7 +218,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>15.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.buah_siang }} {{ menu_2.berat_buah_siang }} gr, {{ menu_2.kacang_siang }} {{ menu_2.berat_kacang_siang }} gr, {{ menu_2.skim_susu_siang }} {{ menu_2.berat_skim_susu_siang }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -229,7 +226,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>18.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_2.karbohidrat }} {{ menu_2.berat_karbo_siang }} gr, {{ menu_2.protein }} {{ menu_2.berat_protein_siang }} gr, {{ menu_2.sayuran_a }} 100 gr, {{ menu_2.sayuran_b }} 50 gr, {{menu_2.lemak}} {{menu_2.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_2.karbohidrat_malam }} {{ menu_2.berat_karbo_malam }} gr, {{ menu_2.protein_malam }} {{ menu_2.berat_protein_malam }} gr, {{ menu_2.sayuran_a_malam }} 100 gr, {{ menu_2.sayuran_b_malam }} 50 gr, {{menu_2.lemak_malam}} {{menu_2.berat_lemak_malam}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -237,7 +234,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>21.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.buah }} {{ menu_2.berat_buah }} gr, {{ menu_2.kacang }} {{ menu_2.berat_kacang }} gr, {{ menu_2.skim_susu }} {{ menu_2.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_2.buah_malam }} {{ menu_2.berat_buah_malam }} gr, {{ menu_2.kacang_malam }} {{ menu_2.berat_kacang_malam }} gr, {{ menu_2.skim_susu_malam }} {{ menu_2.berat_skim_susu_malam }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
         </tbody>
@@ -259,7 +256,7 @@
         </table>
 
         <br><br>
-    <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
+        <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
         <thead>
           <tr>
             <th class="tg-c3ow" colspan="8"><h1>Menu 3</h1></th>
@@ -271,7 +268,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>06.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_pagi }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_pagi }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 25 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_pagi}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.karbohidrat_pagi }} {{ menu_3.berat_karbo_pagi}} gr, {{ menu_3.protein_pagi }} {{ menu_3.berat_protein_pagi }} gr, {{ menu_3.sayuran_a_pagi }} 100 gr, {{ menu_3.sayuran_b_pagi }} 25 gr, {{menu_3.lemak_pagi}} {{menu_3.berat_lemak_pagi}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -279,7 +276,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>09.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.buah_pagi }} {{ menu_3.berat_buah_pagi }} gr, {{ menu_3.kacang_pagi }} {{ menu_3.berat_kacang_pagi }} gr, {{ menu_3.skim_susu_pagi }} {{ menu_3.berat_skim_susu_pagi }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -287,7 +284,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>12.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_siang }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_siang }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 50 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_3.karbohidrat_siang }} {{ menu_3.berat_karbo_siang }} gr, {{ menu_3.protein_siang }} {{ menu_3.berat_protein_siang }} gr, {{ menu_3.sayuran_a_siang }} 100 gr, {{ menu_3.sayuran_b_siang }} 50 gr, {{menu_3.lemak_siang}} {{menu_3.berat_lemak_siang}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -295,7 +292,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>15.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.buah_siang }} {{ menu_3.berat_buah_siang }} gr, {{ menu_3.kacang_siang }} {{ menu_3.berat_kacang_siang }} gr, {{ menu_3.skim_susu_siang }} {{ menu_3.berat_skim_susu_siang }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -303,7 +300,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>18.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_3.karbohidrat }} {{ menu_3.berat_karbo_siang }} gr, {{ menu_3.protein }} {{ menu_3.berat_protein_siang }} gr, {{ menu_3.sayuran_a }} 100 gr, {{ menu_3.sayuran_b }} 50 gr, {{menu_3.lemak}} {{menu_3.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_3.karbohidrat_malam }} {{ menu_3.berat_karbo_malam }} gr, {{ menu_3.protein_malam }} {{ menu_3.berat_protein_malam }} gr, {{ menu_3.sayuran_a_malam }} 100 gr, {{ menu_3.sayuran_b_malam }} 50 gr, {{menu_3.lemak_malam}} {{menu_3.berat_lemak_malam}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -311,7 +308,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>21.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.buah }} {{ menu_3.berat_buah }} gr, {{ menu_3.kacang }} {{ menu_3.berat_kacang }} gr, {{ menu_3.skim_susu }} {{ menu_3.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_3.buah_malam }} {{ menu_3.berat_buah_malam }} gr, {{ menu_3.kacang_malam }} {{ menu_3.berat_kacang_malam }} gr, {{ menu_3.skim_susu_malam }} {{ menu_3.berat_skim_susu_malam }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
         </tbody>
@@ -333,7 +330,7 @@
         </table>
         
         <br><br>
-    <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
+        <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
         <thead>
           <tr>
             <th class="tg-c3ow" colspan="8"><h1>Menu 4</h1></th>
@@ -345,7 +342,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>06.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_pagi }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_pagi }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 25 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_pagi}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.karbohidrat_pagi }} {{ menu_4.berat_karbo_pagi}} gr, {{ menu_4.protein_pagi }} {{ menu_4.berat_protein_pagi }} gr, {{ menu_4.sayuran_a_pagi }} 100 gr, {{ menu_4.sayuran_b_pagi }} 25 gr, {{menu_4.lemak_pagi}} {{menu_4.berat_lemak_pagi}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -353,7 +350,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>09.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.buah_pagi }} {{ menu_4.berat_buah_pagi }} gr, {{ menu_4.kacang_pagi }} {{ menu_4.berat_kacang_pagi }} gr, {{ menu_4.skim_susu_pagi }} {{ menu_4.berat_skim_susu_pagi }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -361,7 +358,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>12.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_siang }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_siang }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 50 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_4.karbohidrat_siang }} {{ menu_4.berat_karbo_siang }} gr, {{ menu_4.protein_siang }} {{ menu_4.berat_protein_siang }} gr, {{ menu_4.sayuran_a_siang }} 100 gr, {{ menu_4.sayuran_b_siang }} 50 gr, {{menu_4.lemak_siang}} {{menu_4.berat_lemak_siang}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -369,7 +366,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>15.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.buah_siang }} {{ menu_4.berat_buah_siang }} gr, {{ menu_4.kacang_siang }} {{ menu_4.berat_kacang_siang }} gr, {{ menu_4.skim_susu_siang }} {{ menu_4.berat_skim_susu_siang }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -377,7 +374,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>18.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_4.karbohidrat }} {{ menu_4.berat_karbo_siang }} gr, {{ menu_4.protein }} {{ menu_4.berat_protein_siang }} gr, {{ menu_4.sayuran_a }} 100 gr, {{ menu_4.sayuran_b }} 50 gr, {{menu_4.lemak}} {{menu_4.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_4.karbohidrat_malam }} {{ menu_4.berat_karbo_malam }} gr, {{ menu_4.protein_malam }} {{ menu_4.berat_protein_malam }} gr, {{ menu_4.sayuran_a_malam }} 100 gr, {{ menu_4.sayuran_b_malam }} 50 gr, {{menu_4.lemak_malam}} {{menu_4.berat_lemak_malam}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -385,7 +382,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>21.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.buah }} {{ menu_4.berat_buah }} gr, {{ menu_4.kacang }} {{ menu_4.berat_kacang }} gr, {{ menu_4.skim_susu }} {{ menu_4.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_4.buah_malam }} {{ menu_4.berat_buah_malam }} gr, {{ menu_4.kacang_malam }} {{ menu_4.berat_kacang_malam }} gr, {{ menu_4.skim_susu_malam }} {{ menu_4.berat_skim_susu_malam }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
         </tbody>
@@ -406,7 +403,7 @@
         </tbody>
         </table>
         <br><br>
-    <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
+        <table style="justify-content: center; align-items: center; border-collapse:collapse;border-spacing:0;"">
         <thead>
           <tr>
             <th class="tg-c3ow" colspan="8"><h1>Menu 5</h1></th>
@@ -418,7 +415,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>06.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_pagi }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_pagi }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 25 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_pagi}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.karbohidrat_pagi }} {{ menu_5.berat_karbo_pagi}} gr, {{ menu_5.protein_pagi }} {{ menu_5.berat_protein_pagi }} gr, {{ menu_5.sayuran_a_pagi }} 100 gr, {{ menu_5.sayuran_b_pagi }} 25 gr, {{menu_5.lemak_pagi}} {{menu_5.berat_lemak_pagi}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -426,7 +423,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>09.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.buah_pagi }} {{ menu_5.berat_buah_pagi }} gr, {{ menu_5.kacang_pagi }} {{ menu_5.berat_kacang_pagi }} gr, {{ menu_5.skim_susu_pagi }} {{ menu_5.berat_skim_susu_pagi }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -434,7 +431,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>12.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_siang }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_siang }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 50 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_5.karbohidrat_siang }} {{ menu_5.berat_karbo_siang }} gr, {{ menu_5.protein_siang }} {{ menu_5.berat_protein_siang }} gr, {{ menu_5.sayuran_a_siang }} 100 gr, {{ menu_5.sayuran_b_siang }} 50 gr, {{menu_5.lemak_siang}} {{menu_5.berat_lemak_siang}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -442,7 +439,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>15.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.buah_siang }} {{ menu_5.berat_buah_siang }} gr, {{ menu_5.kacang_siang }} {{ menu_5.berat_kacang_siang }} gr, {{ menu_5.skim_susu_siang }} {{ menu_5.berat_skim_susu_siang }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -450,7 +447,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>18.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_5.karbohidrat }} {{ menu_5.berat_karbo_siang }} gr, {{ menu_5.protein }} {{ menu_5.berat_protein_siang }} gr, {{ menu_5.sayuran_a }} 100 gr, {{ menu_5.sayuran_b }} 50 gr, {{menu_5.lemak}} {{menu_5.berat_lemak_siang}} gr</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" > {{ menu_5.karbohidrat_malam }} {{ menu_5.berat_karbo_malam }} gr, {{ menu_5.protein_malam }} {{ menu_5.berat_protein_malam }} gr, {{ menu_5.sayuran_a_malam }} 100 gr, {{ menu_5.sayuran_b_malam }} 50 gr, {{menu_5.lemak_malam}} {{menu_5.berat_lemak_malam}} gr</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
           <tr>
@@ -458,7 +455,7 @@
             <td style="text-align:left;vertical-align:top; min-height: 15px;"><h3>21.30</h3></td>
           </tr>
           <tr>
-            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.buah }} {{ menu_5.berat_buah }} gr, {{ menu_5.kacang }} {{ menu_5.berat_kacang }} gr, {{ menu_5.skim_susu }} {{ menu_5.berat_skim_susu }} ml</td>
+            <td style="text-align:left;vertical-align:top; min-height: 15px;" colspan="7" >{{ menu_5.buah_malam }} {{ menu_5.berat_buah_malam }} gr, {{ menu_5.kacang_malam }} {{ menu_5.berat_kacang_malam }} gr, {{ menu_5.skim_susu_malam }} {{ menu_5.berat_skim_susu_malam }} ml</td>
             <td style="text-align:left;vertical-align:top; min-height: 15px;"></td>
           </tr>
         </tbody>
