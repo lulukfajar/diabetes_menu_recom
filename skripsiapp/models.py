@@ -16,6 +16,7 @@ class Makanan(models.Model):
     asam_folat  = models.CharField(max_length=10)
     benam_bduabelas = models.CharField(max_length=10)
     harga           = models.CharField(max_length=10)
+    dibatasi           = models.CharField(max_length=5)
     class Meta:
         db_table = "makanan"
 

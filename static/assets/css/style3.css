@@ -711,7 +711,7 @@ border-radius: 50px;
 cursor: pointer;
 display: inline-block;
 padding: 8px 16px 10px 16px;
-font-size: 14px;
+font-size: 18px;
 font-weight: 500;
 line-height: 1;
 color: #444444;
@@ -769,10 +769,10 @@ font-weight: 600;
 }
 
 .menu .menu-ingredients {
-font-style: italic;
-font-size: 14px;
+font-style: bold;
+font-size: 18px;
 font-family: "Comic Neue", sans-serif;
-color: #948c81;
+color: #000000;
 }
 
 /*--------------------------------------------------------------
@@ -794,7 +794,7 @@ color: #433f39;
 border-radius: 0;
 border-right: 2px solid #e8e7e4;
 font-weight: 600;
-font-size: 15px;
+font-size: 18px;
 }
 
 .specials .nav-link:hover {
@@ -1296,7 +1296,7 @@ font-family: "Poppins", sans-serif;
 .contact .info p {
 padding: 0 0 0 60px;
 margin-bottom: 0;
-font-size: 14px;
+font-size: 18px;
 color: #7a7368;
 }
 
@@ -1522,7 +1522,7 @@ opacity: 0.5;
 .about-list p {
 color: #6c665c;
 margin: 0;
-font-size: 15px;
+font-size: 18px;
 }
 
 @media (max-width: 991px) {
@@ -1669,6 +1669,7 @@ to {opacity: 1}
   
   .specials .details p {
     font-weight: 300;
+    font-size: 18px;
   }
   
   .specials .details p:last-child {

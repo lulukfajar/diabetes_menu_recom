@@ -54,7 +54,7 @@
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <div class="logo me-auto">
-        <h1><a href="{% url 'landingpage' %}">Diat App</a></h1>
+        <h1><a href="{% url 'landingpage' %}">Skripsi</a></h1>
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
@@ -63,12 +63,12 @@
           <li><a class="nav-link scrollto" href="#why-us">Pilar Diabetes</a></li>
           <li><a class="nav-link scrollto" href="#menu">Contoh Menu</a></li>
           <li><a class="nav-link scrollto" href="#specials">Pedoman 3J </a></li>
-          <li><a class="nav-link scrollto" href="#events">Komplikasi Diabetes</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
       <a id="buatmenu" class="book-a-table-btn scrollto" href="#">Buat Menu</a>
+      <a class="book-a-table-btn scrollto" href="{% url 'loginpage' %}">Admin</a>
 
     </div>
   </header><!-- End Header -->
@@ -86,8 +86,8 @@
           <div class="carousel-item active" style="background-image: url('{% static 'assets/img/slide/slide-11.jpg' %}');">
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2 class="animate__animated animate__fadeInDown"><span>Tentang</span> DietApp</h2>
-                <p class="animate__animated animate__fadeInUp">Diet App merupakan Aplikasi Diet untuk Penderita Diabetes Melitus tipe 2 yang belum menjalani terapi insulin. Aplikasi ini dirancang untuk membantu penderita diabetes melitus dalam menjalani diet yang sehat dan terkontrol. 
+                <h2 class="animate__animated animate__fadeInDown"><span>Tentang</span> SkripsiApp</h2>
+                <p class="animate__animated animate__fadeInUp">Skripsi App merupakan Aplikasi Diet untuk Penderita Diabetes Melitus tipe 2 tanpa komplikasi, dengan komplikasi kardiovaskular dan komplikasi gangren yang belum menjalani terapi insulin. Aplikasi ini dirancang untuk membantu penderita diabetes melitus dalam menjalani diet yang sehat dan terkontrol. 
                   Aplikasi ini memberikan rekomendasi menu diet yang sesuai dengan kebutuhan gizi dan batasan yang diperlukan untuk menjaga tingkat gula darah yang stabil.</p>
                 <div>
                   <!-- <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Contoh Menu</a>
@@ -355,7 +355,7 @@
     </section><!-- End Specials Section -->
 
     <!-- ======= Events Section ======= -->
-    <section id="events" class="events">
+    <!-- <section id="events" class="events">
       <div class="container">
 
         <div class="section-title">
@@ -389,7 +389,7 @@
                   </p>
                 </div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
             <div class="swiper-slide">
               <div class="row event-item">
@@ -416,14 +416,15 @@
                   </p>
                 </div>
               </div>
-            </div><!-- End testimonial item -->
+            </div>
 
           </div>
           <div class="swiper-pagination"></div>
         </div>
 
       </div>
-    </section><!-- End Events Section -->
+    </section> -->
+    <!-- End Events Section -->
   </main><!-- End #main -->
 
   <!-- Pop-up -->
@@ -435,8 +436,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>Apakah anda benar seorang penderita 
-                  diabetes dan belum menjalani terapi insulin?</p>
+                <p>Apakah merupakan seorang yang berkategori penderita 
+                  diabetes melitus tipe 2 dan belum menjalani terapi insulin?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bukan</button>

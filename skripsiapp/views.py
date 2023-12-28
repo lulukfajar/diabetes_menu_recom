@@ -170,31 +170,31 @@ def prosesdata(request):
         tingkat_aktivitas_2 = '-'
       
       if penyakit_penyerta == '1' :
-        penyakit_penyerta_2 = 'Kolesterol dalam darah yang tinggi'
+        penyakit_penyerta_2 = 'dengan Kolesterol dalam darah yang tinggi'
         kode_penyakit = 'K02'
       elif penyakit_penyerta == '2':
-        penyakit_penyerta_2 = 'Komplikasi pembuluh darah'
+        penyakit_penyerta_2 = 'dengan Komplikasi pembuluh darah'
         kode_penyakit = 'K03'
       elif penyakit_penyerta == '3':
-        penyakit_penyerta_2 = 'lama menderita lebih dari 15 tahun'
+        penyakit_penyerta_2 = 'yang telah menderita lebih dari 15 tahun'
         kode_penyakit = 'K04'
       elif penyakit_penyerta == '4':
-        penyakit_penyerta_2 = 'Stroke'
+        penyakit_penyerta_2 = 'dengan Stroke'
         kode_penyakit = 'K05'
       elif penyakit_penyerta == '5':
-        penyakit_penyerta_2 = 'Jantung Koroner'
+        penyakit_penyerta_2 = 'dengan Jantung Koroner'
         kode_penyakit = 'K05'
       elif penyakit_penyerta == '6':
-        penyakit_penyerta_2 = 'Infark Jantung'
+        penyakit_penyerta_2 = 'dengan Infark Jantung'
         kode_penyakit = 'K05'
       elif penyakit_penyerta == '7':
-        penyakit_penyerta_2 = 'Penyakit pembuluh arteri perifer oklusif'
+        penyakit_penyerta_2 = 'dengan Penyakit pembuluh arteri perifer oklusif'
         kode_penyakit = 'K05'
       elif penyakit_penyerta == '8':
-        penyakit_penyerta_2 = 'Gangren'
+        penyakit_penyerta_2 = 'dengan Gangren'
         kode_penyakit = 'K06'
       else:
-        penyakit_penyerta_2 = '-'
+        penyakit_penyerta_2 = 'tanpa komplikasi'
         kode_penyakit = 'K01'
 
       data_personal = {
@@ -252,18 +252,18 @@ def prosesdata(request):
       #pembagian protein, karbohidrat, dan lemak sesuai jenis penyakit
       if kode_diet == "G":
         total_karbo_actual   = round(kalori_harian_final * 0.6 / 4, 3)
-        total_protein_actual = round(kalori_harian_final * 0.2 / 4, 3)
+        total_protein_actual = round(kalori_harian_final  * 0.2 / 4, 3)
         total_lemak_actual   = round(kalori_harian_final * 0.2 / 9, 3)
-        total_karbo   = round(total_kalori * 0.6 / 4, 3)
-        total_protein = round(total_kalori * 0.2 / 4, 3)
-        total_lemak   = round(total_kalori * 0.2 / 9, 3)
+        total_karbo   = round((kalori_harian_final * 0.6 / 4)*1.1, 3)
+        total_protein = round((kalori_harian_final * 0.2 / 4)*1.1, 3)
+        total_lemak   = round((kalori_harian_final * 0.2 / 9)*1, 3)
       else:
         total_karbo_actual   = round(kalori_harian_final * 0.68 / 4, 3)
         total_protein_actual = round(kalori_harian_final * 0.12 / 4, 3)
         total_lemak_actual   = round(kalori_harian_final * 0.2 / 9, 3)
-        total_karbo   = round(total_kalori * 0.68 / 4, 3)
-        total_protein = round(total_kalori * 0.12 / 4, 3)
-        total_lemak   = round(total_kalori * 0.2 / 9, 3)
+        total_karbo   = round((kalori_harian_final * 0.68 / 4)*1.2, 3)
+        total_protein = round((kalori_harian_final * 0.12 / 4)*1.1, 3)
+        total_lemak   = round((kalori_harian_final * 0.2 / 9)*1, 3)
       #Menghitung total zat gizi yang diperlukan 
 
       data_gizi_harian = {
@@ -303,6 +303,9 @@ def prosesdata(request):
 
       #memilih data dengan kolesterol rendah
       data_makanan     = data_makanan[data_makanan['kolesterol'] <= 100 ]
+
+      if kode_diet == 'G' or kode_diet == 'KV':
+        data_makanan     = data_makanan[data_makanan['dibatasi'] == 'Tidak' ]
 
       #data perkategori
       data_buah      = data_makanan[data_makanan['kategori'] == 'Buah']
@@ -353,7 +356,7 @@ def prosesdata(request):
 
       for i in range(1, 6):
         total_kalori_i = 0
-        while total_kalori_i < kalori_harian_final * 0.95:
+        while total_kalori_i < kalori_harian_final * 0.9:
 
           filtered_data_protein   = data_protein[~data_protein['id'].isin(protein_exclude)]
           filtered_data_sayuran_a = data_sayuran_a[~data_sayuran_a['id'].isin(sayuran_a_exclude)]
@@ -399,9 +402,9 @@ def prosesdata(request):
 
           # Menyelesaikan permasalahan dengan metode simplex
           result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-          berat_kacang_pagi_i    = round(result.x[0],3)
-          berat_buah_pagi_i      = round(result.x[1],3)
-          berat_skim_susu_pagi_i = round(result.x[2],3)
+          berat_kacang_pagi_i    = int(result.x[0])
+          berat_buah_pagi_i      = int(result.x[1])
+          berat_skim_susu_pagi_i = int(result.x[2])
 
           #Menu 1 Sarapan 
           A = [[karbohidrat_pagi_i['karbohidrat']/100, protein_pagi_i['karbohidrat']/100, lemak_pagi_i['karbohidrat']/100],
@@ -410,22 +413,47 @@ def prosesdata(request):
           b1 = [karbo_pagi - sayuran_a_pagi_i['karbohidrat'] - sayuran_b_pagi_i['karbohidrat']/4, protein_pagi - sayuran_a_pagi_i['protein'] - sayuran_b_pagi_i['protein']/4, lemak_pagi - sayuran_a_pagi_i['lemak'] - sayuran_b_pagi_i['lemak']/4]
           c = [-1, -1, -1]
           # Menentukan batasan-batasan variabel
-          x3_bounds = (1, karbo_siang*2)
-          if kalori_harian_final < 1500:
-            y3_bounds = (15, None)
+          if kode_diet == "G":
+            if kalori_harian_final <= 1500:
+              x3_bounds = (1, 125)
+              y3_bounds = (15, None)
+            elif 1500 < kalori_harian_final < 2300:
+              x3_bounds = (1, 150)
+              y3_bounds = (20, None)
+            elif 2300 <= kalori_harian_final < 2700:
+              x3_bounds = (1, 200)
+              y3_bounds = (20, None)
+            else:
+              x3_bounds = (1, 250)
+              y3_bounds = (20, None)
           else:
-            y3_bounds = (20, None)
+            if kalori_harian_final <= 1500:
+              x3_bounds = (1, 135)
+              y3_bounds = (15, None)
+            elif 1500 < kalori_harian_final < 2300:
+              x3_bounds = (1, 150)
+              y3_bounds = (20, None)
+            elif 2300 <= kalori_harian_final < 2700:
+              x3_bounds = (1, 200)
+              y3_bounds = (20, None)
+            elif 2700 <= kalori_harian_final <= 2900:
+              x3_bounds = (1, 250)
+              y3_bounds = (20, None)
+            else:
+              x3_bounds = (1, 300)
+              y3_bounds = (20, None)
           z3_bounds = (0, None)
           # Menyelesaikan permasalahan dengan metode simplex
+          
           max_iterasi = 100 
           for _ in range(max_iterasi):
               result = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
               if result is not None:
                   break
 
-          berat_karbo_pagi_i   = round(result.x[0],3)
-          berat_protein_pagi_i = round(result.x[1],3)
-          berat_lemak_pagi_i   = round(result.x[2],3)
+          berat_karbo_pagi_i   = int(result.x[0])
+          berat_protein_pagi_i = int(result.x[1])
+          berat_lemak_pagi_i   = int(result.x[2])
 
           protein_i_exclude.append(protein_pagi_i['id'])
           sayuran_a_i_exclude.append(sayuran_a_pagi_i['id'])
@@ -465,9 +493,9 @@ def prosesdata(request):
 
           # Menyelesaikan permasalahan dengan metode simplex
           result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-          berat_kacang_siang_i    = round(result.x[0],3)
-          berat_buah_siang_i      = round(result.x[1],3)
-          berat_skim_susu_siang_i = round(result.x[2],3)
+          berat_kacang_siang_i    = int(result.x[0])
+          berat_buah_siang_i      = int(result.x[1])
+          berat_skim_susu_siang_i = int(result.x[2])
 
 
           #Menu 1 berat makan siang
@@ -478,9 +506,9 @@ def prosesdata(request):
           c = [-1, -1, -1]
           
           result2 = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
-          berat_karbo_siang_i   = round(result2.x[0],3)
-          berat_protein_siang_i = round(result2.x[1],3)
-          berat_lemak_siang_i   = round(result2.x[2],3)
+          berat_karbo_siang_i   = int(result2.x[0])
+          berat_protein_siang_i = int(result2.x[1])
+          berat_lemak_siang_i   = int(result2.x[2])
 
           protein_i_exclude.append(protein_siang_i['id'])
           sayuran_a_i_exclude.append(sayuran_a_siang_i['id'])
@@ -520,9 +548,9 @@ def prosesdata(request):
 
           # Menyelesaikan permasalahan dengan metode simplex
           result = linprog(c, A_ub=A, b_ub=b, bounds=[x2_bounds, y2_bounds, z2_bounds])
-          berat_kacang_malam_i    = round(result.x[0],3)
-          berat_buah_malam_i      = round(result.x[1],3)
-          berat_skim_susu_malam_i = round(result.x[2],3)
+          berat_kacang_malam_i    = int(result.x[0])
+          berat_buah_malam_i      = int(result.x[1])
+          berat_skim_susu_malam_i = int(result.x[2])
 
           #Menu 1 berat makan malam
           A = [[karbohidrat_malam_i['karbohidrat']/100, protein_malam_i['karbohidrat']/100, lemak_malam_i['karbohidrat']/100],
@@ -532,9 +560,9 @@ def prosesdata(request):
           c = [-1, -1, -1]
           
           result2 = linprog(c, A_ub=A, b_ub=b1, bounds=[x3_bounds, y3_bounds, z3_bounds])
-          berat_karbo_malam_i   = round(result2.x[0],3)
-          berat_protein_malam_i = round(result2.x[1],3)
-          berat_lemak_malam_i   = round(result2.x[2],3)
+          berat_karbo_malam_i   = int(result2.x[0])
+          berat_protein_malam_i = int(result2.x[1])
+          berat_lemak_malam_i   = int(result2.x[2])
 
           protein_i_exclude.append(protein_malam_i['id'])
           sayuran_a_i_exclude.append(sayuran_a_malam_i['id'])
@@ -581,7 +609,10 @@ def prosesdata(request):
           total_protein_i     = int(total_protein_pagi_i + total_protein_siang_i + total_protein_malam_i)
           total_lemak_i       = int(total_lemak_pagi_i + total_lemak_siang_i + total_lemak_malam_i)
           total_kalori_i      = int(total_karbohidrat_i * 4 + total_protein_i * 4 + total_lemak_i * 9)
-        
+
+          semua_nilai_i = [total_karbohidrat_i/total_karbo_actual, total_protein_i/total_protein_actual, total_lemak_i/total_lemak_actual, total_kalori_i/kalori_harian_final]
+          nilai_tertinggi_i = round(max(semua_nilai_i)*100,3)
+          nilai_terendah_i = round(min(semua_nilai_i)*100,3)
         menu_i = {
           'berat_buah_pagi'       : berat_buah_pagi_i,
           'berat_kacang_pagi'     : berat_kacang_pagi_i,
@@ -629,6 +660,8 @@ def prosesdata(request):
           'total_protein'   : total_protein_i,
           'total_lemak'     : total_lemak_i,
           'total_kalori'    : total_kalori_i,
+          'nilai_max'       : nilai_tertinggi_i,
+          'nilai_min'       : nilai_terendah_i,
         }
 
         menus.append(menu_i)
@@ -1191,8 +1224,9 @@ def export_pdf(request):
     context = {'data_personal': data_personal, 'data_gizi_harian' : data_gizi_harian, 'jenis_diet' : jenis_diet, 'menu_1' : menu_1, 'menu_2' : menu_2, 'menu_3' : menu_3, 'menu_4' : menu_4, 'menu_5' : menu_5}
     html = template.render(context)
 
+    namafile = f"Diet_{nama}.pdf"
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'filename="output.pdf"'
+    response['Content-Disposition'] = f'filename="{namafile}"'
 
     # Buat dokumen PDF dari HTML
     pisa_status = pisa.CreatePDF(html, dest=response)
